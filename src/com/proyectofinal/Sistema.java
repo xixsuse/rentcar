@@ -20,7 +20,7 @@ public class Sistema {
 		admin.setLocationRelativeTo(null);
 		admin.setVisible(true);
 
-		System.out.println("reciben esto?");
+		System.out.println("mandando texto");
 		
 	/*	MantenimientoClientes m = new MantenimientoClientes();
 		m.setLocationRelativeTo(null);
