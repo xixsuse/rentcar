@@ -24,6 +24,7 @@ public class Sistema {
 		System.out.println("Hola att.Justin");
 		System.out.println("Holaa att. Danny");
 		System.out.println("commit atty porque lewdin?");
+		System.out.println("No, justin yo me voy tranquilo");
 	/*	MantenimientoClientes m = new MantenimientoClientes();
 		m.setLocationRelativeTo(null);
 		m.setVisible(true);
