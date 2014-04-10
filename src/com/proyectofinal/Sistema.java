@@ -19,8 +19,6 @@ public class Sistema {
 		VentanaAdministrador admin = new VentanaAdministrador();
 		admin.setLocationRelativeTo(null);
 		admin.setVisible(true);
-		System.out.println("No te apure Lewdin");
-		System.out.println("No te apure Lewdin");
 	/*	MantenimientoClientes m = new MantenimientoClientes();
 		m.setLocationRelativeTo(null);
 		m.setVisible(true);
