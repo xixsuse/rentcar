@@ -36,6 +36,7 @@ public class Conexion {
 	ArrayList<Usuario> usuario = new ArrayList<Usuario>();
 	ArrayList<Cliente> cliente = new ArrayList<Cliente>();
 	ArrayList<Accesorio> accesorio = new ArrayList<Accesorio>();
+	ArrayList<Categoria> categoria = new ArrayList<Categoria>();
 	
 	private static Conexion instancia;
 	
@@ -499,12 +500,55 @@ public class Conexion {
 			rs = st.executeQuery("SELECT * FROM categoria");
 			listaCategorias = new ArrayList<Categoria>();
 			while(rs.next()){
-				listaCategorias.add(new Categoria(rs.getInt("idCategoria"),rs.getString("nombre"),rs.getInt("idVehiculo")));
+				listaCategorias.add(new Categoria(rs.getInt("idCategoria"),rs.getString("nombre")));
 			}
 		}catch(SQLException sql){
 			sql.printStackTrace();
 		}
 		return listaCategorias;
+	}
+	
+	///////Fin Accesorio
+	
+	///////Comienzo de categoria
+	
+	public ArrayList<Categoria> cargarCategoria(){
+		categoria = new ArrayList<Categoria>();
+		try {
+			rs = st.executeQuery("SELECT idCategoria, Nombre FROM categoria");
+			while(rs.next()){
+				categoria.add(new Categoria(rs.getInt("idCategoria"), rs.getString("nombre")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return categoria;
+	}
+	
+	public void agregarCategoria(Categoria categoria){
+		try {
+			prst = con.prepareStatement("INSERT INTO categoria(nombre) VALUES (?)");
+			prst.setString(1, categoria.getNombre());
+			prst.execute();
+			if(prst != null){
+				JOptionPane.showMessageDialog(null, "Se ha agregado una nueva categoria", "Categoria agregada...", JOptionPane.INFORMATION_MESSAGE);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void eliminarCategoria(Categoria categoria){
+		try {
+			prst = con.prepareStatement("DELETE FROM categoria WHERE idCategoria = ?");
+			prst.setInt(1, categoria.getIdCategoria());
+			prst.execute();
+			if(prst != null){
+				JOptionPane.showMessageDialog(null, "Se elimino categoria", "Categoria eliminada...", JOptionPane.INFORMATION_MESSAGE);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

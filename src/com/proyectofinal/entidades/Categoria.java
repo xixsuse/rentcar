@@ -2,16 +2,11 @@ package com.proyectofinal.entidades;
 
 public class Categoria {
 
+	
 	private int idCategoria;
 	private String nombre;
 	private int idVehiculo;
 	
-	public int getIdVehiculo() {
-		return idVehiculo;
-	}
-	public void setIdVehiculo(int idVehiculo) {
-		this.idVehiculo = idVehiculo;
-	}
 	public int getIdCategoria() {
 		return idCategoria;
 	}
@@ -25,11 +20,10 @@ public class Categoria {
 		this.nombre = nombre;
 	}
 	
-	public Categoria(int idCategoria, String nombre,int idVehiculo) {
+	public Categoria(int idCategoria, String nombre) {
 		super();
 		this.idCategoria = idCategoria;
 		this.nombre = nombre;
-		this.idVehiculo = idVehiculo;
 	}
 	
 }
