@@ -1,8 +1,12 @@
 package com.proyectofinal.bd;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,11 +15,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import com.proyectofinal.entidades.Accesorio;
+import com.proyectofinal.entidades.Alquiler;
+import com.proyectofinal.entidades.Categoria;
 import com.proyectofinal.entidades.Cliente;
 import com.proyectofinal.entidades.Usuario;
+import com.proyectofinal.entidades.Vehiculo;
 //github.com/DannyFeliz/rentcar.git
 import com.proyectofinal.ui.VentanaAdministrador;
 
@@ -42,7 +50,7 @@ public class Conexion {
 	
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			con = DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","123");
 			st = con.createStatement();
 			
 		} catch (InstantiationException | IllegalAccessException
@@ -339,6 +347,165 @@ public class Conexion {
 		}
 	}
 	
+	public ArrayList<Alquiler> cargarAlquileres(){
+		ArrayList<Alquiler> listaAlquileres = null;
+		try{
+			rs = st.executeQuery("SELECT * FROM alquiler");
+			listaAlquileres = new ArrayList<Alquiler>();
+			while(rs.next()){
+				listaAlquileres.add(new Alquiler(rs.getInt("idVehiculo"),rs.getString("Desde"),rs.getString("Hasta"),
+						rs.getInt("idCliente"),rs.getInt("idAlquiler"),rs.getDouble("TotalAPagar"),rs.getFloat("descuento"),
+						rs.getInt("idSeguro"),rs.getInt("idAccesorio")));
+			}
+		}
+		catch(SQLException sql){
+			sql.printStackTrace();
+		}
+		return listaAlquileres;
+	}
+	
+	public void guardarVehiculo(Vehiculo vehiculo,String ruta){
+		FileInputStream flujo = null;
+		
+		try {
+			prst = con.prepareStatement("INSERT INTO vehiculo(idVehiculo,precio,marca,pasajeros,año,matricula,foto,transmision," +
+					"descripcion,cantCombustible,estado)" +	" VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+			File archivo = new File(ruta);
+			flujo = new FileInputStream(archivo);
+			prst.setInt(1, vehiculo.getIdVehiculo());
+			prst.setInt(2, vehiculo.getPrecio());
+			prst.setString(3, vehiculo.getMarca());
+			prst.setInt(4, vehiculo.getPasajeros());
+			prst.setInt(5, vehiculo.getAño());
+			prst.setString(6,vehiculo.getMatricula());
+			prst.setBinaryStream(7, flujo,(int)archivo.length());
+			prst.setString(8, vehiculo.getTransmision());
+			prst.setString(9, vehiculo.getDescripcion());
+			prst.setInt(10, vehiculo.getCombustible());
+			prst.setBoolean(11, vehiculo.getEstado());
+			prst.execute();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void eliminarVehiculo(int id){
+		try{
+			prst = con.prepareStatement("DELETE FROM vehiculo WHERE idVehiculo = ?");
+			prst.setInt(1,id);
+			prst.execute();
+					
+		}catch(SQLException sql){
+			sql.printStackTrace();
+		}
+	}
+	
+	public ArrayList<Vehiculo> cargarVehiculos(){
+		ArrayList<Vehiculo> listaVehiculos = null;
+		try{
+			rs = st.executeQuery("SELECT * FROM vehiculo");
+			listaVehiculos = new ArrayList<Vehiculo>();
+			while(rs.next()){
+				Vehiculo vehiculo = new Vehiculo();
+				vehiculo.setIdVehiculo(rs.getInt("idVehiculo"));
+				vehiculo.setPrecio(rs.getInt("precio"));
+				vehiculo.setMarca(rs.getString("marca"));
+				vehiculo.setPasajeros(rs.getInt("pasajeros"));
+				vehiculo.setAño(rs.getInt("año"));
+				vehiculo.setMatricula(rs.getString("matricula"));
+				Blob blob = rs.getBlob("Foto");
+				byte[] data = blob.getBytes(1, (int)blob.length());
+				BufferedImage imagen = null;
+				try{
+					imagen = ImageIO.read(new ByteArrayInputStream(data));
+				}
+				catch(IOException ex){
+					ex.printStackTrace();
+				}
+				vehiculo.setFoto(imagen);
+				vehiculo.setTransmision(rs.getString("transmision"));
+				vehiculo.setDescripcion(rs.getString("descripcion"));
+				vehiculo.setIdCategoria(rs.getInt("idCategoria"));
+				vehiculo.setCombustible(rs.getInt("cantCombustible"));
+				vehiculo.setEstado(rs.getBoolean("estado"));
+				listaVehiculos.add(vehiculo);
+			}
+		}catch(SQLException sql){
+			sql.printStackTrace();
+		}
+		return listaVehiculos;
+	}
+	
+	public void modificarVehiculo(int id,Vehiculo movil,String ubicacion){
+		FileInputStream stream = null;
+		if(!ubicacion.equals("")){
+			try{
+				prst = con.prepareStatement("UPDATE vehiculo set idVehiculo=?, precio=?, marca=?, pasajeros=?,año =?," +
+						"matricula=?,foto=?,transmision=?,descripcion=?,cantCombustible=?,estado=? WHERE idVehiculo=? ");
+				File archivo = new File(ubicacion);
+				stream = new FileInputStream(archivo);
+				prst.setInt(1, movil.getIdVehiculo());
+				prst.setInt(2, movil.getPrecio());
+				prst.setString(3, movil.getMarca());
+				prst.setInt(4, movil.getPasajeros());
+				prst.setInt(5, movil.getAño());
+				prst.setString(6, movil.getMatricula());
+				prst.setBinaryStream(7, stream,(int)archivo.length());
+				prst.setString(8, movil.getTransmision());
+				prst.setString(9, movil.getDescripcion());
+				//prst.setInt(10, vehiculo.getIdCategoria());
+				prst.setInt(10, movil.getCombustible());
+				prst.setBoolean(11, movil.getEstado());
+				prst.setInt(12, id);
+				prst.executeUpdate();
+			}
+			catch(SQLException s){
+				s.printStackTrace();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else{
+			try{
+				prst = con.prepareStatement("UPDATE vehiculo set idVehiculo=?, precio=?, marca=?, pasajeros=?,año =?," +
+						"matricula=?,transmision=?,descripcion=?,cantCombustible=?,estado=? WHERE idVehiculo=? ");
+				prst.setInt(1, movil.getIdVehiculo());
+				prst.setInt(2, movil.getPrecio());
+				prst.setString(3, movil.getMarca());
+				prst.setInt(4, movil.getPasajeros());
+				prst.setInt(5, movil.getAño());
+				prst.setString(6, movil.getMatricula());
+				prst.setString(7, movil.getTransmision());
+				prst.setString(8, movil.getDescripcion());
+				//prst.setInt(10, vehiculo.getIdCategoria());
+				prst.setInt(9, movil.getCombustible());
+				prst.setBoolean(10, movil.getEstado());
+				prst.setInt(11, id);
+				prst.execute();
+			}
+			catch(SQLException s){
+				s.printStackTrace();
+			}
+		}
+	}
+	public ArrayList<Categoria> obtenerCategorias(){
+		ArrayList<Categoria> listaCategorias = null;
+		try{
+			rs = st.executeQuery("SELECT * FROM categoria");
+			listaCategorias = new ArrayList<Categoria>();
+			while(rs.next()){
+				listaCategorias.add(new Categoria(rs.getInt("idCategoria"),rs.getString("nombre"),rs.getInt("idVehiculo")));
+			}
+		}catch(SQLException sql){
+			sql.printStackTrace();
+		}
+		return listaCategorias;
+	}
 	
 }
 
