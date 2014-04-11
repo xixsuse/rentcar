@@ -11,7 +11,7 @@ public class ModeloCategoria extends AbstractTableModel{
 	
 	
 	private static ModeloCategoria instancia;
-	String[] encabezados = {"ID","Categoria"};
+	String[] encabezados = {"Numero de categoria","Categoria"};
 	ArrayList<Categoria> categorias = new ArrayList<Categoria>();
 	
 	public static ModeloCategoria getInstacia(){

@@ -20,6 +20,8 @@ public class Categoria {
 		this.nombre = nombre;
 	}
 	
+	public Categoria(){}
+	
 	public Categoria(int idCategoria, String nombre) {
 		super();
 		this.idCategoria = idCategoria;
