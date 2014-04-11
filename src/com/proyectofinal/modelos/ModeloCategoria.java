@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 import com.proyectofinal.bd.Conexion;
+import com.proyectofinal.entidades.Accesorio;
 import com.proyectofinal.entidades.Categoria;
 
 public class ModeloCategoria extends AbstractTableModel{
@@ -67,6 +68,22 @@ public class ModeloCategoria extends AbstractTableModel{
 		categorias.remove(fila);
 		fireTableRowsDeleted(fila, fila);
 	}
+	
+	public void modificarCategoria(Categoria categoria, int index){		
+		Categoria clave = categorias.get(index);
+		Conexion.getInstacia().modificarCategoria(clave.getIdCategoria(),categoria);
+		categorias = Conexion.getInstacia().cargarCategoria(); 
+		fireTableDataChanged();
+	}
+
+	public ArrayList<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(ArrayList<Categoria> categorias) {
+		this.categorias = categorias;
+	}
+	
 	
 //	public void modificarCategoria(Categoria2 categoria, int index){
 //		Categoria clave = categorias.get(index);

@@ -3,21 +3,21 @@ package com.proyectofinal.ui.mantenimiento;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Categoria;
 import com.proyectofinal.modelos.ModeloCategoria;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class MantenimientoCategoria extends JFrame {
 
@@ -72,15 +72,35 @@ public class MantenimientoCategoria extends JFrame {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Categoria categoria = new Categoria();
-				categoria.setNombre(txtCategoria.getText());
-				ModeloCategoria.getInstacia().agregarCategoria(categoria);;
+				if(txtCategoria.getText().equals("")){
+					JOptionPane.showMessageDialog(null, "Ha de completar el campo antes de agregar.");
+				}else{
+					Categoria categoria = new Categoria();
+					categoria.setNombre(txtCategoria.getText());
+					ModeloCategoria.getInstacia().agregarCategoria(categoria);
+					txtCategoria.setText("");
+				}
 			}
 		});
 		btnGuardar.setBounds(10, 92, 89, 23);
 		contentPane.add(btnGuardar);
 		
-		JButton btnEliminar = new JButton("Eliminarr");
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int fila = table.getSelectedRow();
+				if(fila < 0){
+					JOptionPane.showMessageDialog(null, "Porfavor seleccione un dato de la fila");
+				}else{
+					if(txtCategoria.getText().equals("")){
+						JOptionPane.showMessageDialog(null, "Seleccione una categoria de la tabla");
+					}else{
+						ModeloCategoria.getInstacia().eliminarCategoria(fila);
+						txtCategoria.setText("");
+					}
+				}
+			}
+		});
 		btnEliminar.setBounds(117, 92, 89, 23);
 		contentPane.add(btnEliminar);
 		
@@ -103,6 +123,21 @@ public class MantenimientoCategoria extends JFrame {
 		contentPane.add(lblListadoDeCategorias);
 		
 		JButton btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int index = table.getSelectedRow();
+				if(index < 0){
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una categoria de la tabla y modificar dicha categoria !", "Error", JOptionPane.ERROR_MESSAGE);
+				}else{
+					if(txtCategoria.getText().isEmpty()){
+						JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos!", "Error", JOptionPane.ERROR_MESSAGE);
+					}else{
+						ModeloCategoria.getInstacia().modificarCategoria(new Categoria(txtCategoria.getText()), index);
+						txtCategoria.setText("");
+					}
+				}
+			}
+		});
 		btnModificar.setBounds(220, 92, 89, 23);
 		contentPane.add(btnModificar);
 	}

@@ -18,10 +18,12 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.proyectofinal.entidades.Accesorio;
 import com.proyectofinal.entidades.Alquiler;
 import com.proyectofinal.entidades.Categoria;
 import com.proyectofinal.entidades.Cliente;
+import com.proyectofinal.entidades.Seguro;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.entidades.Vehiculo;
 //github.com/DannyFeliz/rentcar.git
@@ -37,6 +39,7 @@ public class Conexion {
 	ArrayList<Cliente> cliente = new ArrayList<Cliente>();
 	ArrayList<Accesorio> accesorio = new ArrayList<Accesorio>();
 	ArrayList<Categoria> categoria = new ArrayList<Categoria>();
+	ArrayList<Seguro> seguros = new ArrayList<Seguro>();
 	
 	private static Conexion instancia;
 	
@@ -533,9 +536,11 @@ public class Conexion {
 			if(prst != null){
 				JOptionPane.showMessageDialog(null, "Se ha agregado una nueva categoria", "Categoria agregada...", JOptionPane.INFORMATION_MESSAGE);
 			}
-		} catch (SQLException e) {
+		} catch (MySQLIntegrityConstraintViolationException mye){
+			JOptionPane.showMessageDialog(null, "La categoria ya existe, no puede ser agregada", "Error..", JOptionPane.ERROR_MESSAGE);
+		}catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 	
 	public void eliminarCategoria(Categoria categoria){
@@ -551,6 +556,86 @@ public class Conexion {
 		}
 	}
 	
+	public void modificarCategoria(int id, Categoria categoria){
+		try {
+			prst = con.prepareStatement("UPDATE categoria SET Nombre = ? WHERE idCategoria = ?");
+			prst.setString(1, categoria.getNombre());
+			prst.setInt(2, id);		
+			prst.executeUpdate();
+			if(prst != null){
+				JOptionPane.showMessageDialog(null, "El Accesorio ha sido modificado correctamente", "Accesorio modificado", JOptionPane.INFORMATION_MESSAGE);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	///Fin de Categoria
+	
+	///Comienzo del mantenimiento seguro
+	public ArrayList<Seguro> cargarSeguro(){
+		seguros = new ArrayList<Seguro>();
+		try {
+			rs = st.executeQuery("SELECT idSeguro,categoria,precio,nombre,cobertura FROM seguro");
+			while(rs.next()){
+				seguros.add(new Seguro(rs.getInt("idSeguro"), rs.getString("categoria"), rs.getDouble("precio"),
+							rs.getString("nombre"), rs.getString("cobertura")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return seguros;
+	}
+	
+	public void agregarSeguro(Seguro seguro){
+		try {
+			prst = con.prepareStatement("INSERT INTO seguro(categoria,precio,nombre,cobertura) VALUES (?,?,?,?)");
+			prst.setString(1, seguro.getCategoria());
+			prst.setDouble(2, seguro.getPrecio());
+			prst.setString(3, seguro.getNombre());
+			prst.setString(4, seguro.getCobertura());
+			prst.execute();
+			if(prst != null){
+				JOptionPane.showMessageDialog(null, "Se agregaron los datos con exito", "Seguro agregada...", JOptionPane.INFORMATION_MESSAGE);
+			}
+		} catch (MySQLIntegrityConstraintViolationException mye){
+			JOptionPane.showMessageDialog(null, "La categoria de seguro ya existe.", "Error..", JOptionPane.ERROR_MESSAGE);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	public void eliminarSeguro(Seguro seguro){
+		try {
+			prst = con.prepareStatement("DELETE FROM seguro WHERE idSeguro = ?");
+			prst.setInt(1, seguro.getIdSeguro());
+			prst.execute();
+			if(prst != null){
+				JOptionPane.showMessageDialog(null, "Se elimino categoria", "Categoria eliminada...", JOptionPane.INFORMATION_MESSAGE);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void modificarSeguro(int id, Seguro seguro){
+		try {
+			prst = con.prepareStatement("UPDATE seguro set categoria=?, precio=?, nombre=?,cobertura =? WHERE idSeguro=? ");
+			//prst = con.prepareStatement("UPDATE seguro SET Nombre = ? WHERE idSeguro = ?");
+			prst.setString(1, seguro.getCategoria());
+			prst.setDouble(2, seguro.getPrecio());
+			prst.setString(3, seguro.getNombre());
+			prst.setString(4, seguro.getCobertura());
+			prst.setInt(5, id);		
+			prst.executeUpdate();
+			if(prst != null){
+				JOptionPane.showMessageDialog(null, "El Seguro ha sido modificado correctamente", "Seguro modificado", JOptionPane.INFORMATION_MESSAGE);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	///Final del mantenimiento de seguros
 }
 
 
