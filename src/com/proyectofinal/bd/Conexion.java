@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.proyectofinal.entidades.Accesorio;
 import com.proyectofinal.entidades.Alquiler;
 import com.proyectofinal.entidades.Categoria;
@@ -533,9 +534,11 @@ public class Conexion {
 			if(prst != null){
 				JOptionPane.showMessageDialog(null, "Se ha agregado una nueva categoria", "Categoria agregada...", JOptionPane.INFORMATION_MESSAGE);
 			}
-		} catch (SQLException e) {
+		} catch (MySQLIntegrityConstraintViolationException mye){
+			JOptionPane.showMessageDialog(null, "La categoria ya existe, no puede ser agregada", "Error..", JOptionPane.ERROR_MESSAGE);
+		}catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 	
 	public void eliminarCategoria(Categoria categoria){
@@ -545,6 +548,20 @@ public class Conexion {
 			prst.execute();
 			if(prst != null){
 				JOptionPane.showMessageDialog(null, "Se elimino categoria", "Categoria eliminada...", JOptionPane.INFORMATION_MESSAGE);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void modificarCategoria(int id, Categoria categoria){
+		try {
+			prst = con.prepareStatement("UPDATE categoria SET Nombre = ? WHERE idCategoria = ?");
+			prst.setString(1, categoria.getNombre());
+			prst.setInt(2, id);		
+			prst.executeUpdate();
+			if(prst != null){
+				JOptionPane.showMessageDialog(null, "El Accesorio ha sido modificado correctamente", "Accesorio modificado", JOptionPane.INFORMATION_MESSAGE);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
