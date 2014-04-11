@@ -11,8 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 
 import com.proyectofinal.ui.mantenimiento.MantenimientoClientes;
-import com.proyectofinal.ui.mantenimiento.MatenimientoAccesorio;
-import com.proyectofinal.ui.mantenimiento.MatenimientoUsuarios;
+import com.proyectofinal.ui.mantenimiento.MantenimientoAccesorio;
+import com.proyectofinal.ui.mantenimiento.MantenimientoUsuarios;
 
 public class VentanaAdministrador extends JFrame implements ActionListener{
 	private JMenuItem menuUsuarios;
@@ -67,16 +67,16 @@ public class VentanaAdministrador extends JFrame implements ActionListener{
 		int respuesta = 0;
 		
 		if(e.getSource() == menuAccesorios){
-			MatenimientoAccesorio.getInstacia().setLocationRelativeTo(null);
-			MatenimientoAccesorio.getInstacia().setVisible(true);
+			MantenimientoAccesorio.getInstacia().setLocationRelativeTo(null);
+			MantenimientoAccesorio.getInstacia().setVisible(true);
 			VentanaAdministrador.this.dispose();
 		}else if(e.getSource() == menuClientes){
 			MantenimientoClientes.getInstacia().setLocationRelativeTo(null);
 			MantenimientoClientes.getInstacia().setVisible(true);
 			VentanaAdministrador.this.dispose();
 		}else if(e.getSource() == menuUsuarios){
-			MatenimientoUsuarios.getInstacia().setLocationRelativeTo(null);
-			MatenimientoUsuarios.getInstacia().setVisible(true);
+			MantenimientoUsuarios.getInstacia().setLocationRelativeTo(null);
+			MantenimientoUsuarios.getInstacia().setVisible(true);
 			VentanaAdministrador.this.dispose();
 		}else if(e.getSource() == mntmSalir){
 			respuesta = JOptionPane.showConfirmDialog(null, "Seguro que desea salir?", "Salir?", JOptionPane.YES_NO_OPTION);

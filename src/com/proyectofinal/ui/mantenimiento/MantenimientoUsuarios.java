@@ -24,7 +24,7 @@ import com.proyectofinal.modelos.ModeloUsuarios;
 import com.proyectofinal.ui.BuscadorTablas;
 
 
-public class MatenimientoUsuarios extends JFrame implements ActionListener, MouseListener{
+public class MantenimientoUsuarios extends JFrame implements ActionListener, MouseListener{
 
 	private JTextField txtNombre;
 	private JTextField txtApellido;
@@ -37,19 +37,19 @@ public class MatenimientoUsuarios extends JFrame implements ActionListener, Mous
 
 	public JTable tablaUsuarios;
 	
-	private static MatenimientoUsuarios instancia;
+	private static MantenimientoUsuarios instancia;
 	private JButton btnActualizar;
 	private JTextField txtBuscar;
 	private JButton btnBuscar;
 	private JLabel lblBuscar;
-	public static MatenimientoUsuarios getInstacia(){
+	public static MantenimientoUsuarios getInstacia(){
 		if(instancia == null){
-			instancia = new MatenimientoUsuarios();
+			instancia = new MantenimientoUsuarios();
 		}
 		return instancia;
 	}
 	
-	public MatenimientoUsuarios() {
+	public MantenimientoUsuarios() {
 		ModeloUsuarios modeloUsuario = new ModeloUsuarios();
 		setTitle("Matenimiento de Usuarios");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

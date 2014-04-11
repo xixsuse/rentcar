@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Usuario;
-import com.proyectofinal.ui.mantenimiento.MatenimientoUsuarios;
+import com.proyectofinal.ui.mantenimiento.MantenimientoUsuarios;
 
 
 public class ModeloUsuarios extends AbstractTableModel {

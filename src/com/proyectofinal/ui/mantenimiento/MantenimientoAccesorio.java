@@ -22,7 +22,7 @@ import com.proyectofinal.modelos.ModeloAccesorios;
 import com.proyectofinal.ui.BuscadorTablas;
 
 
-public class MatenimientoAccesorio extends JFrame implements ActionListener, MouseListener, KeyListener{
+public class MantenimientoAccesorio extends JFrame implements ActionListener, MouseListener, KeyListener{
 	private JTextField txtNombre;
 	private JTextField txtSerial;
 	private JTextField txtPrecio;
@@ -33,16 +33,16 @@ public class MatenimientoAccesorio extends JFrame implements ActionListener, Mou
 	private JButton btnModificar;
 	private JButton btnBuscar;
 	
-	private static MatenimientoAccesorio instancia;
+	private static MantenimientoAccesorio instancia;
 	private JTextField txtBuscar;
-	public static MatenimientoAccesorio getInstacia(){
+	public static MantenimientoAccesorio getInstacia(){
 		if(instancia == null){
-			instancia = new MatenimientoAccesorio();
+			instancia = new MantenimientoAccesorio();
 		}
 		return instancia;
 	}
 	
-	public MatenimientoAccesorio() {
+	public MantenimientoAccesorio() {
 		setTitle("Mantenimiento de Accesorios");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 651, 458);
