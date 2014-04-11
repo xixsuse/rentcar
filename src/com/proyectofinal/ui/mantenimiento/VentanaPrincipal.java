@@ -1,99 +1,115 @@
 package com.proyectofinal.ui.mantenimiento;
 
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
-import javax.swing.JToolBar;
+import javax.swing.JPanel;
+import javax.swing.JButton;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class VentanaPrincipal extends JFrame{
+public class VentanaPrincipal extends JFrame implements ActionListener{
 
-	public VentanaPrincipal(){
-		setTitle("Ventana principal");
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	private JButton btnCatalogo;
+	private JButton btnMantenimientoAccesorios;
+	private JButton btnMantenimientoClientes;
+	private JButton btnMantenimientoUsuarios;
+	private JButton btnMantenimientoCategoria;
+	private JButton btnMantenimientoVehiculo;
+	private JButton btnMantenimientoAlquiler;
+	private JButton btnMantenimientoSeguro;
+	private JMenuBar barraMenu;
+	private JMenu mnArchivo;
+	private JMenuItem itemCerrarSesion;
+	private JMenuItem itemSalir;
+	
+	public VentanaPrincipal() {
+		//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setBounds(100, 100, 683, 509);
 		getContentPane().setLayout(null);
 		
-		JPanel pnBotones = new JPanel();
-		pnBotones.setBounds(24, 26, 124, 539);
-		getContentPane().add(pnBotones);
-		pnBotones.setLayout(null);
 		
-		JButton btnAlquiler = new JButton("Alquiler");
-		btnAlquiler.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new MantenimientoAlquiler();
-			}
-		});
-		btnAlquiler.setBounds(25, 26, 67, 23);
-		pnBotones.add(btnAlquiler);
+		JPanel panelBotones = new JPanel();
+		panelBotones.setBounds(10, 11, 209, 427);
+		getContentPane().add(panelBotones);
 		
-		JButton btnVehiculos = new JButton("Vehiculos");
-		btnVehiculos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new MantenimientoVehiculo();
-			}
-		});
-		btnVehiculos.setBounds(22, 100, 77, 23);
-		pnBotones.add(btnVehiculos);
+		panelBotones.setLayout(new GridLayout(8,1,4,4));
 		
-		JButton btnClientes = new JButton("Clientes");
-		btnClientes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new MantenimientoClientes();
-			}
-		});
-		btnClientes.setBounds(25, 151, 89, 23);
-		pnBotones.add(btnClientes);
+		btnCatalogo = new JButton("Catalogo");
+		panelBotones.add(btnCatalogo);
+		btnCatalogo.addActionListener(this);
 		
-		JButton btnHold = new JButton("Hold");
-		btnHold.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new MantenimientoHold();
-			}
-		});
-		btnHold.setBounds(25, 201, 89, 23);
-		pnBotones.add(btnHold);
+		btnMantenimientoAccesorios = new JButton("Mantenimiento Accesorios");
+		panelBotones.add(btnMantenimientoAccesorios);
+		btnMantenimientoAccesorios.addActionListener(this);
 		
-		JButton btnSeguro = new JButton("Seguro");
-		btnSeguro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new MantenimientoSeguro();
-			}
-		});
-		btnSeguro.setBounds(25, 253, 89, 23);
-		pnBotones.add(btnSeguro);
+		btnMantenimientoClientes = new JButton("Mantenimiento Clientes");
+		panelBotones.add(btnMantenimientoClientes);
+		btnMantenimientoClientes.addActionListener(this);
 		
-		JButton btnAccesorio = new JButton("Accesorio");
-		btnAccesorio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new MantenimientoAccesorio();
-			}
-		});
-		btnAccesorio.setBounds(25, 307, 89, 23);
-		pnBotones.add(btnAccesorio);
+		btnMantenimientoUsuarios = new JButton("Mantenimiento Usuarios");
+		panelBotones.add(btnMantenimientoUsuarios);
+		btnMantenimientoUsuarios.addActionListener(this);
 		
-		JButton btnCategoria = new JButton("Categoria");
-		btnCategoria.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new MantenimientoCategoria();
-			}
-		});
-		btnCategoria.setBounds(25, 372, 89, 23);
-		pnBotones.add(btnCategoria);
+		btnMantenimientoCategoria = new JButton("Mantenimiento Categor\u00EDa");
+		panelBotones.add(btnMantenimientoCategoria);
+		btnMantenimientoCategoria.addActionListener(this);
 		
-		JButton btnUsuarios = new JButton("Usuarios");
-		btnUsuarios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new MantenimientoUsuarios();
-			}
-		});
-		btnUsuarios.setBounds(25, 423, 89, 23);
-		pnBotones.add(btnUsuarios);
-		setVisible(true);
+		btnMantenimientoVehiculo = new JButton("Mantenimiento Vehiculo");
+		panelBotones.add(btnMantenimientoVehiculo);
+		btnMantenimientoVehiculo.addActionListener(this);
+		
+		btnMantenimientoAlquiler = new JButton("Mantenimiento Alquiler");
+		panelBotones.add(btnMantenimientoAlquiler);
+		btnMantenimientoAlquiler.addActionListener(this);
+		
+		btnMantenimientoSeguro = new JButton("Mantenimiento Seguro");
+		panelBotones.add(btnMantenimientoSeguro);
+		btnMantenimientoSeguro.addActionListener(this);
+		
+		barraMenu = new JMenuBar();
+		setJMenuBar(barraMenu);
+		
+		
+		mnArchivo = new JMenu("Archivo");
+		barraMenu.add(mnArchivo);
+				
+		itemCerrarSesion = new JMenuItem("Cerrar Sesion");
+		itemCerrarSesion.addActionListener(this);
+		mnArchivo.add(itemCerrarSesion);
+		
+		itemSalir = new JMenuItem("Salir");
+		itemSalir.addActionListener(this);
+		mnArchivo.add(itemSalir);
+		
+		
+		
+	}
+
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == btnCatalogo){
+			new Catalogo().setVisible(true);
+		}else if(e.getSource() == btnMantenimientoAccesorios){
+			new MantenimientoAccesorio().setVisible(true);
+		}else if(e.getSource() == btnMantenimientoClientes){
+			new MantenimientoClientes().setVisible(true);
+		}else if(e.getSource() == btnMantenimientoUsuarios){
+			new MantenimientoUsuarios().setVisible(true);
+		}else if(e.getSource() == btnMantenimientoCategoria){
+			new MantenimientoCategoria().setVisible(true);
+		}else if(e.getSource() == btnMantenimientoVehiculo){
+			new MantenimientoVehiculo().setVisible(true);;
+		}else if(e.getSource() == btnMantenimientoAlquiler){
+			new MantenimientoAlquiler().setVisible(true);;
+		}else if(e.getSource() == btnMantenimientoSeguro){
+			new MantenimientoSeguro().setVisible(true);
+		}
+		
 	}
 }

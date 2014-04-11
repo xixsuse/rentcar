@@ -19,6 +19,7 @@ public class Sistema {
 		m.setVisible(true);
 		*/
 		System.out.println("Out");
-		new VentanaPrincipal();
+		new VentanaPrincipal().setVisible(true);
+		
 	}
 }
