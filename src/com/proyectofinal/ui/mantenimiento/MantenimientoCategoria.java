@@ -16,6 +16,8 @@ import javax.swing.border.EmptyBorder;
 import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Categoria;
 import com.proyectofinal.modelos.ModeloCategoria;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MantenimientoCategoria extends JFrame {
 
@@ -87,6 +89,13 @@ public class MantenimientoCategoria extends JFrame {
 		contentPane.add(scrollPane);
 		
 		table = new JTable(ModeloCategoria.getInstacia());
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int fila = table.getSelectedRow();
+				txtCategoria.setText(table.getValueAt(fila, 1).toString());
+			}
+		});
 		scrollPane.setViewportView(table);
 		
 		JLabel lblListadoDeCategorias = new JLabel("Listado de categorias:");
