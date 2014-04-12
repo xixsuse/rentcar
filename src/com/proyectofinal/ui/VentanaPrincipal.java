@@ -1,4 +1,4 @@
-package com.proyectofinal.ui.mantenimiento;
+package com.proyectofinal.ui;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,6 +10,15 @@ import javax.swing.JButton;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import com.proyectofinal.ui.mantenimiento.Catalogo;
+import com.proyectofinal.ui.mantenimiento.MantenimientoAccesorio;
+import com.proyectofinal.ui.mantenimiento.MantenimientoAlquiler;
+import com.proyectofinal.ui.mantenimiento.MantenimientoCategoria;
+import com.proyectofinal.ui.mantenimiento.MantenimientoClientes;
+import com.proyectofinal.ui.mantenimiento.MantenimientoSeguro;
+import com.proyectofinal.ui.mantenimiento.MantenimientoUsuarios;
+import com.proyectofinal.ui.mantenimiento.MantenimientoVehiculo;
 
 public class VentanaPrincipal extends JFrame implements ActionListener{
 

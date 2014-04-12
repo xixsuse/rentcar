@@ -1,16 +1,17 @@
 package com.proyectofinal;
 
 
-import com.proyectofinal.ui.mantenimiento.VentanaPrincipal;
+import com.proyectofinal.ui.Login;
+import com.proyectofinal.ui.VentanaPrincipal;
 
 public class Sistema {
 	public static void main(String[] args) {
 		/*MatenimientoUsuarios mantenimiento = new MatenimientoUsuarios();
 		mantenimiento.setLocationRelativeTo(null);
 		mantenimiento.setVisible(true);*/
-		/*Login login = new Login();
+		Login login = new Login();
 		login.setLocationRelativeTo(null);
-		login.setVisible(true);*/
+		login.setVisible(true);
 //		VentanaAdministrador admin = new VentanaAdministrador();
 //		admin.setLocationRelativeTo(null);
 //		admin.setVisible(true);
@@ -18,8 +19,9 @@ public class Sistema {
 		m.setLocationRelativeTo(null);
 		m.setVisible(true);
 		*/
-		System.out.println("Out");
-		new VentanaPrincipal().setVisible(true);
+		/*System.out.println("Out");
+		new VentanaPrincipal().setVisible(true);*/
+		
 		
 	}
 }

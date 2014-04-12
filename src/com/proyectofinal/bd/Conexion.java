@@ -28,6 +28,7 @@ import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.entidades.Vehiculo;
 //github.com/DannyFeliz/rentcar.git
 import com.proyectofinal.ui.VentanaAdministrador;
+import com.proyectofinal.ui.VentanaVendedor;
 
 public class Conexion {
 
@@ -81,7 +82,9 @@ public class Conexion {
 					ventanaAdminsitrador.setVisible(true);
 					
 				} else if (rs.getString("Cargo").equals("Vendedor")) {
-					System.out.println("Bienvenido vendedor");
+					VentanaVendedor ventanaVendedor = new VentanaVendedor();
+					ventanaVendedor.setLocationRelativeTo(null);
+					ventanaVendedor.setVisible(true);
 						
 				}
 				
