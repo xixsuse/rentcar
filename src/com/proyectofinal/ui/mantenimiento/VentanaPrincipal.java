@@ -27,11 +27,16 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JMenuItem itemSalir;
 	
 	public VentanaPrincipal() {
-		//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//setResizable(false);
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		
 		
 		setBounds(100, 100, 683, 509);
 		getContentPane().setLayout(null);
+		
 		
 		
 		JPanel panelBotones = new JPanel();
