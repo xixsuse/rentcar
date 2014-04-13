@@ -30,7 +30,7 @@ import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Vehiculo;
 import com.proyectofinal.modelos.ModeloVehiculos;
 
-public class MantenimientoVehiculo extends JFrame {
+public class MantenimientoVehiculo extends JFrame{
 	private JTextField txtPrecio;
 	private JTextField txtMarca;
 	private JTextField txtMatricula;
@@ -47,6 +47,7 @@ public class MantenimientoVehiculo extends JFrame {
 	private String ruta = "";
 	private JTextField txtCombustible;
 	private JComboBox cbbCategoria;
+	private JComboBox comboTransmision;
 
 	public MantenimientoVehiculo() {
 		super("Mantenimiento de vehiculos");
@@ -161,7 +162,7 @@ public class MantenimientoVehiculo extends JFrame {
 				}
 			}
 		});
-		txtTransmision.setBounds(198, 147, 86, 20);
+		txtTransmision.setBounds(198, 152, 86, 20);
 		getContentPane().add(txtTransmision);
 		txtTransmision.setColumns(10);
 		for (int i = calendario.get(Calendar.YEAR) + 1; i >= (calendario
@@ -228,7 +229,7 @@ public class MantenimientoVehiculo extends JFrame {
 										.parseInt(txtPasajeros.getText().toString()),
 								Integer.parseInt((String) cbbAño
 										.getSelectedItem()), txtMatricula
-										.getText(), txtTransmision.getText(),
+										.getText(), comboTransmision.getSelectedItem().toString(),
 								txtDescripcion.getText(),Integer.parseInt(txtCombustible.getText()), false),ruta);
 				ruta = "";
 				System.out.println(txtCombustible.getText());
@@ -264,7 +265,7 @@ public class MantenimientoVehiculo extends JFrame {
 							.parseInt(txtPasajeros.getText().toString()),
 					Integer.parseInt((String) cbbAño
 							.getSelectedItem()), txtMatricula
-							.getText(), txtTransmision.getText(),
+							.getText(), comboTransmision.getSelectedItem().toString(),
 					txtDescripcion.getText(),Integer.parseInt(txtCombustible.getText().toString()), false),ruta, tblVehiculos.getSelectedRow());
 					ruta = "";
 				}
@@ -325,6 +326,11 @@ public class MantenimientoVehiculo extends JFrame {
 		});
 		btnSiguiente.setBounds(625, 234, 51, 28);
 		getContentPane().add(btnSiguiente);
+		
+		comboTransmision = new JComboBox();
+		comboTransmision.setModel(new DefaultComboBoxModel(new String[] {"Autom\u00E1tico", "Mec\u00E1nico"}));
+		comboTransmision.setBounds(192, 121, 96, 20);
+		getContentPane().add(comboTransmision);
 		setVisible(true);
 	}
 	
@@ -334,7 +340,8 @@ public class MantenimientoVehiculo extends JFrame {
 		txtMarca.setText(datosVehiculo.getMarca());
 		txtPasajeros.setText(String.valueOf(datosVehiculo.getPasajeros()));
 		txtMatricula.setText(datosVehiculo.getMatricula());
-		txtTransmision.setText(datosVehiculo.getTransmision());
+		//txtTransmision.setText(datosVehiculo.getTransmision());
+		comboTransmision.setSelectedItem(datosVehiculo.getTransmision());
 		txtDescripcion.setText(datosVehiculo.getDescripcion());
 		System.out.println(datosVehiculo.getCombustible() + datosVehiculo.getTransmision());
 		txtCombustible.setText(String.valueOf(datosVehiculo.getCombustible()));
