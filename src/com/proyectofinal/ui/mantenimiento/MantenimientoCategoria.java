@@ -18,12 +18,14 @@ import javax.swing.border.EmptyBorder;
 
 import com.proyectofinal.entidades.Categoria;
 import com.proyectofinal.modelos.ModeloCategoria;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MantenimientoCategoria extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtCategoria;
-	private JTable table;
+	private JTable tlbCategoria;
 
 	private static MantenimientoCategoria instancia;
 	public static MantenimientoCategoria getInstacia(){
@@ -42,7 +44,28 @@ public class MantenimientoCategoria extends JFrame {
 		contentPane.setLayout(null);
 		
 		txtCategoria = new JTextField();
-		txtCategoria.setBounds(120, 43, 86, 20);
+		txtCategoria.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();        
+				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
+				    && car !='á'            
+				    && car !='é'            
+				    && car !='í'            
+				    && car !='ó'          
+				    && car !='ú'  
+				    && car !='Á'           
+				    && car !='É'            
+				    && car !='Í'            
+				    && car !='Ó'          
+				    && car !='Ú'            
+				    && (car!=(char)KeyEvent.VK_SPACE))
+				{      
+				  e.consume();  
+				}
+			}
+		});
+		txtCategoria.setBounds(120, 43, 200, 20);
 		contentPane.add(txtCategoria);
 		txtCategoria.setColumns(10);
 		
@@ -69,7 +92,7 @@ public class MantenimientoCategoria extends JFrame {
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int fila = table.getSelectedRow();
+				int fila = tlbCategoria.getSelectedRow();
 				if(fila < 0){
 					JOptionPane.showMessageDialog(null, "Porfavor seleccione un dato de la fila");
 				}else{
@@ -89,16 +112,16 @@ public class MantenimientoCategoria extends JFrame {
 		scrollPane.setBounds(10, 156, 310, 185);
 		contentPane.add(scrollPane);
 		
-		table = new JTable(ModeloCategoria.getInstacia());
-		table.addMouseListener(new MouseAdapter() {
+		tlbCategoria = new JTable(ModeloCategoria.getInstacia());
+		tlbCategoria.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				int fila = table.getSelectedRow();
-				txtCategoria.setText(table.getValueAt(fila, 1).toString());
+				int fila = tlbCategoria.getSelectedRow();
+				txtCategoria.setText(tlbCategoria.getValueAt(fila, 1).toString());
 			}
 		});
-		scrollPane.setViewportView(table);
-		table.getTableHeader().setReorderingAllowed(false);
+		scrollPane.setViewportView(tlbCategoria);
+		tlbCategoria.getTableHeader().setReorderingAllowed(false);
 		
 		JLabel lblListadoDeCategorias = new JLabel("Listado de categorias:");
 		lblListadoDeCategorias.setBounds(10, 131, 126, 14);
@@ -107,7 +130,7 @@ public class MantenimientoCategoria extends JFrame {
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int index = table.getSelectedRow();
+				int index = tlbCategoria.getSelectedRow();
 				if(index < 0){
 					JOptionPane.showMessageDialog(null, "Debe seleccionar una categoria de la tabla y modificar dicha categoria !", "Error", JOptionPane.ERROR_MESSAGE);
 				}else{

@@ -9,6 +9,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MantenimientoAlquiler extends JFrame{
 	private JTable tblAlquiler;
@@ -54,6 +56,15 @@ public class MantenimientoAlquiler extends JFrame{
 		getContentPane().add(cbbAccesorio);
 		
 		txtDescuento = new JTextField();
+		txtDescuento.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();
+				if(txtDescuento.getText().length()>=10) e.consume();
+				if((car<'0' || car>'9')) e.consume();
+
+			}
+		});
 		txtDescuento.setBounds(309, 115, 86, 20);
 		getContentPane().add(txtDescuento);
 		txtDescuento.setColumns(10);
@@ -63,6 +74,15 @@ public class MantenimientoAlquiler extends JFrame{
 		getContentPane().add(lblNewLabel);
 		
 		txtTotal = new JTextField();
+		txtTotal.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();
+				if(txtTotal.getText().length()>=8) e.consume();
+				if((car<'0' || car>'9')) e.consume();
+
+			}
+		});
 		txtTotal.setBounds(309, 167, 86, 23);
 		getContentPane().add(txtTotal);
 		txtTotal.setColumns(10);

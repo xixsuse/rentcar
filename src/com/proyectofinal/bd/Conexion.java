@@ -202,7 +202,7 @@ public class Conexion {
 		
 		
 		try {
-			System.out.println(cliente.getDocumento());
+			//System.out.println(cliente.getDocumento());
 			File imagen = new File(cliente.getDocumento());
 			FileInputStream  foto = new FileInputStream(imagen);
 			

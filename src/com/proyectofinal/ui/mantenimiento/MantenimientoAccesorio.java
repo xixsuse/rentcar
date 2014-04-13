@@ -20,9 +20,10 @@ import javax.swing.JTextField;
 import com.proyectofinal.entidades.Accesorio;
 import com.proyectofinal.modelos.ModeloAccesorios;
 import com.proyectofinal.ui.BuscadorTablas;
+import java.awt.event.KeyAdapter;
 
 
-public class MantenimientoAccesorio extends JFrame implements ActionListener, MouseListener, KeyListener{
+public class MantenimientoAccesorio extends JFrame implements ActionListener, MouseListener{
 	private JTextField txtNombre;
 	private JTextField txtSerial;
 	private JTextField txtPrecio;
@@ -65,6 +66,29 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 		getContentPane().add(lblPrecio);
 		
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+				char car = e.getKeyChar();        
+				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
+				    && car !='á'            
+				    && car !='é'            
+				    && car !='í'            
+				    && car !='ó'          
+				    && car !='ú'  
+				    && car !='Á'           
+				    && car !='É'            
+				    && car !='Í'            
+				    && car !='Ó'          
+				    && car !='Ú'            
+				    && (car!=(char)KeyEvent.VK_SPACE))
+				{      
+				  e.consume();  
+				}
+
+			}
+		});
 		txtNombre.setBounds(91, 23, 141, 17);
 		getContentPane().add(txtNombre);
 		txtNombre.setColumns(10);
@@ -75,7 +99,14 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 		getContentPane().add(txtSerial);
 		
 		txtPrecio = new JTextField();
-		txtPrecio.addKeyListener(this);
+		txtPrecio.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();
+				if(txtPrecio.getText().length()>=8) e.consume();
+				if((car<'0' || car>'9')) e.consume();
+			}
+		});
 		txtPrecio.setBounds(91, 81, 141, 17);
 		getContentPane().add(txtPrecio);
 		txtPrecio.setColumns(10);
@@ -208,25 +239,5 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 		
 	}
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		if(!Character.isDigit(e.getKeyChar()) && !Character.isISOControl(e.getKeyChar()))
-		{
-		     Toolkit.getDefaultToolkit().beep();
-		     e.consume();
-		 }
-		
-	}
+	
 }

@@ -71,16 +71,70 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 		getContentPane().setLayout(null);
 		
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();        
+				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
+				    && car !='á'            
+				    && car !='é'            
+				    && car !='í'            
+				    && car !='ó'          
+				    && car !='ú'  
+				    && car !='Á'           
+				    && car !='É'            
+				    && car !='Í'            
+				    && car !='Ó'          
+				    && car !='Ú'            
+				    && (car!=(char)KeyEvent.VK_SPACE))
+				{      
+				  e.consume();  
+				}
+			}
+		});
 		txtNombre.setColumns(10);
 		txtNombre.setBounds(88, 81, 216, 19);
 		getContentPane().add(txtNombre);
 		
 		txtApellido = new JTextField();
+		txtApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();        
+				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
+				    && car !='á'            
+				    && car !='é'            
+				    && car !='í'            
+				    && car !='ó'          
+				    && car !='ú'  
+				    && car !='Á'           
+				    && car !='É'            
+				    && car !='Í'            
+				    && car !='Ó'          
+				    && car !='Ú'            
+				    && (car!=(char)KeyEvent.VK_SPACE))
+				{      
+				  e.consume();  
+				}
+			}
+		});
 		txtApellido.setColumns(10);
 		txtApellido.setBounds(88, 106, 216, 19);
 		getContentPane().add(txtApellido);
 		
 		txtTelefono = new JTextField();
+		txtTelefono.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+				char car = e.getKeyChar();
+				if(txtTelefono.getText().length()>=12) e.consume();
+				if((car<'0' || car>'9')
+						&& car !='-'
+						) 
+					e.consume();
+			}
+		});
 		txtTelefono.setColumns(10);
 		txtTelefono.setBounds(88, 134, 216, 19);
 		getContentPane().add(txtTelefono);
@@ -196,28 +250,7 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 				
 			}
 			
-			//Copiado de las imagenes 
-			File lugarImagen = new File(jc.getSelectedFile().toString());
-			if(txtNombre.getText().isEmpty()){
-				JOptionPane.showMessageDialog(null, "Debes rellenar el campo nombre primero", "Advertencia", JOptionPane.WARNING_MESSAGE);
-			}else{
-			File destinoImagen = new File("D:\\Workspace (New)\\Proyecto Final de programacion II\\img\\"+txtNombre.getText()+".jpg");
 			
-				FileInputStream fis;
-				try {
-					fis = new FileInputStream(lugarImagen);
-					FileOutputStream fos = new FileOutputStream(destinoImagen); //outFile -> Copia del archivo
-					FileChannel lugarOrigen = fis.getChannel(); 
-					FileChannel lugarDestino = fos.getChannel(); 
-					lugarOrigen.transferTo(0, lugarOrigen.size(), lugarDestino); 
-					fis.close(); 
-					fos.close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} //inFile -> Archivo a copiar
-			}
-				
 				
 			
 			
@@ -232,7 +265,7 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 				txtApellido.setText("");
 				txtNombreDocumento.setText("");
 				txtTelefono.setText("");
-				//txtIdCliente.setText("");
+				
 			}
 		}else if(e.getSource() == btnModificar){
 			
@@ -241,8 +274,6 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 				
 			}else if(txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtNombreDocumento.getText().isEmpty()){
 				JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-				
-			
 				
 			}else{
 				
@@ -263,7 +294,7 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 				txtApellido.setText("");
 				txtNombreDocumento.setText("");
 				txtTelefono.setText("");
-				//txtIdCliente.setText("");
+				
 			}	
 		}else if(e.getSource() == btnBuscar){
 			BuscadorTablas.getInstancia().buscar(tablaCliente, txtBuscar.getText());
