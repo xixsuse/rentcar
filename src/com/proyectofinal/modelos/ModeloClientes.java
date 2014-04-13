@@ -6,6 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Cliente;
+import com.proyectofinal.entidades.Vehiculo;
 
 
 public class ModeloClientes extends AbstractTableModel {
@@ -37,6 +38,11 @@ public class ModeloClientes extends AbstractTableModel {
 	public int getRowCount() {
 		return ArrayClientes.size();
 	}
+	
+	public Cliente cargarDatos(int fila){
+		Cliente datosCliente = ArrayClientes.get(fila);
+		return datosCliente;
+	}
 
 	public Object getValueAt(int x, int y) {
 		String respuesta = null;
@@ -53,7 +59,7 @@ public class ModeloClientes extends AbstractTableModel {
 			respuesta = cliente.getTelefono();
 			break;
 		case 3:
-			respuesta = cliente.getDocumento();
+			//respuesta = cliente.getDocumento();
 			break;
 		case 4:
 			respuesta = cliente.getIdCliente();

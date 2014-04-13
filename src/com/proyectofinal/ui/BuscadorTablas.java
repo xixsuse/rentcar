@@ -18,10 +18,12 @@ public class BuscadorTablas {
 	public void buscar(JTable tabla, String valorBusqueda) {
 		TableRowSorter<TableModel> modeloOrdenado = new TableRowSorter<TableModel>(tabla.getModel());
 		tabla.setRowSorter(modeloOrdenado);
-		int cantColum = tabla.getColumnCount();
 
-		for (int i = 0; i < cantColum; i++) {
-			modeloOrdenado.setRowFilter(RowFilter.regexFilter("(?i)"+ valorBusqueda, i));
+		int numeroColumnas = tabla.getColumnCount();
+
+		for (int i = 0; i < numeroColumnas; i++) {
+			modeloOrdenado.setRowFilter(RowFilter.regexFilter("(?i)"
+					+ valorBusqueda, i));
 			int count = tabla.getRowCount();
 			if (count < 1) {
 				continue;
@@ -32,10 +34,4 @@ public class BuscadorTablas {
 		tabla.setModel(tabla.getModel());
 	}
 
-	public void buscar(JTable table, String valorBusqueda, int colum) {
-		TableRowSorter<TableModel> modeloOrdenado = new TableRowSorter<TableModel>(table.getModel());
-		table.setRowSorter(modeloOrdenado);
-		modeloOrdenado.setRowFilter(RowFilter.regexFilter(valorBusqueda, colum));
-		table.setModel(table.getModel());
-	}
 }

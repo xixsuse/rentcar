@@ -20,9 +20,9 @@ public class Sistema {
 //		VentanaAdministrador admin = new VentanaAdministrador();
 //		admin.setLocationRelativeTo(null);
 //		admin.setVisible(true);
-		/*MantenimientoClientes m = new MantenimientoClientes();
+		MantenimientoClientes m = new MantenimientoClientes();
 		m.setLocationRelativeTo(null);
-		m.setVisible(true);*/
+		m.setVisible(true);
 		
 		/*System.out.println("Out");
 		new VentanaPrincipal().setVisible(true);*/
@@ -30,13 +30,7 @@ public class Sistema {
 		//new MantenimientoAccesorio().setVisible(true);
 		/*MantenimientoVehiculo v = new MantenimientoVehiculo();
 		v.setVisible(true);*/
-		
-		/*MantenimientoSeguro s = new MantenimientoSeguro();
-		s.setLocationRelativeTo(null);
-		s.setVisible(true);*/
-		
-		MantenimientoAccesorio a = new MantenimientoAccesorio();
-		a.setVisible(true);
+	
 		
 	}
 }

@@ -1,6 +1,8 @@
 package com.proyectofinal.ui.mantenimiento;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -14,6 +16,7 @@ import java.nio.channels.FileChannel;
 import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -33,6 +36,9 @@ import com.proyectofinal.modelos.ModeloUsuarios;
 import com.proyectofinal.ui.BuscadorTablas;
 
 
+
+
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -47,7 +53,8 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 	private JButton btnEliminar;
 	private JButton btnModificar;
 	private JButton btnBuscar;
-	private String rutaArchivo = null;
+	private String rutaArchivo = "";
+	private JLabel lblFoto;
 	
 	private static MantenimientoClientes instancia;
 	private JButton btnExaminar;
@@ -170,7 +177,7 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 		getContentPane().add(btnEliminar);
 		
 		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(208, 223, 89, 23);
+		btnModificar.setBounds(208, 223, 96, 23);
 		btnModificar.addActionListener(this);
 		getContentPane().add(btnModificar);
 		
@@ -205,6 +212,10 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 		btnBuscar.setMnemonic('B');
 		getContentPane().add(btnBuscar);
 		
+		lblFoto = new JLabel("");
+		lblFoto.setBounds(16, 253, 288, 192);
+		getContentPane().add(lblFoto);
+		
 		
 		tablaCliente.getTableHeader().setReorderingAllowed(false);
 	}
@@ -217,6 +228,8 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 		if(e.getSource() == btnAgregar){
 			if(txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtTelefono.getText().isEmpty()){
 				JOptionPane.showMessageDialog(this, "Debe rellenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+			}else if(rutaArchivo.isEmpty()){
+				JOptionPane.showMessageDialog(null, "Debes seleccionar un documento.", "Error", JOptionPane.ERROR_MESSAGE);
 			}else{
 			if(rutaArchivo != null){
 				ModeloClientes.getInstacia().agregarCliente(new Cliente(txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), rutaArchivo));
@@ -224,13 +237,14 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 				txtApellido.setText("");
 				txtNombreDocumento.setText("");
 				txtTelefono.setText("");
+				lblFoto.setIcon(null);
 				//txtIdCliente.setText("");
 				}else{
 					JOptionPane.showMessageDialog(this, "Debe seleccionar un documento", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}else if(e.getSource() == btnExaminar){
-
+			
 			FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG", "jpg");
 			jc.setFileFilter(filtro);
 			
@@ -240,7 +254,16 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 			if(seleccion == jc.APPROVE_OPTION){
 				
 			jc.setFileFilter(filtro);
-			rutaArchivo = archivo.getAbsolutePath();
+			
+			//Mostrar imagen
+			rutaArchivo = archivo.getPath();
+			ImageIcon foto = new ImageIcon(rutaArchivo);
+			Image iconoImagen = foto.getImage();
+			Image newImage = iconoImagen.getScaledInstance(281, 178, java.awt.Image.SCALE_DEFAULT);
+			ImageIcon fotoMostrar = new ImageIcon(newImage);
+			lblFoto.setIcon(fotoMostrar);
+			
+			
 			String nombreArchivo = archivo.getName();
 			txtNombreDocumento.setText(nombreArchivo);
 			}else if (seleccion == jc.CANCEL_OPTION){
@@ -249,7 +272,6 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 			}else{
 				
 			}
-			
 			
 				
 			
@@ -311,8 +333,22 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 	txtTelefono.setText(tablaCliente.getValueAt(fila, 2).toString());
 	txtNombreDocumento.setText("Documento del cliente");
 	
+	
+	
 		
 	}
+	
+	/*public void setDatos(int fila){
+		//Vehiculo datosVehiculo = ModeloVehiculos.getInstancia().cargarDatos(index);
+		Cliente datosCliente = ModeloClientes.getInstacia().cargarDatos(fila);
+		txtNombre.setText(tablaCliente.getValueAt(fila, 0).toString());
+		txtApellido.setText(tablaCliente.getValueAt(fila, 1).toString());
+		txtTelefono.setText(tablaCliente.getValueAt(fila, 2).toString());
+		Image foto = datosCliente.getDocumento().getScaledInstance(228, 204, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon icono = new ImageIcon(foto);
+		lblFoto.setIcon(icono);
+		
+	}*/
 
 
 	@Override
