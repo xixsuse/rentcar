@@ -11,7 +11,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import com.proyectofinal.ui.mantenimiento.Catalogo;
 import com.proyectofinal.ui.mantenimiento.MantenimientoAccesorio;
 import com.proyectofinal.ui.mantenimiento.MantenimientoAlquiler;
 import com.proyectofinal.ui.mantenimiento.MantenimientoCategoria;

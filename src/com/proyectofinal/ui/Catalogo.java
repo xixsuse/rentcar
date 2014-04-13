@@ -1,4 +1,4 @@
-package com.proyectofinal.ui.mantenimiento;
+package com.proyectofinal.ui;
 
 import java.awt.Button;
 import java.awt.EventQueue;
