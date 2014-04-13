@@ -71,5 +71,7 @@ public class MantenimientoAlquiler extends JFrame{
 		lblNewLabel_1.setBounds(206, 175, 81, 14);
 		getContentPane().add(lblNewLabel_1);
 		setVisible(true);
+		tblAlquiler.getTableHeader().setReorderingAllowed(false);
+		
 	}
 }

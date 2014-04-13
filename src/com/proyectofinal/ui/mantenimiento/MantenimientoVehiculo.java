@@ -149,6 +149,7 @@ public class MantenimientoVehiculo extends JFrame {
 		scrollPane.setBounds(10, 265, 806, 154);
 		getContentPane().add(scrollPane);
 
+		tblVehiculos.getTableHeader().setReorderingAllowed(false);
 		tblVehiculos = new JTable(ModeloVehiculos.getInstancia());
 		tblVehiculos.addMouseListener(new MouseAdapter() {
 			@Override

@@ -28,23 +28,9 @@ public class MantenimientoSeguro extends JFrame {
 	private JTextField txtCobertura;
 	private JTable tableSeguro;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MantenimientoSeguro frame = new MantenimientoSeguro();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public MantenimientoSeguro() {
+		setTitle("Mantenimiento de Seguros");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 368, 484);
 		contentPane = new JPanel();
@@ -188,5 +174,6 @@ public class MantenimientoSeguro extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(tableSeguro);
+		tableSeguro.getTableHeader().setReorderingAllowed(false);
 	}
 }

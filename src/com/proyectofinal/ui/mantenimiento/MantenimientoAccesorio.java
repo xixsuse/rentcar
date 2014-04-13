@@ -125,6 +125,7 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 		getContentPane().add(lblBuscar);
 		tablaAccesorios.addMouseListener(this);
 		
+		tablaAccesorios.getTableHeader().setReorderingAllowed(false);
 		
 	}
 

@@ -25,25 +25,6 @@ public class MantenimientoCategoria extends JFrame {
 	private JTextField txtCategoria;
 	private JTable table;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MantenimientoCategoria frame = new MantenimientoCategoria();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	private static MantenimientoCategoria instancia;
 	public static MantenimientoCategoria getInstacia(){
 		if(instancia == null){
@@ -117,6 +98,7 @@ public class MantenimientoCategoria extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(table);
+		table.getTableHeader().setReorderingAllowed(false);
 		
 		JLabel lblListadoDeCategorias = new JLabel("Listado de categorias:");
 		lblListadoDeCategorias.setBounds(10, 131, 126, 14);

@@ -152,7 +152,7 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 		getContentPane().add(btnBuscar);
 		
 		
-		
+		tablaCliente.getTableHeader().setReorderingAllowed(false);
 	}
 
 

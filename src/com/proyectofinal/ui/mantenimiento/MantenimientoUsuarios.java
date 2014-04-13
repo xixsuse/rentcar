@@ -35,7 +35,7 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 	private JComboBox comboCargo;
 	
 
-	public JTable tablaUsuarios;
+	private JTable tablaUsuarios;
 	
 	private static MantenimientoUsuarios instancia;
 	private JButton btnActualizar;
@@ -113,6 +113,7 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		scrollPane.setViewportView(tablaUsuarios);
 		//tablaUsuarios.setModel();
 		tablaUsuarios.addMouseListener(this);
+		tablaUsuarios.getTableHeader().setReorderingAllowed(false);
 				
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.setBounds(10, 277, 89, 23);
