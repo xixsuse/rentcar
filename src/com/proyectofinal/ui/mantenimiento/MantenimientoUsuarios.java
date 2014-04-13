@@ -12,16 +12,16 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.modelos.ModeloUsuarios;
 import com.proyectofinal.ui.BuscadorTablas;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class MantenimientoUsuarios extends JFrame implements ActionListener, MouseListener{
@@ -82,11 +82,53 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		getContentPane().add(lblCargo);
 		
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();        
+				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
+				    && car !='á'            
+				    && car !='é'            
+				    && car !='í'            
+				    && car !='ó'          
+				    && car !='ú'  
+				    && car !='Á'           
+				    && car !='É'            
+				    && car !='Í'            
+				    && car !='Ó'          
+				    && car !='Ú'            
+				    && (car!=(char)KeyEvent.VK_SPACE))
+				{      
+				  e.consume();  
+				}
+			}
+		});
 		txtNombre.setBounds(121, 129, 170, 19);
 		getContentPane().add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtApellido = new JTextField();
+		txtApellido.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();        
+				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
+				    && car !='á'            
+				    && car !='é'            
+				    && car !='í'            
+				    && car !='ó'          
+				    && car !='ú'  
+				    && car !='Á'           
+				    && car !='É'            
+				    && car !='Í'            
+				    && car !='Ó'          
+				    && car !='Ú'            
+				    && (car!=(char)KeyEvent.VK_SPACE))
+				{      
+				  e.consume();  
+				}
+			}
+		});
 		txtApellido.setColumns(10);
 		txtApellido.setBounds(121, 154, 170, 19);
 		getContentPane().add(txtApellido);
@@ -111,7 +153,6 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		
 		tablaUsuarios = new JTable(ModeloUsuarios.getInstacia());
 		scrollPane.setViewportView(tablaUsuarios);
-		//tablaUsuarios.setModel();
 		tablaUsuarios.addMouseListener(this);
 		tablaUsuarios.getTableHeader().setReorderingAllowed(false);
 				
@@ -222,9 +263,6 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		
 	}
 
-	public JTextField getTxtBuscar() {
-		return txtBuscar;
-	}	
 	
 	
 }

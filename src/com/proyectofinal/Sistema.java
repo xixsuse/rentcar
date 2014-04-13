@@ -4,11 +4,13 @@ package com.proyectofinal;
 import com.proyectofinal.ui.Login;
 import com.proyectofinal.ui.VentanaPrincipal;
 import com.proyectofinal.ui.mantenimiento.MantenimientoAccesorio;
+import com.proyectofinal.ui.mantenimiento.MantenimientoSeguro;
+import com.proyectofinal.ui.mantenimiento.MantenimientoUsuarios;
 import com.proyectofinal.ui.mantenimiento.MantenimientoVehiculo;
 
 public class Sistema {
 	public static void main(String[] args) {
-		/*MatenimientoUsuarios mantenimiento = new MatenimientoUsuarios();
+		/*MantenimientoUsuarios mantenimiento = new MantenimientoUsuarios();
 		mantenimiento.setLocationRelativeTo(null);
 		mantenimiento.setVisible(true);*/
 		/*Login login = new Login();
@@ -25,8 +27,12 @@ public class Sistema {
 		new VentanaPrincipal().setVisible(true);*/
 		
 		//new MantenimientoAccesorio().setVisible(true);
-		MantenimientoVehiculo v = new MantenimientoVehiculo();
-		v.setVisible(true);
+		/*MantenimientoVehiculo v = new MantenimientoVehiculo();
+		v.setVisible(true);*/
+		
+		MantenimientoSeguro s = new MantenimientoSeguro();
+		s.setLocationRelativeTo(null);
+		s.setVisible(true);
 		
 	}
 }

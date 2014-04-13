@@ -18,6 +18,10 @@ import com.proyectofinal.entidades.Seguro;
 import com.proyectofinal.modelos.ModeloSeguro;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class MantenimientoSeguro extends JFrame {
 
@@ -25,9 +29,8 @@ public class MantenimientoSeguro extends JFrame {
 	private JTextField txtCategoria;
 	private JTextField txtPrecio;
 	private JTextField txtNombre;
-	private JTextField txtCobertura;
 	private JTable tableSeguro;
-
+	private JComboBox cmboCobertura;
 	
 	public MantenimientoSeguro() {
 		setTitle("Mantenimiento de Seguros");
@@ -39,24 +42,69 @@ public class MantenimientoSeguro extends JFrame {
 		contentPane.setLayout(null);
 		
 		txtCategoria = new JTextField();
+		txtCategoria.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();        
+				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
+				    && car !='á'            
+				    && car !='é'            
+				    && car !='í'            
+				    && car !='ó'          
+				    && car !='ú'  
+				    && car !='Á'           
+				    && car !='É'            
+				    && car !='Í'            
+				    && car !='Ó'          
+				    && car !='Ú'            
+				    && (car!=(char)KeyEvent.VK_SPACE))
+				{      
+				  e.consume();  
+				}
+			}
+		});
 		txtCategoria.setBounds(138, 21, 185, 20);
 		contentPane.add(txtCategoria);
 		txtCategoria.setColumns(10);
 		
 		txtPrecio = new JTextField();
+		txtPrecio.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();
+				if(txtPrecio.getText().length()>=8) e.consume();
+				if((car<'0' || car>'9')) e.consume();
+			}
+		});
 		txtPrecio.setBounds(138, 57, 86, 20);
 		contentPane.add(txtPrecio);
 		txtPrecio.setColumns(10);
 		
 		txtNombre = new JTextField();
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();        
+				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
+				    && car !='á'            
+				    && car !='é'            
+				    && car !='í'            
+				    && car !='ó'          
+				    && car !='ú'  
+				    && car !='Á'           
+				    && car !='É'            
+				    && car !='Í'            
+				    && car !='Ó'          
+				    && car !='Ú'            
+				    && (car!=(char)KeyEvent.VK_SPACE))
+				{      
+				  e.consume();  
+				}
+			}
+		});
 		txtNombre.setBounds(138, 95, 185, 20);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
-		
-		txtCobertura = new JTextField();
-		txtCobertura.setBounds(138, 140, 185, 20);
-		contentPane.add(txtCobertura);
-		txtCobertura.setColumns(10);
 		
 		JLabel lblCategoria = new JLabel("Categoria:");
 		lblCategoria.setBounds(29, 24, 79, 14);
@@ -70,34 +118,34 @@ public class MantenimientoSeguro extends JFrame {
 		lblNombre.setBounds(29, 98, 46, 14);
 		contentPane.add(lblNombre);
 		
+		
+		
 		JLabel lblNewLabel_1 = new JLabel("Cobertura:");
 		lblNewLabel_1.setBounds(29, 143, 79, 14);
 		contentPane.add(lblNewLabel_1);
 		
+		cmboCobertura = new JComboBox();
+		cmboCobertura.setModel(new DefaultComboBoxModel(new String[] {"Nacional", "Internacional"}));
+		cmboCobertura.setBounds(138, 140, 185, 20);
+		contentPane.add(cmboCobertura);
+		
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(txtCategoria.getText().equals("")){
-					JOptionPane.showMessageDialog(null, "Completar campo categoria.");
-				}else if(txtPrecio.getText().equals("")){
-					JOptionPane.showMessageDialog(null, "Completar campo precio.");
-				}else if(!txtPrecio.getText().matches("[0-9].")){
-					JOptionPane.showMessageDialog(null, "El precio tiene que ser en numeros.");
-				}else if(txtNombre.getText().equals("")){
-					JOptionPane.showMessageDialog(null, "Completar campo nombre.");
-				}else if(txtCobertura.getText().equals("")){
-					JOptionPane.showMessageDialog(null, "Completar campo cobertura.");
+				if(txtCategoria.getText().isEmpty() || txtNombre.getText().isEmpty() || txtPrecio.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				
 				}else{
 					Seguro seguro = new Seguro();
 					seguro.setCategoria(txtCategoria.getText());
 					seguro.setPrecio(Double.parseDouble(txtPrecio.getText()));
 					seguro.setNombre(txtNombre.getText());
-					seguro.setCobertura(txtCobertura.getText());
+					seguro.setCobertura(cmboCobertura.getSelectedItem().toString());
 					ModeloSeguro.getInstacia().agregarSeguro(seguro);
 					txtCategoria.setText("");
 					txtPrecio.setText("");
 					txtNombre.setText("");
-					txtCobertura.setText("");
+					
 				}
 			}
 		});
@@ -118,7 +166,7 @@ public class MantenimientoSeguro extends JFrame {
 						txtCategoria.setText("");
 						txtPrecio.setText("");
 						txtNombre.setText("");
-						txtCobertura.setText("");
+						
 					}
 				}
 			}
@@ -133,24 +181,17 @@ public class MantenimientoSeguro extends JFrame {
 				if(index < 0){
 					JOptionPane.showMessageDialog(null, "Debe seleccionar un seguro de la tabla y modificar dicho seguro!", "Error", JOptionPane.ERROR_MESSAGE);
 				}else{
-					if(txtCategoria.getText().equals("")){
-						JOptionPane.showMessageDialog(null, "Completar campo categoria.");
-					}else if(txtPrecio.getText().equals("")){
-						JOptionPane.showMessageDialog(null, "Completar campo precio.");
-					}else if(!txtPrecio.getText().matches("[0-9]")){
-						JOptionPane.showMessageDialog(null, "El precio tiene que ser en numeros.");
-					}else if(txtNombre.getText().equals("")){
-						JOptionPane.showMessageDialog(null, "Completar campo nombre.");
-					}else if(txtCobertura.getText().equals("")){
-						JOptionPane.showMessageDialog(null, "Completar campo cobertura.");
+					if(txtCategoria.getText().isEmpty() || txtNombre.getText().isEmpty() || txtPrecio.getText().isEmpty()){
+						JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+					
 					}else{
 						ModeloSeguro.getInstacia().modificarCategoria(new Seguro(txtCategoria.getText(),
 										Double.parseDouble(txtPrecio.getText()), txtNombre.getText(),
-										txtCobertura.getText()), index);
+										cmboCobertura.getSelectedItem().toString()), index);
 						txtCategoria.setText("");
 						txtPrecio.setText("");
 						txtNombre.setText("");
-						txtCobertura.setText("");
+						
 					}
 				}
 			}
@@ -170,10 +211,12 @@ public class MantenimientoSeguro extends JFrame {
 				txtCategoria.setText(tableSeguro.getValueAt(fila, 1).toString());
 				txtPrecio.setText(tableSeguro.getValueAt(fila, 2).toString());
 				txtNombre.setText(tableSeguro.getValueAt(fila, 3).toString());
-				txtCobertura.setText(tableSeguro.getValueAt(fila, 4).toString());
+				cmboCobertura.setSelectedItem(tableSeguro.getValueAt(fila, 4).toString());
 			}
 		});
 		scrollPane.setViewportView(tableSeguro);
+		
+		
 		tableSeguro.getTableHeader().setReorderingAllowed(false);
 	}
 }
