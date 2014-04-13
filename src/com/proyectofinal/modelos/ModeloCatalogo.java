@@ -35,10 +35,10 @@ public class ModeloCatalogo extends AbstractTableModel{
 	}
 
 	public Object getValueAt(int fila, int columna) {
-		Object resultado = null;
+		ImageIcon resultado = null;
 		switch(columna){
 		case 0:
-			resultado = listaVehiculos.get(fila).getFoto();
+			resultado = new ImageIcon(listaVehiculos.get(fila).getFoto());
 		}
 		return resultado;
 	}
