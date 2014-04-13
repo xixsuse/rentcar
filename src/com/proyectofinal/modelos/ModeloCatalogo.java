@@ -38,7 +38,7 @@ public class ModeloCatalogo extends AbstractTableModel{
 		ImageIcon resultado = null;
 		switch(columna){
 		case 0:
-			resultado = new ImageIcon(listaVehiculos.get(fila).getFoto());
+			resultado = new ImageIcon(listaVehiculos.get(fila).getFoto().getScaledInstance(200, 300,java.awt.Image.SCALE_SMOOTH));
 		}
 		return resultado;
 	}

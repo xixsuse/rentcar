@@ -12,15 +12,15 @@ public class Catalogo extends JFrame{
 
 	public Catalogo(){
 		setTitle("Catalogo de vehiculos");
-		setSize(764,400);
+		setSize(997,469);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(44, 96, 671, 227);
+		scrollPane.setBounds(10, 11, 961, 408);
 		getContentPane().add(scrollPane);
 		
 		tblCatalogo = new JTable(ModeloCatalogo.getInstancia());
+		tblCatalogo.setRowHeight(408);
 		scrollPane.setViewportView(tblCatalogo);
 		setVisible(true);
 	}
