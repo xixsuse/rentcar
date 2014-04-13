@@ -4,6 +4,7 @@ package com.proyectofinal;
 import com.proyectofinal.ui.Login;
 import com.proyectofinal.ui.VentanaPrincipal;
 import com.proyectofinal.ui.mantenimiento.MantenimientoAccesorio;
+import com.proyectofinal.ui.mantenimiento.MantenimientoVehiculo;
 
 public class Sistema {
 	public static void main(String[] args) {
@@ -23,8 +24,9 @@ public class Sistema {
 		/*System.out.println("Out");
 		new VentanaPrincipal().setVisible(true);*/
 		
-		new MantenimientoAccesorio().setVisible(true);
-		
+		//new MantenimientoAccesorio().setVisible(true);
+		MantenimientoVehiculo v = new MantenimientoVehiculo();
+		v.setVisible(true);
 		
 	}
 }

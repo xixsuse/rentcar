@@ -4,12 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,10 +29,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Vehiculo;
 import com.proyectofinal.modelos.ModeloVehiculos;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 public class MantenimientoVehiculo extends JFrame {
 	private JTextField txtPrecio;
@@ -84,11 +83,40 @@ public class MantenimientoVehiculo extends JFrame {
 		getContentPane().add(lblDescripcion);
 
 		txtPrecio = new JTextField();
+		txtPrecio.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();
+				if(txtCombustible.getText().length()>=8) e.consume();
+				if((car<'0' || car>'9')) e.consume();
+			}
+		});
 		txtPrecio.setBounds(198, 8, 86, 20);
 		getContentPane().add(txtPrecio);
 		txtPrecio.setColumns(10);
 
 		txtMarca = new JTextField();
+		txtMarca.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();        
+				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
+				    && car !='á'         
+				    && car !='é'            
+				    && car !='í'            
+				    && car !='ó'          
+				    && car !='ú'  
+				    && car !='Á'           
+				    && car !='É'            
+				    && car !='Í'            
+				    && car !='Ó'          
+				    && car !='Ú'            
+				    && (car!=(char)KeyEvent.VK_SPACE))
+				{      
+				  e.consume();  
+				}
+			}
+		});
 		txtMarca.setBounds(198, 52, 86, 20);
 		getContentPane().add(txtMarca);
 		txtMarca.setColumns(10);
@@ -99,11 +127,40 @@ public class MantenimientoVehiculo extends JFrame {
 		txtMatricula.setColumns(10);
 
 		txtPasajeros = new JTextField();
+		txtPasajeros.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();
+				if(txtCombustible.getText().length()>=8) e.consume();
+				if((car<'0' || car>'9')) e.consume();
+			}
+		});
 		txtPasajeros.setBounds(394, 52, 86, 20);
 		getContentPane().add(txtPasajeros);
 		txtPasajeros.setColumns(10);
 
 		txtTransmision = new JTextField();
+		txtTransmision.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent evt) {
+				char car = evt.getKeyChar();        
+				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
+				    && car !='á'          
+				    && car !='é'            
+				    && car !='í'            
+				    && car !='ó'          
+				    && car !='ú'  
+				    && car !='Á'          
+				    && car !='É'            
+				    && car !='Í'            
+				    && car !='Ó'          
+				    && car !='Ú'            
+				   )
+				{      
+				  evt.consume();  
+				}
+			}
+		});
 		txtTransmision.setBounds(198, 147, 86, 20);
 		getContentPane().add(txtTransmision);
 		txtTransmision.setColumns(10);
@@ -149,7 +206,7 @@ public class MantenimientoVehiculo extends JFrame {
 		scrollPane.setBounds(10, 265, 806, 154);
 		getContentPane().add(scrollPane);
 
-		tblVehiculos.getTableHeader().setReorderingAllowed(false);
+
 		tblVehiculos = new JTable(ModeloVehiculos.getInstancia());
 		tblVehiculos.addMouseListener(new MouseAdapter() {
 			@Override
@@ -158,7 +215,7 @@ public class MantenimientoVehiculo extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(tblVehiculos);
-
+		tblVehiculos.getTableHeader().setReorderingAllowed(false);
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -217,6 +274,14 @@ public class MantenimientoVehiculo extends JFrame {
 		getContentPane().add(btnModificar);
 		
 		txtCombustible = new JTextField();
+		txtCombustible.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();
+				if(txtCombustible.getText().length()>=8) e.consume();
+				if((car<'0' || car>'9')) e.consume();
+			}
+		});
 		txtCombustible.setBounds(198, 183, 86, 20);
 		getContentPane().add(txtCombustible);
 		txtCombustible.setColumns(10);
