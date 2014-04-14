@@ -667,7 +667,6 @@ public class Conexion {
 	            vehiculo.setTransmision(rs.getObject("transmision").toString());
 	            vehiculo.setDescripcion(rs.getObject("descripcion").toString());
 	            //agregamos nueva consulta a la informacion
-	            System.out.println("Hola");
 	            info.add(vehiculo);
 	        }
 	        rs.close();
