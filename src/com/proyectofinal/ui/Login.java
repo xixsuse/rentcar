@@ -20,7 +20,7 @@ public class Login extends JFrame implements ActionListener{
 	private JPanel panel;
 
 	private JTextField txtUsuario = new JTextField();
-	private JPasswordField txtContraseña = new JPasswordField();
+	private JPasswordField txtContraseÃ±a = new JPasswordField();
 	
 	private JButton btnIniciar = new JButton("Iniciar sesion");
 	private JButton btnCancelar = new JButton("Cancelar");
@@ -43,8 +43,8 @@ public class Login extends JFrame implements ActionListener{
 		panel.setBorder(new TitledBorder("Introduzca sus datos"));
 		panel.add(new JLabel("Usuario: "));
 		panel.add(txtUsuario);
-		panel.add(new JLabel("Contraseña:"));
-		panel.add(txtContraseña);
+		panel.add(new JLabel("Contraseï¿½a:"));
+		panel.add(txtContraseÃ±a);
 		panel.add(btnIniciar);
 		panel.add(btnCancelar);
 		btnIniciar.addActionListener(this);
@@ -56,10 +56,10 @@ public class Login extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnIniciar){
-			if(txtUsuario.getText().isEmpty() || txtContraseña.getText().isEmpty()){
-				JOptionPane.showMessageDialog(null, "Ningún de los campos puede quedarse vacio.", "Advertencia!", JOptionPane.WARNING_MESSAGE);
+			if(txtUsuario.getText().isEmpty() || txtContraseÃ±a.getText().isEmpty()){
+				JOptionPane.showMessageDialog(null, "NingÃºn de los campos puede quedarse vacio.", "Advertencia!", JOptionPane.WARNING_MESSAGE);
 			}else{
-				Conexion.getInstacia().validarUsuario(txtUsuario.getText(), txtContraseña.getText());
+				Conexion.getInstacia().validarUsuario(txtUsuario.getText(), txtContraseÃ±a.getText());
 				
 			}
 		}else if(e.getSource() == btnCancelar){

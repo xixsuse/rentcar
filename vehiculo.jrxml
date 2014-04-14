@@ -97,7 +97,7 @@
 				<textElement>
 					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Anio:]]></text>
+				<text><![CDATA[Year:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="63dbf986-cee6-4c8e-af48-8a767bcd7970" x="438" y="21" width="100" height="20"/>

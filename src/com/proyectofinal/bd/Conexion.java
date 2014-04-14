@@ -94,7 +94,7 @@ public class Conexion {
 				
 			} else {
 				
-				JOptionPane.showMessageDialog(null, "Usuario y/o contraseña es incorrecto.","Error", JOptionPane.ERROR_MESSAGE);	
+				JOptionPane.showMessageDialog(null, "Usuario y/o contraseÃ±a es incorrecto.","Error", JOptionPane.ERROR_MESSAGE);	
 			}
 
 		} catch (SQLException e) {
@@ -175,7 +175,7 @@ public class Conexion {
 			prst.executeUpdate();
 			
 			if(prst != null){
-				JOptionPane.showMessageDialog(null, "El Usuario ha sido modificado exitosamente.", "Modificación del contacto", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "El Usuario ha sido modificado exitosamente.", "ModificaciÃ±n del contacto", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 		} catch (SQLException e) {
@@ -255,7 +255,7 @@ public class Conexion {
 			prst.setString(5, id);
 			prst.execute();
 			if(prst != null){
-				JOptionPane.showMessageDialog(null, "El Cliente ha sido modificado exitosamente.", "Modificación del contacto", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(null, "El Cliente ha sido modificado exitosamente.", "ModificaciÃ±n del contacto", JOptionPane.INFORMATION_MESSAGE);
 			}
 		} catch (SQLException | FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -379,7 +379,7 @@ public class Conexion {
 		FileInputStream flujo = null;
 		
 		try {
-			prst = con.prepareStatement("INSERT INTO vehiculo(idVehiculo,precio,marca,pasajeros,año,matricula,foto,transmision," +
+			prst = con.prepareStatement("INSERT INTO vehiculo(idVehiculo,precio,marca,pasajeros,aÃ±o,matricula,foto,transmision," +
 					"descripcion,cantCombustible,estado)" +	" VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 			File archivo = new File(ruta);
 			flujo = new FileInputStream(archivo);
@@ -387,7 +387,7 @@ public class Conexion {
 			prst.setInt(2, vehiculo.getPrecio());
 			prst.setString(3, vehiculo.getMarca());
 			prst.setInt(4, vehiculo.getPasajeros());
-			prst.setInt(5, vehiculo.getAño());
+			prst.setInt(5, vehiculo.getAÃ±o());
 			prst.setString(6,vehiculo.getMatricula());
 			prst.setBinaryStream(7, flujo,(int)archivo.length());
 			prst.setString(8, vehiculo.getTransmision());
@@ -426,7 +426,7 @@ public class Conexion {
 				vehiculo.setPrecio(rs.getInt("precio"));
 				vehiculo.setMarca(rs.getString("marca"));
 				vehiculo.setPasajeros(rs.getInt("pasajeros"));
-				vehiculo.setAño(rs.getInt("año"));
+				vehiculo.setAÃ±o(rs.getInt("aÃ±o"));
 				vehiculo.setMatricula(rs.getString("matricula"));
 				Blob blob = rs.getBlob("Foto");
 				byte[] data = blob.getBytes(1, (int)blob.length());
@@ -455,7 +455,7 @@ public class Conexion {
 		FileInputStream stream = null;
 		if(!ubicacion.equals("")){
 			try{
-				prst = con.prepareStatement("UPDATE vehiculo set idVehiculo=?, precio=?, marca=?, pasajeros=?,año =?," +
+				prst = con.prepareStatement("UPDATE vehiculo set idVehiculo=?, precio=?, marca=?, pasajeros=?,aÃ±o =?," +
 						"matricula=?,foto=?,transmision=?,descripcion=?,cantCombustible=?,estado=? WHERE idVehiculo=? ");
 				File archivo = new File(ubicacion);
 				stream = new FileInputStream(archivo);
@@ -463,7 +463,7 @@ public class Conexion {
 				prst.setInt(2, movil.getPrecio());
 				prst.setString(3, movil.getMarca());
 				prst.setInt(4, movil.getPasajeros());
-				prst.setInt(5, movil.getAño());
+				prst.setInt(5, movil.getAÃ±o());
 				prst.setString(6, movil.getMatricula());
 				prst.setBinaryStream(7, stream,(int)archivo.length());
 				prst.setString(8, movil.getTransmision());
@@ -483,13 +483,13 @@ public class Conexion {
 		}
 		else{
 			try{
-				prst = con.prepareStatement("UPDATE vehiculo set idVehiculo=?, precio=?, marca=?, pasajeros=?,año =?," +
+				prst = con.prepareStatement("UPDATE vehiculo set idVehiculo=?, precio=?, marca=?, pasajeros=?,aÃ±o =?," +
 						"matricula=?,transmision=?,descripcion=?,cantCombustible=?,estado=? WHERE idVehiculo=? ");
 				prst.setInt(1, movil.getIdVehiculo());
 				prst.setInt(2, movil.getPrecio());
 				prst.setString(3, movil.getMarca());
 				prst.setInt(4, movil.getPasajeros());
-				prst.setInt(5, movil.getAño());
+				prst.setInt(5, movil.getAÃ±o());
 				prst.setString(6, movil.getMatricula());
 				prst.setString(7, movil.getTransmision());
 				prst.setString(8, movil.getDescripcion());
@@ -656,8 +656,9 @@ public class Conexion {
 	            vehiculo.setIdVehiculo(Integer.parseInt(rs.getObject("idVehiculo").toString()));
 	            vehiculo.setMarca(rs.getObject("marca").toString());
 	            vehiculo.setPasajeros(Integer.parseInt(rs.getObject("pasajeros").toString()));
-	            vehiculo.setAño(Integer.parseInt(rs.getObject("año").toString()));
+	            vehiculo.setAÃ±o(Integer.parseInt(rs.getObject("aÃ±o").toString()));
 	            vehiculo.setMatricula(rs.getObject("matricula").toString());
+	            vehiculo.setPrecio(Integer.parseInt(rs.getObject("precio").toString()));
 	            Blob blob = rs.getBlob("foto");
 	            int blobLength=(int)blob.length();
 	            byte[] blobasbytes = blob.getBytes(1, blobLength);

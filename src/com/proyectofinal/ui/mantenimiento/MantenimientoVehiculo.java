@@ -42,7 +42,7 @@ public class MantenimientoVehiculo extends JFrame{
 	private FileNameExtensionFilter filtroImagen = new FileNameExtensionFilter("Imagenes", "jpg");
 	private Calendar calendario = Calendar.getInstance();
 	private ArrayList<String> fechas = new ArrayList<String>();
-	private JComboBox cbbAño;
+	private JComboBox cbbAÃ±o;
 	private JTextArea txtDescripcion;
 	private String ruta = "";
 	private JTextField txtCombustible;
@@ -102,16 +102,16 @@ public class MantenimientoVehiculo extends JFrame{
 			public void keyTyped(KeyEvent e) {
 				char car = e.getKeyChar();        
 				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
-				    && car !='á'         
-				    && car !='é'            
-				    && car !='í'            
-				    && car !='ó'          
-				    && car !='ú'  
-				    && car !='Á'           
-				    && car !='É'            
-				    && car !='Í'            
-				    && car !='Ó'          
-				    && car !='Ú'            
+				    && car !='Ã±'         
+				    && car !='Ã±'            
+				    && car !='Ã±'            
+				    && car !='Ã±'          
+				    && car !='Ã±'  
+				    && car !='Ã±'           
+				    && car !='Ã±'            
+				    && car !='Ã±'            
+				    && car !='Ã±'          
+				    && car !='Ã±'            
 				    && (car!=(char)KeyEvent.VK_SPACE))
 				{      
 				  e.consume();  
@@ -146,16 +146,16 @@ public class MantenimientoVehiculo extends JFrame{
 			public void keyTyped(KeyEvent evt) {
 				char car = evt.getKeyChar();        
 				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
-				    && car !='á'          
-				    && car !='é'            
-				    && car !='í'            
-				    && car !='ó'          
-				    && car !='ú'  
-				    && car !='Á'          
-				    && car !='É'            
-				    && car !='Í'            
-				    && car !='Ó'          
-				    && car !='Ú'            
+				    && car !='Ã±'          
+				    && car !='Ã±'            
+				    && car !='Ã±'            
+				    && car !='Ã±'          
+				    && car !='Ã±'  
+				    && car !='Ã±'          
+				    && car !='Ã±'            
+				    && car !='Ã±'            
+				    && car !='Ã±'          
+				    && car !='Ã±'            
 				   )
 				{      
 				  evt.consume();  
@@ -169,9 +169,9 @@ public class MantenimientoVehiculo extends JFrame{
 				.get(Calendar.YEAR) - 50); i--) {
 			fechas.add(String.valueOf(i));
 		}
-		cbbAño = new JComboBox(fechas.toArray());
-		cbbAño.setBounds(394, 8, 86, 23);
-		getContentPane().add(cbbAño);
+		cbbAÃ±o = new JComboBox(fechas.toArray());
+		cbbAÃ±o.setBounds(394, 8, 86, 23);
+		getContentPane().add(cbbAÃ±o);
 
 		txtDescripcion = new JTextArea();
 		txtDescripcion.setBounds(296, 145, 218, 58);
@@ -229,7 +229,7 @@ public class MantenimientoVehiculo extends JFrame{
 						new Vehiculo(Integer.parseInt(txtPrecio.getText().toString()),
 								txtMarca.getText(), Integer
 										.parseInt(txtPasajeros.getText().toString()),
-								Integer.parseInt((String) cbbAño
+								Integer.parseInt((String) cbbAÃ±o
 										.getSelectedItem()), txtMatricula
 										.getText(), comboTransmision.getSelectedItem().toString(),
 								txtDescripcion.getText(),Integer.parseInt(txtCombustible.getText()), false),ruta);
@@ -267,7 +267,7 @@ public class MantenimientoVehiculo extends JFrame{
 					ModeloVehiculos.getInstancia().modificarVehiculo(new Vehiculo(Integer.parseInt(txtPrecio.getText().toString()),
 							txtMarca.getText(), Integer
 							.parseInt(txtPasajeros.getText().toString()),
-					Integer.parseInt((String) cbbAño
+					Integer.parseInt((String) cbbAÃ±o
 							.getSelectedItem()), txtMatricula
 							.getText(), comboTransmision.getSelectedItem().toString(),
 					txtDescripcion.getText(),Integer.parseInt(txtCombustible.getText().toString()), false),ruta, tblVehiculos.getSelectedRow());

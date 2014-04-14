@@ -8,7 +8,7 @@ public class Vehiculo {
 	private int precio;
 	private String marca;
 	private int pasajeros;
-	private int año;
+	private int aÃ±o;
 	private String matricula;
 	private Image foto;
 	private String transmision;
@@ -18,14 +18,14 @@ public class Vehiculo {
 
 	private boolean estado;
 	
-	public Vehiculo(int precio, String marca, int pasajeros, int año,
+	public Vehiculo(int precio, String marca, int pasajeros, int aÃ±o,
 			String matricula, String transmision,
 			String descripcion,int combustible, boolean estado) {
 		super();
 		this.precio = precio;
 		this.marca = marca;
 		this.pasajeros = pasajeros;
-		this.año = año;
+		this.aÃ±o = aÃ±o;
 		this.matricula = matricula;
 		this.transmision = transmision;
 		this.descripcion = descripcion;
@@ -33,14 +33,14 @@ public class Vehiculo {
 		this.combustible = combustible;
 	}
 	public Vehiculo(int idVehiculo, int precio, String marca, int pasajeros,
-			int año, String matricula, Image foto, String transmision,
+			int aÃ±o, String matricula, Image foto, String transmision,
 			String descripcion, int idCategoria,int combustible, boolean estado) {
 		super();
 		this.idVehiculo = idVehiculo;
 		this.precio = precio;
 		this.marca = marca;
 		this.pasajeros = pasajeros;
-		this.año = año;
+		this.aÃ±o = aÃ±o;
 		this.matricula = matricula;
 		this.foto = foto;
 		this.transmision = transmision;
@@ -83,11 +83,11 @@ public class Vehiculo {
 	public void setPasajeros(int pasajeros) {
 		this.pasajeros = pasajeros;
 	}
-	public int getAño() {
-		return año;
+	public int getAÃ±o() {
+		return aÃ±o;
 	}
-	public void setAño(int año) {
-		this.año = año;
+	public void setAÃ±o(int aÃ±o) {
+		this.aÃ±o = aÃ±o;
 	}
 	public String getMatricula() {
 		return matricula;
