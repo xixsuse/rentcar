@@ -14,8 +14,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
@@ -640,6 +644,37 @@ public class Conexion {
 	
 	///Final del mantenimiento de seguros
 
+	//Reporte
+	public LinkedList getInformacionVehiculos(){
+	    LinkedList info = new LinkedList();
+	    Vehiculo vehiculo;
+	    try {
+	        ResultSet rs = st.executeQuery("SELECT * FROM vehiculo"); 
+	        while (rs.next()){
+	        	vehiculo = new Vehiculo();
+				//agregamos la informacion a el objeto consulta
+	            vehiculo.setIdVehiculo(Integer.parseInt(rs.getObject("idVehiculo").toString()));
+	            vehiculo.setMarca(rs.getObject("marca").toString());
+	            vehiculo.setPasajeros(Integer.parseInt(rs.getObject("pasajeros").toString()));
+	            vehiculo.setAño(Integer.parseInt(rs.getObject("año").toString()));
+	            vehiculo.setMatricula(rs.getObject("matricula").toString());
+	            Blob blob = rs.getBlob("foto");
+	            int blobLength=(int)blob.length();
+	            byte[] blobasbytes = blob.getBytes(1, blobLength);
+	            ImageIcon icon = new ImageIcon((byte[])blobasbytes);
+	            vehiculo.setFoto(icon.getImage());
+	            vehiculo.setTransmision(rs.getObject("transmision").toString());
+	            vehiculo.setDescripcion(rs.getObject("descripcion").toString());
+	            //agregamos nueva consulta a la informacion
+	            info.add(vehiculo);
+	        }
+	        rs.close();
+	        return info;
+	    } catch (SQLException ex) {
+	        Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	    return null;
+	}
 
      
 }

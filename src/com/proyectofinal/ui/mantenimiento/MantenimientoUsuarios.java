@@ -189,6 +189,7 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 	}
 
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnAgregar){
 			if(txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtUsuario.getText().isEmpty() || txtContrasena.getText().isEmpty()){
@@ -229,6 +230,7 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		}
 
 	
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		int fila = tablaUsuarios.getSelectedRow();
 		

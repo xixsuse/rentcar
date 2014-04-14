@@ -1,13 +1,6 @@
 package com.proyectofinal;
 
 
-import com.proyectofinal.ui.Catalogo;
-import com.proyectofinal.ui.Login;
-import com.proyectofinal.ui.VentanaPrincipal;
-import com.proyectofinal.ui.mantenimiento.MantenimientoAccesorio;
-import com.proyectofinal.ui.mantenimiento.MantenimientoClientes;
-import com.proyectofinal.ui.mantenimiento.MantenimientoSeguro;
-import com.proyectofinal.ui.mantenimiento.MantenimientoUsuarios;
 import com.proyectofinal.ui.mantenimiento.MantenimientoVehiculo;
 
 public class Sistema {

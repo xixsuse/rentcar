@@ -4,7 +4,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import com.proyectofinal.bd.Conexion;
-import com.proyectofinal.modelos.ModeloAccesorios;
 
 
 public class Login extends JFrame implements ActionListener{
@@ -55,6 +53,7 @@ public class Login extends JFrame implements ActionListener{
 	}
 
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnIniciar){
 			if(txtUsuario.getText().isEmpty() || txtContraseña.getText().isEmpty()){

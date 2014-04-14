@@ -1,8 +1,5 @@
 package com.proyectofinal.entidades;
 
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 public class Accesorio {
 	private int idAccesorio;
 	private String nombre;

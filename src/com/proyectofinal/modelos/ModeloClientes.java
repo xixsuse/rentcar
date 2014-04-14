@@ -6,7 +6,6 @@ import javax.swing.table.AbstractTableModel;
 
 import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Cliente;
-import com.proyectofinal.entidades.Vehiculo;
 
 
 public class ModeloClientes extends AbstractTableModel {
@@ -26,15 +25,18 @@ public class ModeloClientes extends AbstractTableModel {
 		ArrayClientes = Conexion.getInstacia().cargarCliente();
 	}
 
+	@Override
 	public int getColumnCount() {
 
 		return tituloTabla.length;
 	}
 
+	@Override
 	public String getColumnName(int x) {
 		return tituloTabla[x];
 	}
 
+	@Override
 	public int getRowCount() {
 		return ArrayClientes.size();
 	}
@@ -44,6 +46,7 @@ public class ModeloClientes extends AbstractTableModel {
 		return datosCliente;
 	}
 
+	@Override
 	public Object getValueAt(int x, int y) {
 		String respuesta = null;
 		Cliente cliente = ArrayClientes.get(x);

@@ -43,20 +43,24 @@ public class ModeloAlquiler extends AbstractTableModel{
 		fireTableDataChanged();
 	}
 	
+	@Override
 	public int getColumnCount() {
 		return encabezados.length;
 	}
 
 	
+	@Override
 	public int getRowCount() {
 		return listaAlquileres.size();
 	}
 
+	@Override
 	public String getColumnName(int index) {
 		return encabezados[index];
 	}
 
 
+	@Override
 	public Object getValueAt(int fila, int columna) {
 		String resultado = null;
 		Alquiler alquiler = listaAlquileres.get(fila);

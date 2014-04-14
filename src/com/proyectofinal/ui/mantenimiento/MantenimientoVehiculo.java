@@ -184,10 +184,11 @@ public class MantenimientoVehiculo extends JFrame{
 
 		JButton btnSubirImagen = new JButton("...");
 		btnSubirImagen.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				archivador.setFileFilter(filtroImagen);
 				int seleccion = archivador.showOpenDialog(archivador);
-				if (seleccion == archivador.APPROVE_OPTION) {
+				if (seleccion == JFileChooser.APPROVE_OPTION) {
 					
 					File foto = archivador.getSelectedFile();
 					ruta = foto.getPath();
@@ -219,6 +220,7 @@ public class MantenimientoVehiculo extends JFrame{
 		tblVehiculos.getTableHeader().setReorderingAllowed(false);
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(ruta.equals("")){
 					JOptionPane.showMessageDialog(null, "Debe seleccionar la fota para este vehiculo");
@@ -240,6 +242,7 @@ public class MantenimientoVehiculo extends JFrame{
 
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(tblVehiculos.getSelectedRow()==-1){
 					JOptionPane.showMessageDialog(null, "Debe seleccionar la fila que desea eliminar");
@@ -255,6 +258,7 @@ public class MantenimientoVehiculo extends JFrame{
 
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(tblVehiculos.getSelectedRow()==-1){
 					JOptionPane.showMessageDialog(null, "Debe seleccionar la fila que desea modificar");
@@ -301,6 +305,7 @@ public class MantenimientoVehiculo extends JFrame{
 		
 		JButton btnAnterior = new JButton("<<<");
 		btnAnterior.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(tblVehiculos.getSelectedRow()==-1){
 					JOptionPane.showMessageDialog(null, "Debe seleccionar almenos un registro");
@@ -315,6 +320,7 @@ public class MantenimientoVehiculo extends JFrame{
 		
 		JButton btnSiguiente = new JButton(">>>");
 		btnSiguiente.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(tblVehiculos.getSelectedRow()==-1){
 					JOptionPane.showMessageDialog(null, "Debe seleccionar almenos un registro");

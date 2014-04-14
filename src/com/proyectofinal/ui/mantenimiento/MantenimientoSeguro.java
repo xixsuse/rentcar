@@ -1,6 +1,5 @@
 package com.proyectofinal.ui.mantenimiento;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -131,6 +130,7 @@ public class MantenimientoSeguro extends JFrame {
 		
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(txtCategoria.getText().isEmpty() || txtNombre.getText().isEmpty() || txtPrecio.getText().isEmpty()){
 					JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -154,6 +154,7 @@ public class MantenimientoSeguro extends JFrame {
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				int fila = tableSeguro.getSelectedRow();
 				if(fila < 0){
@@ -176,6 +177,7 @@ public class MantenimientoSeguro extends JFrame {
 		
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				int index = tableSeguro.getSelectedRow();
 				if(index < 0){

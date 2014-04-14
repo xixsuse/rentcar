@@ -6,7 +6,6 @@ import javax.swing.table.AbstractTableModel;
 
 import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Usuario;
-import com.proyectofinal.ui.mantenimiento.MantenimientoUsuarios;
 
 
 public class ModeloUsuarios extends AbstractTableModel {
@@ -30,19 +29,23 @@ public class ModeloUsuarios extends AbstractTableModel {
 	}
 	
 
+	@Override
 	public int getColumnCount() {
 		return tituloTabla.length;
 	}
 
+	@Override
 	public int getRowCount() {
 		return ArrayUsuarios.size();
 	}
 
+	@Override
 	public String getColumnName(int x) {
 
 		return tituloTabla[x];
 	}
 	
+	@Override
 	public Object getValueAt(int x, int y) {
 		String seleccion = null;
 		Usuario usuario = ArrayUsuarios.get(x);

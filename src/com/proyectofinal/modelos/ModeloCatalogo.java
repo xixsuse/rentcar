@@ -25,15 +25,18 @@ public class ModeloCatalogo extends AbstractTableModel{
 		listaVehiculos = Conexion.getInstacia().cargarVehiculos();
 	}
 	
+	@Override
 	public int getColumnCount() {
 		
 		return encabezados.length;
 	}
 
+	@Override
 	public int getRowCount() {
 		return listaVehiculos.size();
 	}
 
+	@Override
 	public Object getValueAt(int fila, int columna) {
 		ImageIcon resultado = null;
 		switch(columna){
@@ -43,6 +46,7 @@ public class ModeloCatalogo extends AbstractTableModel{
 		return resultado;
 	}
 
+	@Override
 	public Class getColumnClass(int columna) {
 		if(columna==0){
 			return ImageIcon.class;
@@ -51,6 +55,7 @@ public class ModeloCatalogo extends AbstractTableModel{
 	}
 
 	
+	@Override
 	public String getColumnName(int index) {
 		return encabezados[index];
 	}

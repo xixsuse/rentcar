@@ -49,19 +49,23 @@ public class ModeloVehiculos extends AbstractTableModel{
 		return datosVehiculo;
 	}
 	
+	@Override
 	public int getColumnCount() {
 		return encabezados.length;
 	}
 
+	@Override
 	public int getRowCount() {
 		
 		return listaVehiculos.size();
 	}
 
+	@Override
 	public String getColumnName(int index) {
 		return encabezados[index];
 	}
 
+	@Override
 	public Object getValueAt(int index, int columna) {
 		String resultado = null;
 		switch(columna){

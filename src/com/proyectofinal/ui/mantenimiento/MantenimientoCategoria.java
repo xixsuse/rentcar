@@ -1,6 +1,5 @@
 package com.proyectofinal.ui.mantenimiento;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -75,6 +74,7 @@ public class MantenimientoCategoria extends JFrame {
 		
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(txtCategoria.getText().equals("")){
 					JOptionPane.showMessageDialog(null, "Ha de completar el campo antes de agregar.");
@@ -91,6 +91,7 @@ public class MantenimientoCategoria extends JFrame {
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int fila = tlbCategoria.getSelectedRow();
 				if(fila < 0){
@@ -129,6 +130,7 @@ public class MantenimientoCategoria extends JFrame {
 		
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int index = tlbCategoria.getSelectedRow();
 				if(index < 0){

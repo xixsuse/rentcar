@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 import com.proyectofinal.bd.Conexion;
-import com.proyectofinal.entidades.Accesorio;
 import com.proyectofinal.entidades.Categoria;
 
 public class ModeloCategoria extends AbstractTableModel{

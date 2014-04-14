@@ -1,6 +1,5 @@
 package com.proyectofinal.ui.mantenimiento;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -8,17 +7,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
-import java.sql.SQLException;
-
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,12 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.xml.crypto.dsig.spec.XPathType.Filter;
-
-import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Cliente;
 import com.proyectofinal.modelos.ModeloClientes;
-import com.proyectofinal.modelos.ModeloUsuarios;
 import com.proyectofinal.ui.BuscadorTablas;
 
 
@@ -251,7 +237,7 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 			int seleccion = jc.showOpenDialog(null);
 			File archivo = jc.getSelectedFile();
 			
-			if(seleccion == jc.APPROVE_OPTION){
+			if(seleccion == JFileChooser.APPROVE_OPTION){
 				
 			jc.setFileFilter(filtro);
 			
@@ -266,7 +252,7 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 			
 			String nombreArchivo = archivo.getName();
 			txtNombreDocumento.setText(nombreArchivo);
-			}else if (seleccion == jc.CANCEL_OPTION){
+			}else if (seleccion == JFileChooser.CANCEL_OPTION){
 				JOptionPane.showMessageDialog(this, "Debe seleccionar un documento.", "Error", JOptionPane.ERROR_MESSAGE);
 				
 			}else{

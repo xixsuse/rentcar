@@ -8,8 +8,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JSeparator;
-
 import com.proyectofinal.ui.mantenimiento.MantenimientoClientes;
 import com.proyectofinal.ui.mantenimiento.MantenimientoAccesorio;
 import com.proyectofinal.ui.mantenimiento.MantenimientoUsuarios;
@@ -63,6 +61,7 @@ public class VentanaAdministrador extends JFrame implements ActionListener{
 	}
 
 	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		int respuesta = 0;
 		
