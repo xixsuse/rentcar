@@ -40,8 +40,7 @@ public class ModeloVehiculos extends AbstractTableModel{
 		Vehiculo vehiculo2 = listaVehiculos.get(index);
 		Conexion.getInstacia().modificarVehiculo(vehiculo2.getIdVehiculo(), movil, ruta);
 		listaVehiculos = Conexion.getInstacia().cargarVehiculos();
-		fireTableDataChanged();
-		
+		fireTableDataChanged();	
 	}
 	
 	public Vehiculo cargarDatos(int index){
