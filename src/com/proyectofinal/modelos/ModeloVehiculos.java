@@ -81,7 +81,7 @@ public class ModeloVehiculos extends AbstractTableModel{
 			resultado = String.valueOf(listaVehiculos.get(index).getPasajeros());
 			break;
 		case 4: 
-			resultado = String.valueOf(listaVehiculos.get(index).getAÃ±o());
+			resultado = String.valueOf(listaVehiculos.get(index).getAño());
 			break;
 		case 5: 
 			resultado = listaVehiculos.get(index).getMatricula();
