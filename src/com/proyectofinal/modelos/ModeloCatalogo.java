@@ -27,7 +27,6 @@ public class ModeloCatalogo extends AbstractTableModel{
 	
 	@Override
 	public int getColumnCount() {
-		
 		return encabezados.length;
 	}
 
@@ -42,6 +41,7 @@ public class ModeloCatalogo extends AbstractTableModel{
 		switch(columna){
 		case 0:
 			resultado = new ImageIcon(listaVehiculos.get(fila).getFoto().getScaledInstance(200, 300,java.awt.Image.SCALE_SMOOTH));
+			break;
 		}
 		return resultado;
 	}

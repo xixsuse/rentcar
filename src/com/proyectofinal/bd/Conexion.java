@@ -504,13 +504,13 @@ public class Conexion {
 			}
 		}
 	}
-	public ArrayList<Categoria> obtenerCategorias(){
-		ArrayList<Categoria> listaCategorias = null;
+	public ArrayList<String> obtenerCategorias(){
+		ArrayList<String> listaCategorias = null;
 		try{
 			rs = st.executeQuery("SELECT * FROM categoria");
-			listaCategorias = new ArrayList<Categoria>();
+			listaCategorias = new ArrayList<String>();
 			while(rs.next()){
-				listaCategorias.add(new Categoria(rs.getInt("idCategoria"),rs.getString("nombre")));
+				listaCategorias.add(rs.getString("nombre"));
 			}
 		}catch(SQLException sql){
 			sql.printStackTrace();
