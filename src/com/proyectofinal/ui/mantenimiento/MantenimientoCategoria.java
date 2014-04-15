@@ -19,6 +19,7 @@ import com.proyectofinal.entidades.Categoria;
 import com.proyectofinal.modelos.ModeloCategoria;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Font;
 
 public class MantenimientoCategoria extends JFrame {
 
@@ -34,9 +35,11 @@ public class MantenimientoCategoria extends JFrame {
 		return instancia;
 	}
 	
-	public MantenimientoCategoria() {
+	private MantenimientoCategoria() {
+		setResizable(false);
+		setTitle("Administraci\u00F3n de categoria");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 348, 390);
+		setBounds(100, 100, 335, 390);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -64,12 +67,13 @@ public class MantenimientoCategoria extends JFrame {
 				}
 			}
 		});
-		txtCategoria.setBounds(120, 43, 200, 20);
+		txtCategoria.setBounds(109, 61, 200, 20);
 		contentPane.add(txtCategoria);
 		txtCategoria.setColumns(10);
 		
 		JLabel lblCategoria = new JLabel("Categoria:");
-		lblCategoria.setBounds(29, 46, 70, 14);
+		lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblCategoria.setBounds(10, 63, 70, 14);
 		contentPane.add(lblCategoria);
 		
 		JButton btnGuardar = new JButton("Guardar");
@@ -110,22 +114,24 @@ public class MantenimientoCategoria extends JFrame {
 		contentPane.add(btnEliminar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 156, 310, 185);
+		scrollPane.setBounds(10, 156, 299, 185);
 		contentPane.add(scrollPane);
 		
 		tlbCategoria = new JTable(ModeloCategoria.getInstacia());
+		tlbCategoria.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tlbCategoria.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				int fila = tlbCategoria.getSelectedRow();
-				txtCategoria.setText(tlbCategoria.getValueAt(fila, 1).toString());
+				txtCategoria.setText(tlbCategoria.getValueAt(fila, 0).toString());
 			}
 		});
 		scrollPane.setViewportView(tlbCategoria);
 		tlbCategoria.getTableHeader().setReorderingAllowed(false);
 		
 		JLabel lblListadoDeCategorias = new JLabel("Listado de categorias:");
-		lblListadoDeCategorias.setBounds(10, 131, 126, 14);
+		lblListadoDeCategorias.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblListadoDeCategorias.setBounds(10, 131, 129, 20);
 		contentPane.add(lblListadoDeCategorias);
 		
 		JButton btnModificar = new JButton("Modificar");
@@ -147,5 +153,10 @@ public class MantenimientoCategoria extends JFrame {
 		});
 		btnModificar.setBounds(220, 92, 89, 23);
 		contentPane.add(btnModificar);
+		
+		JLabel lblCategorias = new JLabel("Categorias");
+		lblCategorias.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblCategorias.setBounds(111, 11, 118, 39);
+		contentPane.add(lblCategorias);
 	}
 }

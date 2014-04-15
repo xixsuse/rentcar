@@ -57,7 +57,7 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 	}
 	
 
-	public MantenimientoClientes() {
+	private MantenimientoClientes() {
 		setTitle("Matenimiento de clientes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 771, 494);

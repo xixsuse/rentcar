@@ -11,7 +11,7 @@ public class ModeloCategoria extends AbstractTableModel{
 	
 	
 	private static ModeloCategoria instancia;
-	String[] encabezados = {"Numero de categoria","Categoria"};
+	String[] encabezados = {"Categoria"};
 	ArrayList<Categoria> categorias = new ArrayList<Categoria>();
 	
 	public static ModeloCategoria getInstacia(){
@@ -47,9 +47,6 @@ public class ModeloCategoria extends AbstractTableModel{
 		
 		switch (y) {
 		case 0:
-			retorno = String.valueOf(categoria.getIdCategoria());
-			break;
-		case 1:
 			retorno = categoria.getNombre();
 			break;
 		}

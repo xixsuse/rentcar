@@ -10,7 +10,7 @@ import com.proyectofinal.entidades.Seguro;
 public class ModeloSeguro extends AbstractTableModel{
 	
 	private static ModeloSeguro instancia;
-	String[] encabezados = {"Numero de seguro","Categoria","Precio", "Nombre", "Cobertura"};
+	String[] encabezados = {"Categoria","Precio", "Nombre", "Cobertura"};
 	ArrayList<Seguro> arraySeguros = new ArrayList<Seguro>();
 	
 	public static ModeloSeguro getInstacia(){
@@ -46,18 +46,15 @@ public class ModeloSeguro extends AbstractTableModel{
 		
 		switch (y) {
 		case 0:
-			retorno = String.valueOf(seguro.getIdSeguro());
-			break;
-		case 1:
 			retorno = seguro.getCategoria();
 			break;
-		case 2:
+		case 1:
 			retorno = String.valueOf(seguro.getPrecio());
 			break;
-		case 3:
+		case 2:
 			retorno = seguro.getNombre();
 			break;
-		case 4:
+		case 3:
 			retorno = seguro.getCobertura();
 			break;
 		}

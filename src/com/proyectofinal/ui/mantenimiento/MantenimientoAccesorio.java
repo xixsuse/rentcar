@@ -19,6 +19,9 @@ import com.proyectofinal.entidades.Accesorio;
 import com.proyectofinal.modelos.ModeloAccesorios;
 import com.proyectofinal.ui.BuscadorTablas;
 import java.awt.event.KeyAdapter;
+import java.awt.Font;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 
 public class MantenimientoAccesorio extends JFrame implements ActionListener, MouseListener{
@@ -31,9 +34,10 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 	private JTextArea txtDescripcion;
 	private JButton btnModificar;
 	private JButton btnBuscar;
-	
 	private static MantenimientoAccesorio instancia;
 	private JTextField txtBuscar;
+	private JLabel lblListadoDeAccesorios;
+	
 	public static MantenimientoAccesorio getInstacia(){
 		if(instancia == null){
 			instancia = new MantenimientoAccesorio();
@@ -42,28 +46,110 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 	}
 	
 	public MantenimientoAccesorio() {
-		setTitle("Mantenimiento de Accesorios");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 651, 458);
+		setResizable(false);
+		setTitle("Administraci\u00F3n de accesorios");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 677, 505);
 		getContentPane().setLayout(null);
 		
-		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(10, 26, 71, 14);
-		getContentPane().add(lblNombre);
-		
-		JLabel lblSerial = new JLabel("Serial:");
-		lblSerial.setBounds(10, 54, 71, 14);
-		getContentPane().add(lblSerial);
-		
-		JLabel lblDescripcion = new JLabel("Descripcion");
-		lblDescripcion.setBounds(10, 109, 71, 14);
+		JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
+		lblDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblDescripcion.setBounds(20, 205, 71, 14);
 		getContentPane().add(lblDescripcion);
 		
+		btnAgregar = new JButton("Agregar");
+		btnAgregar.setBounds(20, 358, 71, 23);
+		btnAgregar.addActionListener(this);
+		getContentPane().add(btnAgregar);
+		
+		btnBorrar = new JButton("Borrar");
+		btnBorrar.setBounds(98, 358, 63, 23);
+		btnBorrar.addActionListener(this);
+		getContentPane().add(btnBorrar);
+		
+		JScrollPane scrollPaneTabla = new JScrollPane(tablaAccesorios);
+		scrollPaneTabla.setBounds(268, 101, 383, 322);
+		getContentPane().add(scrollPaneTabla);
+		
+		tablaAccesorios = new JTable(ModeloAccesorios.getInstacia());
+		scrollPaneTabla.setViewportView(tablaAccesorios);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 219, 220, 130);
+		getContentPane().add(scrollPane);
+		
+		txtDescripcion = new JTextArea();
+		scrollPane.setViewportView(txtDescripcion);
+		
+		btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(167, 358, 75, 23);
+		btnModificar.addActionListener(this);
+		getContentPane().add(btnModificar);
+		
+		txtBuscar = new JTextField();
+		txtBuscar.setBounds(400, 81, 180, 19);
+		getContentPane().add(txtBuscar);
+		txtBuscar.setColumns(10);
+		
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnBuscar.setBounds(580, 79, 71, 23);
+		btnBuscar.addActionListener(this);
+		btnBuscar.setMnemonic('B');
+		getContentPane().add(btnBuscar);
+		
+		JLabel lblAccesorios = new JLabel("Accesorios");
+		lblAccesorios.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblAccesorios.setBounds(268, 29, 108, 23);
+		getContentPane().add(lblAccesorios);
+		
+		lblListadoDeAccesorios = new JLabel("Listado de accesorios:");
+		lblListadoDeAccesorios.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblListadoDeAccesorios.setBounds(268, 83, 141, 14);
+		getContentPane().add(lblListadoDeAccesorios);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Informaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 74, 248, 349);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
 		JLabel lblPrecio = new JLabel("Precio:");
-		lblPrecio.setBounds(10, 84, 71, 14);
-		getContentPane().add(lblPrecio);
+		lblPrecio.setBounds(10, 105, 71, 14);
+		panel.add(lblPrecio);
+		lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(91, 104, 141, 17);
+		panel.add(txtPrecio);
+		txtPrecio.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();
+				if(txtPrecio.getText().length()>=8) e.consume();
+				if((car<'0' || car>'9')) e.consume();
+			}
+		});
+		txtPrecio.setColumns(10);
+		
+		JLabel lblSerial = new JLabel("Serial:");
+		lblSerial.setBounds(10, 69, 71, 14);
+		panel.add(lblSerial);
+		lblSerial.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		txtSerial = new JTextField();
+		txtSerial.setBounds(91, 68, 141, 17);
+		panel.add(txtSerial);
+		txtSerial.setColumns(10);
+		
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(10, 31, 71, 14);
+		panel.add(lblNombre);
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		txtNombre = new JTextField();
+		txtNombre.setBounds(91, 30, 141, 17);
+		panel.add(txtNombre);
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -87,71 +173,7 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 
 			}
 		});
-		txtNombre.setBounds(91, 23, 141, 17);
-		getContentPane().add(txtNombre);
 		txtNombre.setColumns(10);
-		
-		txtSerial = new JTextField();
-		txtSerial.setColumns(10);
-		txtSerial.setBounds(91, 52, 141, 17);
-		getContentPane().add(txtSerial);
-		
-		txtPrecio = new JTextField();
-		txtPrecio.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char car = e.getKeyChar();
-				if(txtPrecio.getText().length()>=8) e.consume();
-				if((car<'0' || car>'9')) e.consume();
-			}
-		});
-		txtPrecio.setBounds(91, 81, 141, 17);
-		getContentPane().add(txtPrecio);
-		txtPrecio.setColumns(10);
-		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(10, 271, 71, 23);
-		btnAgregar.addActionListener(this);
-		getContentPane().add(btnAgregar);
-		
-		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(85, 271, 63, 23);
-		btnBorrar.addActionListener(this);
-		getContentPane().add(btnBorrar);
-		
-		JScrollPane scrollPaneTabla = new JScrollPane(tablaAccesorios);
-		scrollPaneTabla.setBounds(242, 48, 383, 361);
-		getContentPane().add(scrollPaneTabla);
-		
-		tablaAccesorios = new JTable(ModeloAccesorios.getInstacia());
-		scrollPaneTabla.setViewportView(tablaAccesorios);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 130, 220, 130);
-		getContentPane().add(scrollPane);
-		
-		txtDescripcion = new JTextArea();
-		scrollPane.setViewportView(txtDescripcion);
-		
-		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(154, 271, 75, 23);
-		btnModificar.addActionListener(this);
-		getContentPane().add(btnModificar);
-		
-		txtBuscar = new JTextField();
-		txtBuscar.setBounds(322, 23, 180, 19);
-		getContentPane().add(txtBuscar);
-		txtBuscar.setColumns(10);
-		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(510, 22, 115, 23);
-		btnBuscar.addActionListener(this);
-		btnBuscar.setMnemonic('B');
-		getContentPane().add(btnBuscar);
-		
-		JLabel lblBuscar = new JLabel("Buscar:");
-		lblBuscar.setBounds(242, 26, 70, 14);
-		getContentPane().add(lblBuscar);
 		tablaAccesorios.addMouseListener(this);
 		
 		tablaAccesorios.getTableHeader().setReorderingAllowed(false);
@@ -236,6 +258,4 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 }

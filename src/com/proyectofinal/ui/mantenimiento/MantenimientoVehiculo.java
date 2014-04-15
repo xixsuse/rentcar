@@ -32,6 +32,9 @@ import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Vehiculo;
 import com.proyectofinal.modelos.ModeloVehiculos;
 import com.proyectofinal.ui.BuscadorTablas;
+import java.awt.Font;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 public class MantenimientoVehiculo extends JFrame{
 	private JTextField txtPrecio;
@@ -51,137 +54,31 @@ public class MantenimientoVehiculo extends JFrame{
 	private JComboBox cbbCategoria;
 	private JComboBox comboTransmision;
 	private JTextField txtBuscar;
+	private static MantenimientoVehiculo instancia;
+	
+	public static MantenimientoVehiculo getInstancia(){
+		if(instancia == null){
+			instancia = new MantenimientoVehiculo();
+		}
+		return instancia;
+	}
 
-	public MantenimientoVehiculo() {
+	private MantenimientoVehiculo() {
 		super("Mantenimiento de vehiculos");
-		setSize(842, 469);
+		setTitle("Administraci\u00F3n de veh\u00EDculos");
+		setResizable(false);
+		setSize(884, 708);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-
-		JLabel lblNewLabel = new JLabel("Precio:");
-		lblNewLabel.setBounds(14, 11, 42, 14);
-		getContentPane().add(lblNewLabel);
-
-		JLabel lblNewLabel_1 = new JLabel("Marca:");
-		lblNewLabel_1.setBounds(14, 55, 46, 14);
-		getContentPane().add(lblNewLabel_1);
-
-		JLabel lblMatricula = new JLabel("Matricula:");
-		lblMatricula.setBounds(10, 103, 66, 14);
-		getContentPane().add(lblMatricula);
-
-		JLabel lblPasajeros = new JLabel("Pasajeros:");
-		lblPasajeros.setBounds(296, 55, 74, 14);
-		getContentPane().add(lblPasajeros);
-
-		JLabel lblTransmision = new JLabel("Transmision:");
-		lblTransmision.setBounds(10, 150, 98, 14);
-		getContentPane().add(lblTransmision);
-
-		JLabel lblAo = new JLabel("A\u00F1o:");
-		lblAo.setBounds(296, 11, 46, 14);
-		getContentPane().add(lblAo);
-
-		JLabel lblDescripcion = new JLabel("Descripcion:");
-		lblDescripcion.setBounds(298, 116, 98, 17);
-		getContentPane().add(lblDescripcion);
-
-		txtPrecio = new JTextField();
-		txtPrecio.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char car = e.getKeyChar();
-				if(txtCombustible.getText().length()>=8) e.consume();
-				if((car<'0' || car>'9')) e.consume();
-			}
-		});
-		txtPrecio.setBounds(159, 11, 127, 20);
-		getContentPane().add(txtPrecio);
-		txtPrecio.setColumns(10);
-
-		txtMarca = new JTextField();
-		txtMarca.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char car = e.getKeyChar();        
-				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
-				    && car !='á'         
-				    && car !='é'            
-				    && car !='í'            
-				    && car !='ó'          
-				    && car !='ú'  
-				    && car !='Á'           
-				    && car !='É'            
-				    && car !='Í'            
-				    && car !='Ó'          
-				    && car !='Ú'            
-				    && (car!=(char)KeyEvent.VK_SPACE))
-				{      
-				  e.consume();  
-				}
-			}
-		});
-		txtMarca.setBounds(159, 55, 127, 20);
-		getContentPane().add(txtMarca);
-		txtMarca.setColumns(10);
-
-		txtMatricula = new JTextField();
-		txtMatricula.setBounds(160, 103, 126, 20);
-		getContentPane().add(txtMatricula);
-		txtMatricula.setColumns(10);
-
-		txtPasajeros = new JTextField();
-		txtPasajeros.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char car = e.getKeyChar();
-				if(txtCombustible.getText().length()>=8) e.consume();
-				if((car<'0' || car>'9')) e.consume();
-			}
-		});
-		txtPasajeros.setBounds(394, 52, 120, 20);
-		getContentPane().add(txtPasajeros);
-		txtPasajeros.setColumns(10);
 		for (int i = calendario.get(Calendar.YEAR) + 1; i >= (calendario
 				.get(Calendar.YEAR) - 50); i--) {
 			fechas.add(String.valueOf(i));
 		}
-		cbbAño = new JComboBox(fechas.toArray());
-		cbbAño.setBounds(394, 8, 120, 23);
-		getContentPane().add(cbbAño);
 
 		Border borde = LineBorder.createBlackLineBorder();
-		
-		lblImagen = new JLabel("");
-		lblImagen.setLayout(new BorderLayout());
-		lblImagen.setBounds(588, 11, 228, 204);
-		lblImagen.setBorder(borde);
-		getContentPane().add(lblImagen);
-
-		JButton btnSubirImagen = new JButton("Adjuntar imagen");
-		btnSubirImagen.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				archivador.setFileFilter(filtroImagen);
-				int seleccion = archivador.showOpenDialog(archivador);
-				if (seleccion == JFileChooser.APPROVE_OPTION) {
-					
-					File foto = archivador.getSelectedFile();
-					ruta = foto.getPath();
-					ImageIcon imagen = new ImageIcon(ruta);
-					Image iconImage = imagen.getImage();
-					Image newImage = iconImage.getScaledInstance(228, 204,
-							java.awt.Image.SCALE_SMOOTH);
-					ImageIcon fotoImagen = new ImageIcon(newImage);
-					lblImagen.setIcon(fotoImagen);
-				}
-			}
-		});
-		btnSubirImagen.setBounds(648, 226, 124, 23);
-		getContentPane().add(btnSubirImagen);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 265, 806, 154);
+		scrollPane.setBounds(25, 413, 829, 240);
 		getContentPane().add(scrollPane);
 
 
@@ -194,103 +91,6 @@ public class MantenimientoVehiculo extends JFrame{
 		});
 		scrollPane.setViewportView(tblVehiculos);
 		tblVehiculos.getTableHeader().setReorderingAllowed(false);
-		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if(ruta.equals("")){
-					JOptionPane.showMessageDialog(null, "Debe seleccionar la fota para este vehiculo");
-				}
-				ModeloVehiculos.getInstancia().agregarVehiculo(
-						new Vehiculo(Integer.parseInt(txtPrecio.getText().toString()),
-								txtMarca.getText(), Integer
-										.parseInt(txtPasajeros.getText().toString()),
-								Integer.parseInt((String) cbbAño
-										.getSelectedItem()), txtMatricula
-										.getText(), comboTransmision.getSelectedItem().toString(),
-								txtDescripcion.getText(),Integer.parseInt(txtCombustible.getText()), false),ruta);
-				ruta = "";
-				System.out.println(txtCombustible.getText());
-			}
-		});
-		btnAgregar.setBounds(10, 237, 89, 23);
-		getContentPane().add(btnAgregar);
-
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if(tblVehiculos.getSelectedRow()==-1){
-					JOptionPane.showMessageDialog(null, "Debe seleccionar la fila que desea eliminar");
-				}
-				else{
-					ModeloVehiculos.getInstancia().eliminarVehiculo(tblVehiculos.getSelectedRow());
-				}
-				
-			}
-		});
-		btnEliminar.setBounds(110, 237, 89, 23);
-		getContentPane().add(btnEliminar);
-
-		JButton btnModificar = new JButton("Modificar");
-		btnModificar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(tblVehiculos.getSelectedRow()==-1){
-					JOptionPane.showMessageDialog(null, "Debe seleccionar la fila que desea modificar");
-				}
-				else{
-					ModeloVehiculos.getInstancia().modificarVehiculo(new Vehiculo(Integer.parseInt(txtPrecio.getText().toString()),
-							txtMarca.getText(), Integer
-							.parseInt(txtPasajeros.getText().toString()),
-					Integer.parseInt((String) cbbAño
-							.getSelectedItem()), txtMatricula
-							.getText(), comboTransmision.getSelectedItem().toString(),
-					txtDescripcion.getText(),Integer.parseInt(txtCombustible.getText().toString()), false),ruta, tblVehiculos.getSelectedRow());
-					ruta = "";
-				}
-			}
-		});
-		btnModificar.setBounds(209, 237, 89, 23);
-		getContentPane().add(btnModificar);
-		
-		txtCombustible = new JTextField();
-		txtCombustible.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char car = e.getKeyChar();
-				if(txtCombustible.getText().length()>=8) e.consume();
-				if((car<'0' || car>'9')) e.consume();
-			}
-		});
-		txtCombustible.setBounds(159, 186, 127, 20);
-		getContentPane().add(txtCombustible);
-		txtCombustible.setColumns(10);
-		
-		JLabel lblNewLabel_2 = new JLabel("Cantidad de combustible:");
-		lblNewLabel_2.setBounds(10, 190, 150, 14);
-		getContentPane().add(lblNewLabel_2);
-		
-		cbbCategoria = new JComboBox(new DefaultComboBoxModel(Conexion.getInstacia().obtenerCategorias().toArray()));
-		cbbCategoria.setBounds(395, 85, 119, 23);
-		getContentPane().add(cbbCategoria);
-		
-		JLabel lblCategoria = new JLabel("Categoria:");
-		lblCategoria.setBounds(296, 89, 74, 16);
-		getContentPane().add(lblCategoria);
-		
-		comboTransmision = new JComboBox();
-		comboTransmision.setModel(new DefaultComboBoxModel(new String[] {"Autom\u00E1tico", "Mec\u00E1nico"}));
-		comboTransmision.setBounds(159, 147, 127, 23);
-		getContentPane().add(comboTransmision);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(296, 139, 218, 64);
-		getContentPane().add(scrollPane_1);
-		
-				txtDescripcion = new JTextArea();
-				txtDescripcion.setLineWrap(true);
-				scrollPane_1.setViewportView(txtDescripcion);
 				
 				JButton btnBuscar = new JButton("Buscar");
 				btnBuscar.addActionListener(new ActionListener() {
@@ -298,13 +98,253 @@ public class MantenimientoVehiculo extends JFrame{
 						BuscadorTablas.getInstancia().buscar(tblVehiculos, txtBuscar.getText());
 					}
 				});
-				btnBuscar.setBounds(481, 237, 89, 23);
+				btnBuscar.setBounds(765, 390, 89, 23);
 				getContentPane().add(btnBuscar);
 				
 				txtBuscar = new JTextField();
-				txtBuscar.setBounds(348, 238, 120, 20);
+				txtBuscar.setBounds(641, 391, 120, 20);
 				getContentPane().add(txtBuscar);
 				txtBuscar.setColumns(10);
+				
+				JPanel panel = new JPanel();
+				panel.setBorder(new TitledBorder(null, "Informaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				panel.setBounds(25, 71, 829, 301);
+				getContentPane().add(panel);
+				panel.setLayout(null);
+				
+						JLabel lblNewLabel = new JLabel("Precio:");
+						lblNewLabel.setBounds(37, 38, 42, 14);
+						panel.add(lblNewLabel);
+						lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+						
+								txtPrecio = new JTextField();
+								txtPrecio.setBounds(182, 38, 127, 20);
+								panel.add(txtPrecio);
+								txtPrecio.addKeyListener(new KeyAdapter() {
+									@Override
+									public void keyTyped(KeyEvent e) {
+										char car = e.getKeyChar();
+										if(txtCombustible.getText().length()>=8) e.consume();
+										if((car<'0' || car>'9')) e.consume();
+									}
+								});
+								txtPrecio.setColumns(10);
+								
+										JLabel lblAo = new JLabel("A\u00F1o:");
+										lblAo.setBounds(328, 38, 46, 14);
+										panel.add(lblAo);
+										lblAo.setFont(new Font("Tahoma", Font.PLAIN, 12));
+										cbbAño = new JComboBox(fechas.toArray());
+										cbbAño.setBounds(417, 35, 120, 23);
+										panel.add(cbbAño);
+										
+												txtPasajeros = new JTextField();
+												txtPasajeros.setBounds(417, 83, 120, 20);
+												panel.add(txtPasajeros);
+												txtPasajeros.addKeyListener(new KeyAdapter() {
+													@Override
+													public void keyTyped(KeyEvent e) {
+														char car = e.getKeyChar();
+														if(txtCombustible.getText().length()>=8) e.consume();
+														if((car<'0' || car>'9')) e.consume();
+													}
+												});
+												txtPasajeros.setColumns(10);
+												
+												cbbCategoria = new JComboBox(new DefaultComboBoxModel(Conexion.getInstacia().obtenerCategorias().toArray()));
+												cbbCategoria.setBounds(418, 127, 119, 23);
+												panel.add(cbbCategoria);
+												cbbCategoria.setFont(new Font("Tahoma", Font.PLAIN, 12));
+												
+														JLabel lblPasajeros = new JLabel("Pasajeros:");
+														lblPasajeros.setBounds(328, 85, 74, 14);
+														panel.add(lblPasajeros);
+														lblPasajeros.setFont(new Font("Tahoma", Font.PLAIN, 12));
+														
+														JLabel lblCategoria = new JLabel("Categoria:");
+														lblCategoria.setBounds(328, 130, 74, 16);
+														panel.add(lblCategoria);
+														lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 12));
+														
+																JLabel lblDescripcion = new JLabel("Descripcion:");
+																lblDescripcion.setBounds(328, 157, 98, 17);
+																panel.add(lblDescripcion);
+																lblDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 12));
+																
+																		txtMarca = new JTextField();
+																		txtMarca.setBounds(182, 82, 127, 20);
+																		panel.add(txtMarca);
+																		txtMarca.addKeyListener(new KeyAdapter() {
+																			@Override
+																			public void keyTyped(KeyEvent e) {
+																				char car = e.getKeyChar();        
+																				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
+																				    && car !='á'         
+																				    && car !='é'            
+																				    && car !='í'            
+																				    && car !='ó'          
+																				    && car !='ú'  
+																				    && car !='Á'           
+																				    && car !='É'            
+																				    && car !='Í'            
+																				    && car !='Ó'          
+																				    && car !='Ú'            
+																				    && (car!=(char)KeyEvent.VK_SPACE))
+																				{      
+																				  e.consume();  
+																				}
+																			}
+																		});
+																		txtMarca.setColumns(10);
+																		
+																				JLabel lblNewLabel_1 = new JLabel("Marca:");
+																				lblNewLabel_1.setBounds(37, 82, 46, 14);
+																				panel.add(lblNewLabel_1);
+																				lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+																				
+																						JLabel lblMatricula = new JLabel("Matricula:");
+																						lblMatricula.setBounds(33, 130, 66, 14);
+																						panel.add(lblMatricula);
+																						lblMatricula.setFont(new Font("Tahoma", Font.PLAIN, 12));
+																						
+																								JLabel lblTransmision = new JLabel("Transmision:");
+																								lblTransmision.setBounds(33, 177, 98, 14);
+																								panel.add(lblTransmision);
+																								lblTransmision.setFont(new Font("Tahoma", Font.PLAIN, 12));
+																								
+																								JLabel lblNewLabel_2 = new JLabel("Cantidad de combustible:");
+																								lblNewLabel_2.setBounds(33, 217, 150, 14);
+																								panel.add(lblNewLabel_2);
+																								lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
+																								
+																								comboTransmision = new JComboBox();
+																								comboTransmision.setBounds(182, 174, 127, 23);
+																								panel.add(comboTransmision);
+																								comboTransmision.setFont(new Font("Tahoma", Font.PLAIN, 12));
+																								comboTransmision.setModel(new DefaultComboBoxModel(new String[] {"Automatico", "Mecanico"}));
+																								
+																										txtMatricula = new JTextField();
+																										txtMatricula.setBounds(183, 130, 126, 20);
+																										panel.add(txtMatricula);
+																										txtMatricula.setColumns(10);
+																										
+																										txtCombustible = new JTextField();
+																										txtCombustible.setBounds(182, 213, 127, 20);
+																										panel.add(txtCombustible);
+																										txtCombustible.addKeyListener(new KeyAdapter() {
+																											@Override
+																											public void keyTyped(KeyEvent e) {
+																												char car = e.getKeyChar();
+																												if(txtCombustible.getText().length()>=8) e.consume();
+																												if((car<'0' || car>'9')) e.consume();
+																											}
+																										});
+																										txtCombustible.setColumns(10);
+																										JButton btnAgregar = new JButton("Agregar");
+																										btnAgregar.setBounds(33, 255, 89, 23);
+																										panel.add(btnAgregar);
+																										
+																												JButton btnEliminar = new JButton("Eliminar");
+																												btnEliminar.setBounds(133, 255, 89, 23);
+																												panel.add(btnEliminar);
+																												
+																														JButton btnModificar = new JButton("Modificar");
+																														btnModificar.setBounds(232, 255, 89, 23);
+																														panel.add(btnModificar);
+																														
+																														lblImagen = new JLabel("");
+																														lblImagen.setBounds(567, 29, 228, 204);
+																														panel.add(lblImagen);
+																														lblImagen.setLayout(new BorderLayout());
+																														lblImagen.setBorder(borde);
+																														
+																																JButton btnSubirImagen = new JButton("Agregar imagen");
+																																btnSubirImagen.setBounds(618, 237, 124, 23);
+																																panel.add(btnSubirImagen);
+																																		
+																																		JScrollPane scrollPane_1 = new JScrollPane();
+																																		scrollPane_1.setBounds(328, 174, 209, 64);
+																																		panel.add(scrollPane_1);
+																																				
+																																						txtDescripcion = new JTextArea();
+																																						scrollPane_1.setViewportView(txtDescripcion);
+																																						txtDescripcion.setLineWrap(true);
+																																				
+																																				JLabel lblListadoDeVehculos = new JLabel("Listado de veh\u00EDculos");
+																																				lblListadoDeVehculos.setFont(new Font("Tahoma", Font.PLAIN, 12));
+																																				lblListadoDeVehculos.setBounds(29, 395, 141, 14);
+																																				getContentPane().add(lblListadoDeVehculos);
+																																				
+																																				JLabel lblVehculos = new JLabel("Veh\u00EDculos");
+																																				lblVehculos.setFont(new Font("Tahoma", Font.PLAIN, 20));
+																																				lblVehculos.setBounds(390, 22, 89, 38);
+																																				getContentPane().add(lblVehculos);
+																																btnSubirImagen.addActionListener(new ActionListener() {
+																																	@Override
+																																	public void actionPerformed(ActionEvent arg0) {
+																																		archivador.setFileFilter(filtroImagen);
+																																		int seleccion = archivador.showOpenDialog(archivador);
+																																		if (seleccion == JFileChooser.APPROVE_OPTION) {
+																																			
+																																			File foto = archivador.getSelectedFile();
+																																			ruta = foto.getPath();
+																																			ImageIcon imagen = new ImageIcon(ruta);
+																																			Image iconImage = imagen.getImage();
+																																			Image newImage = iconImage.getScaledInstance(228, 204,
+																																					java.awt.Image.SCALE_SMOOTH);
+																																			ImageIcon fotoImagen = new ImageIcon(newImage);
+																																			lblImagen.setIcon(fotoImagen);
+																																		}
+																																	}
+																																});
+																														btnModificar.addActionListener(new ActionListener() {
+																															@Override
+																															public void actionPerformed(ActionEvent e) {
+																																if(tblVehiculos.getSelectedRow()==-1){
+																																	JOptionPane.showMessageDialog(null, "Debe seleccionar la fila que desea modificar");
+																																}
+																																else{
+																																	ModeloVehiculos.getInstancia().modificarVehiculo(new Vehiculo(Integer.parseInt(txtPrecio.getText().toString()),
+																																			txtMarca.getText(), Integer
+																																			.parseInt(txtPasajeros.getText().toString()),
+																																	Integer.parseInt((String) cbbAño
+																																			.getSelectedItem()), txtMatricula
+																																			.getText(), comboTransmision.getSelectedItem().toString(),
+																																	txtDescripcion.getText(),Integer.parseInt(txtCombustible.getText().toString()), false),ruta, tblVehiculos.getSelectedRow());
+																																	ruta = "";
+																																}
+																															}
+																														});
+																												btnEliminar.addActionListener(new ActionListener() {
+																													@Override
+																													public void actionPerformed(ActionEvent arg0) {
+																														if(tblVehiculos.getSelectedRow()==-1){
+																															JOptionPane.showMessageDialog(null, "Debe seleccionar la fila que desea eliminar");
+																														}
+																														else{
+																															ModeloVehiculos.getInstancia().eliminarVehiculo(tblVehiculos.getSelectedRow());
+																														}
+																														
+																													}
+																												});
+																										btnAgregar.addActionListener(new ActionListener() {
+																											@Override
+																											public void actionPerformed(ActionEvent arg0) {
+																												if(ruta.equals("")){
+																													JOptionPane.showMessageDialog(null, "Debe seleccionar la fota para este vehiculo");
+																												}
+																												ModeloVehiculos.getInstancia().agregarVehiculo(
+																														new Vehiculo(Integer.parseInt(txtPrecio.getText().toString()),
+																																txtMarca.getText(), Integer
+																																		.parseInt(txtPasajeros.getText().toString()),
+																																Integer.parseInt((String) cbbAño
+																																		.getSelectedItem()), txtMatricula
+																																		.getText(), comboTransmision.getSelectedItem().toString(),
+																																txtDescripcion.getText(),Integer.parseInt(txtCombustible.getText()), false),ruta);
+																												ruta = "";
+																												System.out.println(txtCombustible.getText());
+																											}
+																										});
 		setVisible(true);
 	}
 	

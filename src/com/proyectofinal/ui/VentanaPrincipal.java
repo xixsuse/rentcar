@@ -112,18 +112,17 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}else if(e.getSource() == btnMantenimientoAccesorios){
 			new MantenimientoAccesorio().setVisible(true);
 		}else if(e.getSource() == btnMantenimientoClientes){
-			new MantenimientoClientes().setVisible(true);
+			MantenimientoClientes.getInstacia().setVisible(true);
 		}else if(e.getSource() == btnMantenimientoUsuarios){
-			new MantenimientoUsuarios().setVisible(true);
+			MantenimientoUsuarios.getInstacia().setVisible(true);
 		}else if(e.getSource() == btnMantenimientoCategoria){
-			new MantenimientoCategoria().setVisible(true);
+			MantenimientoCategoria.getInstacia().setVisible(true);
 		}else if(e.getSource() == btnMantenimientoVehiculo){
-			new MantenimientoVehiculo().setVisible(true);;
+			MantenimientoVehiculo.getInstancia().setVisible(true);;
 		}else if(e.getSource() == btnMantenimientoAlquiler){
 			new MantenimientoAlquiler().setVisible(true);;
 		}else if(e.getSource() == btnMantenimientoSeguro){
-			new MantenimientoSeguro().setVisible(true);
+			MantenimientoSeguro.getInstancia().setVisible(true);
 		}
-		
 	}
 }

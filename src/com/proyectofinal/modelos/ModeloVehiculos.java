@@ -9,7 +9,7 @@ import com.proyectofinal.entidades.Vehiculo;
 
 public class ModeloVehiculos extends AbstractTableModel{
 	private ArrayList<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
-	private String[] encabezados = {"ID","Precio","Marca","Pasajeros","Año","Matricula","Transmision","Combustible"};
+	private String[] encabezados = {"Marca","Pasajeros","Año","Matricula","Transmision","Combustible","Precio"};
 	private static ModeloVehiculos modelo = null;
 	
 	private ModeloVehiculos(){
@@ -68,29 +68,26 @@ public class ModeloVehiculos extends AbstractTableModel{
 	public Object getValueAt(int index, int columna) {
 		String resultado = null;
 		switch(columna){
-		case 0:
-			resultado = String.valueOf(listaVehiculos.get(index).getIdVehiculo());
-			break;
-		case 1: 
-			resultado = String.valueOf(listaVehiculos.get(index).getPrecio());
-			break;
-		case 2: 
+		case 0: 
 			resultado = listaVehiculos.get(index).getMarca();
 			break;
-		case 3: 
+		case 1: 
 			resultado = String.valueOf(listaVehiculos.get(index).getPasajeros());
 			break;
-		case 4: 
+		case 2: 
 			resultado = String.valueOf(listaVehiculos.get(index).getAño());
 			break;
-		case 5: 
+		case 3: 
 			resultado = listaVehiculos.get(index).getMatricula();
 			break;
-		case 6: 
+		case 4: 
 			resultado = listaVehiculos.get(index).getTransmision();
 			break;
-		case 7:
+		case 5:
 			resultado = String.valueOf(listaVehiculos.get(index).getCombustible());
+			break;
+		case 6: 
+			resultado = String.valueOf(listaVehiculos.get(index).getPrecio());
 			break;
 		}
 		return resultado;

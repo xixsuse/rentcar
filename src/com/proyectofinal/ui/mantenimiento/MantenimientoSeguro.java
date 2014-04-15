@@ -21,6 +21,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Font;
+import javax.swing.border.TitledBorder;
 
 public class MantenimientoSeguro extends JFrame {
 
@@ -30,17 +32,61 @@ public class MantenimientoSeguro extends JFrame {
 	private JTextField txtNombre;
 	private JTable tableSeguro;
 	private JComboBox cmboCobertura;
+	private static MantenimientoSeguro instancia;
 	
-	public MantenimientoSeguro() {
-		setTitle("Mantenimiento de Seguros");
+	public static MantenimientoSeguro getInstancia(){
+		if(instancia == null){
+			instancia = new MantenimientoSeguro();
+		}
+		return instancia;
+	}
+	
+	private MantenimientoSeguro() {
+		setResizable(false);
+		setTitle("Administraci\u00F3n de seguros");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 368, 484);
+		setBounds(100, 100, 356, 538);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 289, 328, 210);
+		contentPane.add(scrollPane);
+		
+		tableSeguro = new JTable(ModeloSeguro.getInstacia());
+		tableSeguro.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int fila = tableSeguro.getSelectedRow();
+				txtCategoria.setText(tableSeguro.getValueAt(fila, 0).toString());
+				txtPrecio.setText(tableSeguro.getValueAt(fila, 1).toString());
+				txtNombre.setText(tableSeguro.getValueAt(fila, 2).toString());
+				cmboCobertura.setSelectedItem(tableSeguro.getValueAt(fila, 3).toString());
+			}
+		});
+		scrollPane.setViewportView(tableSeguro);
+		
+		JLabel lblListadoDeSeguros = new JLabel("Listado de seguros:");
+		lblListadoDeSeguros.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblListadoDeSeguros.setBounds(10, 270, 121, 20);
+		contentPane.add(lblListadoDeSeguros);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Informaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 49, 328, 219);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblCategoria = new JLabel("Categoria:");
+		lblCategoria.setBounds(10, 27, 79, 14);
+		panel.add(lblCategoria);
+		lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
 		txtCategoria = new JTextField();
+		txtCategoria.setBounds(119, 25, 185, 20);
+		panel.add(txtCategoria);
 		txtCategoria.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -62,11 +108,11 @@ public class MantenimientoSeguro extends JFrame {
 				}
 			}
 		});
-		txtCategoria.setBounds(138, 21, 185, 20);
-		contentPane.add(txtCategoria);
 		txtCategoria.setColumns(10);
 		
 		txtPrecio = new JTextField();
+		txtPrecio.setBounds(119, 61, 86, 20);
+		panel.add(txtPrecio);
 		txtPrecio.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -75,11 +121,21 @@ public class MantenimientoSeguro extends JFrame {
 				if((car<'0' || car>'9')) e.consume();
 			}
 		});
-		txtPrecio.setBounds(138, 57, 86, 20);
-		contentPane.add(txtPrecio);
 		txtPrecio.setColumns(10);
 		
+		JLabel lblNewLabel = new JLabel("Precio:");
+		lblNewLabel.setBounds(10, 64, 46, 14);
+		panel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(10, 102, 60, 14);
+		panel.add(lblNombre);
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		
 		txtNombre = new JTextField();
+		txtNombre.setBounds(119, 99, 185, 20);
+		panel.add(txtNombre);
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -101,81 +157,37 @@ public class MantenimientoSeguro extends JFrame {
 				}
 			}
 		});
-		txtNombre.setBounds(138, 95, 185, 20);
-		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
 		
-		JLabel lblCategoria = new JLabel("Categoria:");
-		lblCategoria.setBounds(29, 24, 79, 14);
-		contentPane.add(lblCategoria);
-		
-		JLabel lblNewLabel = new JLabel("Precio:");
-		lblNewLabel.setBounds(29, 60, 46, 14);
-		contentPane.add(lblNewLabel);
-		
-		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(29, 98, 46, 14);
-		contentPane.add(lblNombre);
+		cmboCobertura = new JComboBox();
+		cmboCobertura.setBounds(119, 144, 185, 20);
+		panel.add(cmboCobertura);
+		cmboCobertura.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		cmboCobertura.setModel(new DefaultComboBoxModel(new String[] {"Nacional", "Internacional"}));
 		
 		
 		
 		JLabel lblNewLabel_1 = new JLabel("Cobertura:");
-		lblNewLabel_1.setBounds(29, 143, 79, 14);
-		contentPane.add(lblNewLabel_1);
-		
-		cmboCobertura = new JComboBox();
-		cmboCobertura.setModel(new DefaultComboBoxModel(new String[] {"Nacional", "Internacional"}));
-		cmboCobertura.setBounds(138, 140, 185, 20);
-		contentPane.add(cmboCobertura);
+		lblNewLabel_1.setBounds(10, 147, 79, 14);
+		panel.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if(txtCategoria.getText().isEmpty() || txtNombre.getText().isEmpty() || txtPrecio.getText().isEmpty()){
-					JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-				
-				}else{
-					Seguro seguro = new Seguro();
-					seguro.setCategoria(txtCategoria.getText());
-					seguro.setPrecio(Double.parseDouble(txtPrecio.getText()));
-					seguro.setNombre(txtNombre.getText());
-					seguro.setCobertura(cmboCobertura.getSelectedItem().toString());
-					ModeloSeguro.getInstacia().agregarSeguro(seguro);
-					txtCategoria.setText("");
-					txtPrecio.setText("");
-					txtNombre.setText("");
-					
-				}
-			}
-		});
-		btnGuardar.setBounds(29, 177, 89, 23);
-		contentPane.add(btnGuardar);
+		btnGuardar.setBounds(10, 181, 89, 23);
+		panel.add(btnGuardar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int fila = tableSeguro.getSelectedRow();
-				if(fila < 0){
-					JOptionPane.showMessageDialog(null, "Porfavor seleccione un seguro de la tabla");
-				}else{
-					if(txtCategoria.getText().equals("")){
-						JOptionPane.showMessageDialog(null, "Seleccione un seguro de la tabla");
-					}else{
-						ModeloSeguro.getInstacia().eliminarSeguro(fila);
-						txtCategoria.setText("");
-						txtPrecio.setText("");
-						txtNombre.setText("");
-						
-					}
-				}
-			}
-		});
-		btnEliminar.setBounds(135, 177, 89, 23);
-		contentPane.add(btnEliminar);
+		btnEliminar.setBounds(116, 181, 89, 23);
+		panel.add(btnEliminar);
 		
 		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(215, 181, 89, 23);
+		panel.add(btnModificar);
+		
+		JLabel lblSeguros = new JLabel("Seguros");
+		lblSeguros.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblSeguros.setBounds(132, 11, 78, 25);
+		contentPane.add(lblSeguros);
 		btnModificar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -198,27 +210,44 @@ public class MantenimientoSeguro extends JFrame {
 				}
 			}
 		});
-		btnModificar.setBounds(234, 177, 89, 23);
-		contentPane.add(btnModificar);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(29, 230, 295, 184);
-		contentPane.add(scrollPane);
-		
-		tableSeguro = new JTable(ModeloSeguro.getInstacia());
-		tableSeguro.addMouseListener(new MouseAdapter() {
+		btnEliminar.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				int fila = tableSeguro.getSelectedRow();
-				txtCategoria.setText(tableSeguro.getValueAt(fila, 1).toString());
-				txtPrecio.setText(tableSeguro.getValueAt(fila, 2).toString());
-				txtNombre.setText(tableSeguro.getValueAt(fila, 3).toString());
-				cmboCobertura.setSelectedItem(tableSeguro.getValueAt(fila, 4).toString());
+				if(fila < 0){
+					JOptionPane.showMessageDialog(null, "Porfavor seleccione un seguro de la tabla");
+				}else{
+					if(txtCategoria.getText().equals("")){
+						JOptionPane.showMessageDialog(null, "Seleccione un seguro de la tabla");
+					}else{
+						ModeloSeguro.getInstacia().eliminarSeguro(fila);
+						txtCategoria.setText("");
+						txtPrecio.setText("");
+						txtNombre.setText("");
+						
+					}
+				}
 			}
 		});
-		scrollPane.setViewportView(tableSeguro);
-		
-		
+		btnGuardar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(txtCategoria.getText().isEmpty() || txtNombre.getText().isEmpty() || txtPrecio.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+				
+				}else{
+					Seguro seguro = new Seguro();
+					seguro.setCategoria(txtCategoria.getText());
+					seguro.setPrecio(Double.parseDouble(txtPrecio.getText()));
+					seguro.setNombre(txtNombre.getText());
+					seguro.setCobertura(cmboCobertura.getSelectedItem().toString());
+					ModeloSeguro.getInstacia().agregarSeguro(seguro);
+					txtCategoria.setText("");
+					txtPrecio.setText("");
+					txtNombre.setText("");	
+				}
+			}
+		});
 		tableSeguro.getTableHeader().setReorderingAllowed(false);
 	}
 }
