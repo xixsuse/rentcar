@@ -31,9 +31,9 @@ import com.proyectofinal.entidades.Seguro;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.entidades.Vehiculo;
 import com.proyectofinal.entidades.VehiculoActivo;
+import com.proyectofinal.ui.VentanaPrincipal;
 //github.com/DannyFeliz/rentcar.git
-import com.proyectofinal.ui.VentanaAdministrador;
-import com.proyectofinal.ui.VentanaVendedor;
+import com.proyectofinal.ui.mantenimiento.MantenimientoAlquiler;
 
 public class Conexion {
 
@@ -80,17 +80,11 @@ public class Conexion {
 
 			if (rs.next()) {
 
-				if (rs.getString("Cargo").equals("Administrador")) {
-					
-					VentanaAdministrador ventanaAdminsitrador = new VentanaAdministrador();
-					ventanaAdminsitrador.setLocationRelativeTo(null);
-					ventanaAdminsitrador.setVisible(true);
+				if (rs.getString("Cargo").equals("Administrador")){
+					new VentanaPrincipal(rs.getString("nombre"),rs.getInt("idCliente"));
 					
 				} else if (rs.getString("Cargo").equals("Vendedor")) {
-					VentanaVendedor ventanaVendedor = new VentanaVendedor();
-					ventanaVendedor.setLocationRelativeTo(null);
-					ventanaVendedor.setVisible(true);
-						
+					new MantenimientoAlquiler(rs.getString("nombre"),rs.getInt("idCliente"));
 				}
 				
 			} else {

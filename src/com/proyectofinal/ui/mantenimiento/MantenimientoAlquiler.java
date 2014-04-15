@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -30,18 +31,20 @@ public class MantenimientoAlquiler extends JFrame{
 	private JTable tblVehiculosActivos;
 	private JDateChooser dateDesde;
 	private JDateChooser dateHasta;
-	private int idCliente = 1;
 	private JComboBox cbbSeguros;
 	private JComboBox cbbAccesorio;
-	public MantenimientoAlquiler(){
-		setTitle("Alquiler");
+	private static int idCliente;
+	private static String nombreUsuario = "";
+	
+	public MantenimientoAlquiler(String nombreUsuario,final int idCliente){
+		setTitle("Le atiende: "+ nombreUsuario);
 		setSize(795,500);
 		getContentPane().setLayout(null);
-		
+		MantenimientoAlquiler.nombreUsuario = nombreUsuario;
+		MantenimientoAlquiler.idCliente = idCliente;
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(2, 6, 777, 427);
 		getContentPane().add(tabbedPane);
-		
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("New tab", null, panel, null);
 		panel.setLayout(null);
@@ -53,18 +56,36 @@ public class MantenimientoAlquiler extends JFrame{
 		JLabel lblNewLabel_2 = new JLabel("Seguro");
 		lblNewLabel_2.setBounds(20, 33, 34, 14);
 		panel.add(lblNewLabel_2);
-		
 		txtIdVehiculo = new JTextField();
-		txtIdVehiculo.setBounds(214, 101, 86, 20);
+		txtIdVehiculo.setBounds(214, 101, 95, 20);
 		panel.add(txtIdVehiculo);
 		txtIdVehiculo.setEnabled(false);
 		txtIdVehiculo.setColumns(10);
 		
 		JButton btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ModeloAlquiler.getInstancia().modificarAlquiler(new Alquiler(Integer.parseInt(txtIdVehiculo.getText()),
+						dateDesde.getDateFormatString(),dateHasta.getDateFormatString(),idCliente,Integer.parseInt(txtTotal.getText()),
+						Float.parseFloat(txtDescuento.getText()),Integer.parseInt((String) cbbSeguros.getSelectedItem()),
+						Integer.parseInt((String) cbbAccesorio.getSelectedItem())),tblAlquiler.getSelectedRow());
+			}
+		});
 		btnModificar.setBounds(229, 321, 75, 23);
 		panel.add(btnModificar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "Seguro que quiere eliminar este alquiler");
+				if(tblAlquiler.getSelectedRow()==-1){
+					JOptionPane.showMessageDialog(null, "Debe de seleccionar el campo que quiere eliminar");
+				}
+				else{
+					ModeloAlquiler.getInstancia().eliminarAlquiler(tblAlquiler.getSelectedRow());
+				}
+			}
+		});
 		btnEliminar.setBounds(139, 321, 69, 23);
 		panel.add(btnEliminar);
 		
@@ -171,6 +192,6 @@ public class MantenimientoAlquiler extends JFrame{
 	}	
 	
 	public static void main(String[] args){
-		new MantenimientoAlquiler();
+		new MantenimientoAlquiler(nombreUsuario,idCliente);
 	}
 }

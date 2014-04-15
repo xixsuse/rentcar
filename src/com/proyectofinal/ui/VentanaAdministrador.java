@@ -24,7 +24,6 @@ public class VentanaAdministrador extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
-		
 		JMenuBar barraMenu = new JMenuBar();
 		setJMenuBar(barraMenu);
 		

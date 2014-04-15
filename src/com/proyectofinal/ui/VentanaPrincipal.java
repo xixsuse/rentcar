@@ -33,20 +33,17 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JMenu mnArchivo;
 	private JMenuItem itemCerrarSesion;
 	private JMenuItem itemSalir;
+	private String nombreUsuario = "";
+	private int idCliente;
 	
-	public VentanaPrincipal() {
+	public VentanaPrincipal(String nombreUsuario,int idCliente) {
 		//setResizable(false);
 		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-		
-		
+		this.nombreUsuario = nombreUsuario;
+		this.idCliente = idCliente;
 		setBounds(100, 100, 683, 509);
 		getContentPane().setLayout(null);
-		
-		
-		
 		JPanel panelBotones = new JPanel();
 		panelBotones.setBounds(10, 11, 209, 427);
 		getContentPane().add(panelBotones);
@@ -99,9 +96,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		itemSalir = new JMenuItem("Salir");
 		itemSalir.addActionListener(this);
 		mnArchivo.add(itemSalir);
-		
-		
-		
 	}
 
 	
@@ -120,7 +114,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}else if(e.getSource() == btnMantenimientoVehiculo){
 			MantenimientoVehiculo.getInstancia().setVisible(true);;
 		}else if(e.getSource() == btnMantenimientoAlquiler){
-			new MantenimientoAlquiler().setVisible(true);;
+			new MantenimientoAlquiler(nombreUsuario,idCliente).setVisible(true);;
 		}else if(e.getSource() == btnMantenimientoSeguro){
 			MantenimientoSeguro.getInstancia().setVisible(true);
 		}
