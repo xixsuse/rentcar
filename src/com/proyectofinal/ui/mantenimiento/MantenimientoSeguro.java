@@ -58,6 +58,7 @@ public class MantenimientoSeguro extends JFrame {
 		contentPane.add(scrollPane);
 		
 		tableSeguro = new JTable(ModeloSeguro.getInstacia());
+		tableSeguro.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tableSeguro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -174,7 +175,7 @@ public class MantenimientoSeguro extends JFrame {
 		panel.add(lblNewLabel_1);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JButton btnGuardar = new JButton("Guardar");
+		JButton btnGuardar = new JButton("Agregar");
 		btnGuardar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\dvd3.png"));
 		btnGuardar.setBounds(10, 181, 97, 23);
 		panel.add(btnGuardar);
@@ -191,7 +192,7 @@ public class MantenimientoSeguro extends JFrame {
 		
 		JLabel lblSeguros = new JLabel("Seguros");
 		lblSeguros.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblSeguros.setBounds(132, 11, 78, 25);
+		lblSeguros.setBounds(144, 11, 78, 25);
 		contentPane.add(lblSeguros);
 		btnModificar.addActionListener(new ActionListener() {
 			@Override

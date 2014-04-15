@@ -68,6 +68,7 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		getContentPane().add(scrollPane);
 		
 		tablaUsuarios = new JTable(ModeloUsuarios.getInstacia());
+		tablaUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		scrollPane.setViewportView(tablaUsuarios);
 		tablaUsuarios.addMouseListener(this);
 		tablaUsuarios.getTableHeader().setReorderingAllowed(false);

@@ -20,6 +20,7 @@ import com.proyectofinal.modelos.ModeloCategoria;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class MantenimientoCategoria extends JFrame {
 
@@ -67,7 +68,7 @@ public class MantenimientoCategoria extends JFrame {
 				}
 			}
 		});
-		txtCategoria.setBounds(109, 61, 200, 20);
+		txtCategoria.setBounds(109, 61, 208, 20);
 		contentPane.add(txtCategoria);
 		txtCategoria.setColumns(10);
 		
@@ -76,7 +77,8 @@ public class MantenimientoCategoria extends JFrame {
 		lblCategoria.setBounds(10, 63, 70, 14);
 		contentPane.add(lblCategoria);
 		
-		JButton btnGuardar = new JButton("Guardar");
+		JButton btnGuardar = new JButton("Agregar");
+		btnGuardar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\dvd3.png"));
 		btnGuardar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -90,10 +92,11 @@ public class MantenimientoCategoria extends JFrame {
 				}
 			}
 		});
-		btnGuardar.setBounds(10, 92, 89, 23);
+		btnGuardar.setBounds(10, 92, 97, 23);
 		contentPane.add(btnGuardar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\remote.png"));
 		btnEliminar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -110,11 +113,11 @@ public class MantenimientoCategoria extends JFrame {
 				}
 			}
 		});
-		btnEliminar.setBounds(117, 92, 89, 23);
+		btnEliminar.setBounds(119, 92, 97, 23);
 		contentPane.add(btnEliminar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 156, 299, 185);
+		scrollPane.setBounds(10, 156, 307, 185);
 		contentPane.add(scrollPane);
 		
 		tlbCategoria = new JTable(ModeloCategoria.getInstacia());
@@ -135,6 +138,7 @@ public class MantenimientoCategoria extends JFrame {
 		contentPane.add(lblListadoDeCategorias);
 		
 		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\pencil-2.png"));
 		btnModificar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -151,7 +155,7 @@ public class MantenimientoCategoria extends JFrame {
 				}
 			}
 		});
-		btnModificar.setBounds(220, 92, 89, 23);
+		btnModificar.setBounds(220, 92, 97, 23);
 		contentPane.add(btnModificar);
 		
 		JLabel lblCategorias = new JLabel("Categorias");

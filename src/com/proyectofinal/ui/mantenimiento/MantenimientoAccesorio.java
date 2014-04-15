@@ -22,6 +22,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.swing.ImageIcon;
 
 
 public class MantenimientoAccesorio extends JFrame implements ActionListener, MouseListener{
@@ -49,68 +50,48 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 		setResizable(false);
 		setTitle("Administraci\u00F3n de accesorios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 677, 505);
+		setBounds(100, 100, 778, 468);
 		getContentPane().setLayout(null);
 		
 		JLabel lblDescripcion = new JLabel("Descripci\u00F3n:");
 		lblDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblDescripcion.setBounds(20, 205, 71, 14);
+		lblDescripcion.setBounds(30, 204, 71, 14);
 		getContentPane().add(lblDescripcion);
 		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(20, 358, 71, 23);
-		btnAgregar.addActionListener(this);
-		getContentPane().add(btnAgregar);
-		
-		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(98, 358, 63, 23);
-		btnBorrar.addActionListener(this);
-		getContentPane().add(btnBorrar);
-		
 		JScrollPane scrollPaneTabla = new JScrollPane(tablaAccesorios);
-		scrollPaneTabla.setBounds(268, 101, 383, 322);
+		scrollPaneTabla.setBounds(367, 95, 383, 322);
 		getContentPane().add(scrollPaneTabla);
 		
 		tablaAccesorios = new JTable(ModeloAccesorios.getInstacia());
+		tablaAccesorios.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		scrollPaneTabla.setViewportView(tablaAccesorios);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 219, 220, 130);
-		getContentPane().add(scrollPane);
-		
-		txtDescripcion = new JTextArea();
-		scrollPane.setViewportView(txtDescripcion);
-		
-		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(167, 358, 75, 23);
-		btnModificar.addActionListener(this);
-		getContentPane().add(btnModificar);
-		
 		txtBuscar = new JTextField();
-		txtBuscar.setBounds(400, 81, 180, 19);
+		txtBuscar.setBounds(499, 67, 151, 19);
 		getContentPane().add(txtBuscar);
 		txtBuscar.setColumns(10);
 		
 		btnBuscar = new JButton("Buscar");
+		btnBuscar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\search.png"));
 		btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnBuscar.setBounds(580, 79, 71, 23);
+		btnBuscar.setBounds(660, 63, 90, 23);
 		btnBuscar.addActionListener(this);
 		btnBuscar.setMnemonic('B');
 		getContentPane().add(btnBuscar);
 		
 		JLabel lblAccesorios = new JLabel("Accesorios");
 		lblAccesorios.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblAccesorios.setBounds(268, 29, 108, 23);
+		lblAccesorios.setBounds(335, 27, 108, 23);
 		getContentPane().add(lblAccesorios);
 		
 		lblListadoDeAccesorios = new JLabel("Listado de accesorios:");
 		lblListadoDeAccesorios.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblListadoDeAccesorios.setBounds(268, 83, 141, 14);
+		lblListadoDeAccesorios.setBounds(367, 72, 141, 14);
 		getContentPane().add(lblListadoDeAccesorios);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Informaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 74, 248, 349);
+		panel.setBounds(20, 68, 329, 349);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -120,7 +101,7 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 		lblPrecio.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		txtPrecio = new JTextField();
-		txtPrecio.setBounds(91, 104, 141, 17);
+		txtPrecio.setBounds(91, 104, 228, 17);
 		panel.add(txtPrecio);
 		txtPrecio.addKeyListener(new KeyAdapter() {
 			@Override
@@ -138,7 +119,7 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 		lblSerial.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		txtSerial = new JTextField();
-		txtSerial.setBounds(91, 68, 141, 17);
+		txtSerial.setBounds(91, 68, 228, 17);
 		panel.add(txtSerial);
 		txtSerial.setColumns(10);
 		
@@ -148,7 +129,7 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(91, 30, 141, 17);
+		txtNombre.setBounds(91, 30, 228, 17);
 		panel.add(txtNombre);
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
@@ -174,6 +155,31 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 			}
 		});
 		txtNombre.setColumns(10);
+		
+		btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(217, 286, 102, 23);
+		panel.add(btnModificar);
+		btnModificar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\pencil-2.png"));
+		
+		btnBorrar = new JButton("Borrar");
+		btnBorrar.setBounds(112, 286, 95, 23);
+		panel.add(btnBorrar);
+		btnBorrar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\remote.png"));
+		
+		btnAgregar = new JButton("Agregar");
+		btnAgregar.setBounds(10, 286, 91, 23);
+		panel.add(btnAgregar);
+		btnAgregar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\dvd3.png"));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 151, 307, 130);
+		panel.add(scrollPane);
+		
+		txtDescripcion = new JTextArea();
+		scrollPane.setViewportView(txtDescripcion);
+		btnAgregar.addActionListener(this);
+		btnBorrar.addActionListener(this);
+		btnModificar.addActionListener(this);
 		tablaAccesorios.addMouseListener(this);
 		
 		tablaAccesorios.getTableHeader().setReorderingAllowed(false);
