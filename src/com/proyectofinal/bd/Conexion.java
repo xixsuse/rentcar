@@ -30,6 +30,7 @@ import com.proyectofinal.entidades.Cliente;
 import com.proyectofinal.entidades.Seguro;
 import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.entidades.Vehiculo;
+import com.proyectofinal.entidades.VehiculoActivo;
 //github.com/DannyFeliz/rentcar.git
 import com.proyectofinal.ui.VentanaAdministrador;
 import com.proyectofinal.ui.VentanaVendedor;
@@ -389,6 +390,21 @@ public class Conexion {
 		}
 		return listaAlquileres;
 	}
+	
+	public ArrayList<VehiculoActivo> desplegarVehiculosEnUso(){
+		ArrayList<VehiculoActivo> listaVehiculos = null;
+		try{
+			rs = st.executeQuery("SELECT marca, Hasta FROM vehiculo v JOIN alquiler a ON v.idVehiculo = a.idVehiculo WHERE  v.estado = 1;");
+			listaVehiculos = new ArrayList<VehiculoActivo>();
+			while(rs.next()){
+				listaVehiculos.add(new VehiculoActivo(rs.getString("marca"),rs.getString("hasta")));
+			}
+		}catch(SQLException sql){
+			
+		}
+		return listaVehiculos;
+	} 
+	
 	
 	public void agregarAlquiler(Alquiler alquiler){
 		try {

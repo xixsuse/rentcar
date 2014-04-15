@@ -13,75 +13,72 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import com.proyectofinal.entidades.Alquiler;
 import com.proyectofinal.modelos.ModeloAlquiler;
 import com.proyectofinal.ui.Catalogo;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 public class MantenimientoAlquiler extends JFrame{
 	private JTable tblAlquiler;
 	private JTextField txtDescuento;
 	private JTextField txtTotal;
+	public static boolean estado = false;
+	private JTextField txtIdVehiculo;
+	private JTable tblVehiculosActivos;
+	private JDateChooser dateDesde;
+	private JDateChooser dateHasta;
+	private int idCliente = 1;
+	private JComboBox cbbSeguros;
+	private JComboBox cbbAccesorio;
 	public MantenimientoAlquiler(){
 		setTitle("Alquiler");
 		setSize(795,500);
 		getContentPane().setLayout(null);
-		JButton btnCatalogo = new JButton("Ir al catalogo");
-		btnCatalogo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new Catalogo();
-			}
-		});
-		btnCatalogo.setBounds(374, 22, 130, 23);
-		getContentPane().add(btnCatalogo);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 306, 779, 155);
-		getContentPane().add(scrollPane);
-		tblAlquiler = new JTable(ModeloAlquiler.getInstancia());
-		scrollPane.setViewportView(tblAlquiler);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(2, 6, 777, 427);
+		getContentPane().add(tabbedPane);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(139, 11, 148, 29);
-		getContentPane().add(dateChooser);
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("New tab", null, panel, null);
+		panel.setLayout(null);
 		
-		JLabel Desde = new JLabel("Desde: ");
-		Desde.setBounds(27, 26, 46, 14);
-		getContentPane().add(Desde);
+		JLabel Accesorio = new JLabel("Accesorio");
+		Accesorio.setBounds(8, 75, 46, 14);
+		panel.add(Accesorio);
 		
-		JLabel Hasta = new JLabel("Hasta");
-		Hasta.setBounds(27, 64, 46, 14);
-		getContentPane().add(Hasta);
+		JLabel lblNewLabel_2 = new JLabel("Seguro");
+		lblNewLabel_2.setBounds(20, 33, 34, 14);
+		panel.add(lblNewLabel_2);
 		
-		JDateChooser dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(139, 51, 148, 27);
-		getContentPane().add(dateChooser_1);
+		txtIdVehiculo = new JTextField();
+		txtIdVehiculo.setBounds(214, 101, 86, 20);
+		panel.add(txtIdVehiculo);
+		txtIdVehiculo.setEnabled(false);
+		txtIdVehiculo.setColumns(10);
 		
-		JComboBox cbbSeguros = new JComboBox(ModeloAlquiler.getInstancia().getSeguros().toArray());
-		cbbSeguros.setBounds(27, 114, 116, 23);
-		getContentPane().add(cbbSeguros);
-		JComboBox cbbAccesorio = new JComboBox(ModeloAlquiler.getInstancia().getAccesorios().toArray());
-		cbbAccesorio.setBounds(27, 166, 116, 23);
-		getContentPane().add(cbbAccesorio);
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(229, 321, 75, 23);
+		panel.add(btnModificar);
 		
-		txtDescuento = new JTextField();
-		txtDescuento.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char car = e.getKeyChar();
-				if(txtDescuento.getText().length()>=10) e.consume();
-				if((car<'0' || car>'9')) e.consume();
-
-			}
-		});
-		txtDescuento.setBounds(309, 115, 86, 20);
-		getContentPane().add(txtDescuento);
-		txtDescuento.setColumns(10);
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(139, 321, 69, 23);
+		panel.add(btnEliminar);
 		
-		JLabel lblNewLabel = new JLabel("Descuento");
-		lblNewLabel.setBounds(206, 118, 72, 19);
-		getContentPane().add(lblNewLabel);
+		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.setBounds(39, 321, 71, 23);
+		panel.add(btnAgregar);
+		
+		JLabel lblNewLabel_1 = new JLabel("Total a pagar");
+		lblNewLabel_1.setBounds(7, 135, 64, 14);
+		panel.add(lblNewLabel_1);
 		
 		txtTotal = new JTextField();
+		txtTotal.setBounds(81, 132, 86, 20);
+		panel.add(txtTotal);
 		txtTotal.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -91,27 +88,86 @@ public class MantenimientoAlquiler extends JFrame{
 
 			}
 		});
-		txtTotal.setBounds(309, 167, 86, 23);
-		getContentPane().add(txtTotal);
 		txtTotal.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Total a pagar");
-		lblNewLabel_1.setBounds(206, 175, 81, 14);
-		getContentPane().add(lblNewLabel_1);
+		JLabel lblNewLabel = new JLabel("Descuento");
+		lblNewLabel.setBounds(8, 183, 51, 14);
+		panel.add(lblNewLabel);
 		
-		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(93, 261, 89, 23);
-		getContentPane().add(btnAgregar);
+		txtDescuento = new JTextField();
+		txtDescuento.setBounds(81, 180, 86, 20);
+		panel.add(txtDescuento);
+		txtDescuento.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();
+				if(txtDescuento.getText().length()>=10) e.consume();
+				if((car<'0' || car>'9')) e.consume();
+
+			}
+		});
+		txtDescuento.setColumns(10);
+		cbbAccesorio = new JComboBox(ModeloAlquiler.getInstancia().getAccesorios().toArray());
+		cbbAccesorio.setBounds(81, 72, 86, 20);
+		panel.add(cbbAccesorio);
 		
-		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(235, 261, 89, 23);
-		getContentPane().add(btnEliminar);
+		cbbSeguros = new JComboBox(ModeloAlquiler.getInstancia().getSeguros().toArray());
+		cbbSeguros.setBounds(81, 30, 86, 20);
+		panel.add(cbbSeguros);
 		
-		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(374, 261, 89, 23);
-		getContentPane().add(btnModificar);
-		setVisible(true);
+		dateHasta = new JDateChooser();
+		dateHasta.setBounds(48, 236, 86, 20);
+		panel.add(dateHasta);
+		dateHasta.setEnabled(false);
+		
+		JLabel Hasta = new JLabel("Hasta");
+		Hasta.setBounds(8, 242, 28, 14);
+		panel.add(Hasta);
+		
+		JLabel Desde = new JLabel("Desde: ");
+		Desde.setBounds(172, 239, 37, 14);
+		panel.add(Desde);
+		
+		dateDesde = new JDateChooser();
+		dateDesde.setBounds(214, 236, 95, 20);
+		panel.add(dateDesde);
+		dateDesde.setEnabled(false);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(314, 33, 452, 427);
+		panel.add(scrollPane);
+		tblAlquiler = new JTable(ModeloAlquiler.getInstancia());
+		scrollPane.setViewportView(tblAlquiler);
+		
+		JButton btnCatalogo = new JButton("Ir al catalogo");
+		btnCatalogo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new Catalogo();
+			}
+		});
+		btnCatalogo.setBounds(214, 66, 96, 23);
+		panel.add(btnCatalogo);
+		
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("New tab", null, panel_1, null);
+		panel_1.setLayout(null);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 11, 752, 377);
+		panel_1.add(scrollPane_1);
+		
+		tblVehiculosActivos = new JTable();
+		scrollPane_1.setViewportView(tblVehiculosActivos);
 		tblAlquiler.getTableHeader().setReorderingAllowed(false);
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ModeloAlquiler.getInstancia().agregarAlquiler(new Alquiler(Integer.parseInt(txtIdVehiculo.getText()),
+						dateDesde.getDateFormatString(),dateHasta.getDateFormatString(),idCliente,Integer.parseInt(txtTotal.getText()),
+						Float.parseFloat(txtDescuento.getText()),Integer.parseInt((String) cbbSeguros.getSelectedItem()),
+						Integer.parseInt((String) cbbAccesorio.getSelectedItem())));
+			}
+		});
+		setVisible(true);
 	}	
 	
 	public static void main(String[] args){

@@ -26,6 +26,19 @@ public class Alquiler {
 		this.idSeguro = idSeguro;
 		this.idAccesorio = idAccesorio;
 	}
+	public Alquiler(int idVehiculo, String desde, String hasta, int idCliente,
+			int totalAPagar, float descuento, int idSeguro,
+			int idAccesorio) {
+		super();
+		this.idVehiculo = idVehiculo;
+		this.desde = desde;
+		this.hasta = hasta;
+		this.idCliente = idCliente;
+		this.totalAPagar = totalAPagar;
+		this.descuento = descuento;
+		this.idSeguro = idSeguro;
+		this.idAccesorio = idAccesorio;
+	}
 	public int getIdVehiculo() {
 		return idVehiculo;
 	}
