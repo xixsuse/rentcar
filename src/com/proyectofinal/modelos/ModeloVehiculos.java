@@ -9,7 +9,7 @@ import com.proyectofinal.entidades.Vehiculo;
 
 public class ModeloVehiculos extends AbstractTableModel{
 	private ArrayList<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
-	private String[] encabezados = {"ID","Precio","Marca","Pasajeros","Aï¿½o","Matricula","Transmision","Combustible"};
+	private String[] encabezados = {"ID","Precio","Marca","Pasajeros","Año","Matricula","Transmision","Combustible"};
 	private static ModeloVehiculos modelo = null;
 	
 	private ModeloVehiculos(){

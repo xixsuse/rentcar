@@ -24,18 +24,20 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Vehiculo;
 import com.proyectofinal.modelos.ModeloVehiculos;
+import com.proyectofinal.ui.BuscadorTablas;
 
 public class MantenimientoVehiculo extends JFrame{
 	private JTextField txtPrecio;
 	private JTextField txtMarca;
 	private JTextField txtMatricula;
 	private JTextField txtPasajeros;
-	private JTextField txtTransmision;
 	private JTable tblVehiculos;
 	private JFileChooser archivador = new JFileChooser();
 	private JLabel lblImagen;
@@ -48,6 +50,7 @@ public class MantenimientoVehiculo extends JFrame{
 	private JTextField txtCombustible;
 	private JComboBox cbbCategoria;
 	private JComboBox comboTransmision;
+	private JTextField txtBuscar;
 
 	public MantenimientoVehiculo() {
 		super("Mantenimiento de vehiculos");
@@ -55,31 +58,31 @@ public class MantenimientoVehiculo extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Precio");
-		lblNewLabel.setBounds(40, 11, 42, 14);
+		JLabel lblNewLabel = new JLabel("Precio:");
+		lblNewLabel.setBounds(14, 11, 42, 14);
 		getContentPane().add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Marca");
-		lblNewLabel_1.setBounds(40, 55, 46, 14);
+		JLabel lblNewLabel_1 = new JLabel("Marca:");
+		lblNewLabel_1.setBounds(14, 55, 46, 14);
 		getContentPane().add(lblNewLabel_1);
 
-		JLabel lblMatricula = new JLabel("Matricula");
-		lblMatricula.setBounds(36, 103, 66, 14);
+		JLabel lblMatricula = new JLabel("Matricula:");
+		lblMatricula.setBounds(10, 103, 66, 14);
 		getContentPane().add(lblMatricula);
 
-		JLabel lblPasajeros = new JLabel("Pasajeros");
+		JLabel lblPasajeros = new JLabel("Pasajeros:");
 		lblPasajeros.setBounds(296, 55, 74, 14);
 		getContentPane().add(lblPasajeros);
 
-		JLabel lblTransmision = new JLabel("Transmision");
-		lblTransmision.setBounds(36, 150, 98, 14);
+		JLabel lblTransmision = new JLabel("Transmision:");
+		lblTransmision.setBounds(10, 150, 98, 14);
 		getContentPane().add(lblTransmision);
 
-		JLabel lblAo = new JLabel("A\u00F1o");
+		JLabel lblAo = new JLabel("A\u00F1o:");
 		lblAo.setBounds(296, 11, 46, 14);
 		getContentPane().add(lblAo);
 
-		JLabel lblDescripcion = new JLabel("Descripcion");
+		JLabel lblDescripcion = new JLabel("Descripcion:");
 		lblDescripcion.setBounds(298, 116, 98, 17);
 		getContentPane().add(lblDescripcion);
 
@@ -92,7 +95,7 @@ public class MantenimientoVehiculo extends JFrame{
 				if((car<'0' || car>'9')) e.consume();
 			}
 		});
-		txtPrecio.setBounds(198, 8, 86, 20);
+		txtPrecio.setBounds(159, 11, 127, 20);
 		getContentPane().add(txtPrecio);
 		txtPrecio.setColumns(10);
 
@@ -118,12 +121,12 @@ public class MantenimientoVehiculo extends JFrame{
 				}
 			}
 		});
-		txtMarca.setBounds(198, 52, 86, 20);
+		txtMarca.setBounds(159, 55, 127, 20);
 		getContentPane().add(txtMarca);
 		txtMarca.setColumns(10);
 
 		txtMatricula = new JTextField();
-		txtMatricula.setBounds(199, 100, 86, 20);
+		txtMatricula.setBounds(160, 103, 126, 20);
 		getContentPane().add(txtMatricula);
 		txtMatricula.setColumns(10);
 
@@ -136,53 +139,26 @@ public class MantenimientoVehiculo extends JFrame{
 				if((car<'0' || car>'9')) e.consume();
 			}
 		});
-		txtPasajeros.setBounds(394, 52, 86, 20);
+		txtPasajeros.setBounds(394, 52, 120, 20);
 		getContentPane().add(txtPasajeros);
 		txtPasajeros.setColumns(10);
-
-		txtTransmision = new JTextField();
-		txtTransmision.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent evt) {
-				char car = evt.getKeyChar();        
-				if((car<'a' || car>'z') && (car<'A' || car>'Z')            
-				    && car !='ñ'          
-				    && car !='ñ'            
-				    && car !='ñ'            
-				    && car !='ñ'          
-				    && car !='ñ'  
-				    && car !='ñ'          
-				    && car !='ñ'            
-				    && car !='ñ'            
-				    && car !='ñ'          
-				    && car !='ñ'            
-				   )
-				{      
-				  evt.consume();  
-				}
-			}
-		});
-		txtTransmision.setBounds(198, 152, 86, 20);
-		getContentPane().add(txtTransmision);
-		txtTransmision.setColumns(10);
 		for (int i = calendario.get(Calendar.YEAR) + 1; i >= (calendario
 				.get(Calendar.YEAR) - 50); i--) {
 			fechas.add(String.valueOf(i));
 		}
 		cbbAño = new JComboBox(fechas.toArray());
-		cbbAño.setBounds(394, 8, 86, 23);
+		cbbAño.setBounds(394, 8, 120, 23);
 		getContentPane().add(cbbAño);
 
-		txtDescripcion = new JTextArea();
-		txtDescripcion.setBounds(296, 145, 218, 58);
-		getContentPane().add(txtDescripcion);
-
+		Border borde = LineBorder.createBlackLineBorder();
+		
 		lblImagen = new JLabel("");
 		lblImagen.setLayout(new BorderLayout());
-		lblImagen.setBounds(588, 8, 228, 204);
+		lblImagen.setBounds(588, 11, 228, 204);
+		lblImagen.setBorder(borde);
 		getContentPane().add(lblImagen);
 
-		JButton btnSubirImagen = new JButton("...");
+		JButton btnSubirImagen = new JButton("Adjuntar imagen");
 		btnSubirImagen.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -201,7 +177,7 @@ public class MantenimientoVehiculo extends JFrame{
 				}
 			}
 		});
-		btnSubirImagen.setBounds(524, 186, 51, 23);
+		btnSubirImagen.setBounds(648, 226, 124, 23);
 		getContentPane().add(btnSubirImagen);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -237,7 +213,7 @@ public class MantenimientoVehiculo extends JFrame{
 				System.out.println(txtCombustible.getText());
 			}
 		});
-		btnAgregar.setBounds(89, 237, 89, 23);
+		btnAgregar.setBounds(10, 237, 89, 23);
 		getContentPane().add(btnAgregar);
 
 		JButton btnEliminar = new JButton("Eliminar");
@@ -253,7 +229,7 @@ public class MantenimientoVehiculo extends JFrame{
 				
 			}
 		});
-		btnEliminar.setBounds(281, 237, 89, 23);
+		btnEliminar.setBounds(110, 237, 89, 23);
 		getContentPane().add(btnEliminar);
 
 		JButton btnModificar = new JButton("Modificar");
@@ -275,7 +251,7 @@ public class MantenimientoVehiculo extends JFrame{
 				}
 			}
 		});
-		btnModificar.setBounds(450, 237, 89, 23);
+		btnModificar.setBounds(209, 237, 89, 23);
 		getContentPane().add(btnModificar);
 		
 		txtCombustible = new JTextField();
@@ -287,56 +263,48 @@ public class MantenimientoVehiculo extends JFrame{
 				if((car<'0' || car>'9')) e.consume();
 			}
 		});
-		txtCombustible.setBounds(198, 183, 86, 20);
+		txtCombustible.setBounds(159, 186, 127, 20);
 		getContentPane().add(txtCombustible);
 		txtCombustible.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Cantidad de combustible");
-		lblNewLabel_2.setBounds(36, 190, 150, 14);
+		JLabel lblNewLabel_2 = new JLabel("Cantidad de combustible:");
+		lblNewLabel_2.setBounds(10, 190, 150, 14);
 		getContentPane().add(lblNewLabel_2);
 		
 		cbbCategoria = new JComboBox(new DefaultComboBoxModel(Conexion.getInstacia().obtenerCategorias().toArray()));
-		cbbCategoria.setBounds(395, 85, 108, 23);
+		cbbCategoria.setBounds(395, 85, 119, 23);
 		getContentPane().add(cbbCategoria);
 		
-		JLabel lblCategoria = new JLabel("Categoria");
-		lblCategoria.setBounds(296, 88, 74, 16);
+		JLabel lblCategoria = new JLabel("Categoria:");
+		lblCategoria.setBounds(296, 89, 74, 16);
 		getContentPane().add(lblCategoria);
-		
-		JButton btnAnterior = new JButton("<<<");
-		btnAnterior.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(tblVehiculos.getSelectedRow()==-1){
-					JOptionPane.showMessageDialog(null, "Debe seleccionar almenos un registro");
-				}
-				else{
-					setDatos(tblVehiculos.getSelectedRow()-1);
-				}
-			}
-		});
-		btnAnterior.setBounds(562, 234, 51, 28);
-		getContentPane().add(btnAnterior);
-		
-		JButton btnSiguiente = new JButton(">>>");
-		btnSiguiente.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(tblVehiculos.getSelectedRow()==-1){
-					JOptionPane.showMessageDialog(null, "Debe seleccionar almenos un registro");
-				}
-				else{
-					setDatos(tblVehiculos.getSelectedRow());
-				}
-			}
-		});
-		btnSiguiente.setBounds(625, 234, 51, 28);
-		getContentPane().add(btnSiguiente);
 		
 		comboTransmision = new JComboBox();
 		comboTransmision.setModel(new DefaultComboBoxModel(new String[] {"Autom\u00E1tico", "Mec\u00E1nico"}));
-		comboTransmision.setBounds(192, 121, 96, 20);
+		comboTransmision.setBounds(159, 147, 127, 23);
 		getContentPane().add(comboTransmision);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(296, 139, 218, 64);
+		getContentPane().add(scrollPane_1);
+		
+				txtDescripcion = new JTextArea();
+				txtDescripcion.setLineWrap(true);
+				scrollPane_1.setViewportView(txtDescripcion);
+				
+				JButton btnBuscar = new JButton("Buscar");
+				btnBuscar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						BuscadorTablas.getInstancia().buscar(tblVehiculos, txtBuscar.getText());
+					}
+				});
+				btnBuscar.setBounds(481, 237, 89, 23);
+				getContentPane().add(btnBuscar);
+				
+				txtBuscar = new JTextField();
+				txtBuscar.setBounds(348, 238, 120, 20);
+				getContentPane().add(txtBuscar);
+				txtBuscar.setColumns(10);
 		setVisible(true);
 	}
 	
