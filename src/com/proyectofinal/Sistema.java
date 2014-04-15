@@ -45,7 +45,7 @@ public class Sistema {
 		//MantenimientoSeguro.getInstancia().setVisible(true);
 		//MantenimientoClientes.getInstacia().setVisible(true);
 	//	MantenimientoCategoria.getInstacia().setVisible(true);
-		MantenimientoVehiculo.getInstancia().setVisible(true);
+		//MantenimientoVehiculo.getInstancia().setVisible(true);
 		/*Catalogo c = new Catalogo();
 		c.setVisible(true);*/
 	}

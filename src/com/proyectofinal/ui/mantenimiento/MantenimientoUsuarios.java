@@ -25,6 +25,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
+import javax.swing.ImageIcon;
 
 
 public class MantenimientoUsuarios extends JFrame implements ActionListener, MouseListener{
@@ -59,11 +60,11 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		ModeloUsuarios modeloUsuario = new ModeloUsuarios();
 		setTitle("Administraci\u00F3n de usuarios");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 783, 401);
+		setBounds(100, 100, 865, 406);
 		getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane(tablaUsuarios);
-		scrollPane.setBounds(351, 100, 396, 233);
+		scrollPane.setBounds(453, 104, 396, 233);
 		getContentPane().add(scrollPane);
 		
 		tablaUsuarios = new JTable(ModeloUsuarios.getInstacia());
@@ -72,19 +73,20 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		tablaUsuarios.getTableHeader().setReorderingAllowed(false);
 		
 		txtBuscar = new JTextField();
-		txtBuscar.setBounds(466, 77, 208, 19);
+		txtBuscar.setBounds(453, 81, 287, 19);
 		getContentPane().add(txtBuscar);
 		txtBuscar.setColumns(10);
 		
 		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(672, 76, 75, 23);
+		btnBuscar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\search.png"));
+		btnBuscar.setBounds(750, 80, 99, 23);
 		btnBuscar.addActionListener(this);
 		btnBuscar.setMnemonic('B');
 		getContentPane().add(btnBuscar);
 		
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Informaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(26, 80, 318, 254);
+		panel.setBounds(26, 80, 352, 254);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -99,7 +101,7 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(128, 28, 170, 19);
+		txtNombre.setBounds(128, 28, 214, 19);
 		panel.add(txtNombre);
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
@@ -125,7 +127,7 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		txtNombre.setColumns(10);
 		
 		txtApellido = new JTextField();
-		txtApellido.setBounds(128, 67, 170, 19);
+		txtApellido.setBounds(128, 67, 214, 19);
 		panel.add(txtApellido);
 		txtApellido.addKeyListener(new KeyAdapter() {
 			@Override
@@ -161,12 +163,12 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(128, 105, 170, 19);
+		txtUsuario.setBounds(128, 105, 214, 19);
 		panel.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
 		txtContrasena = new JPasswordField();
-		txtContrasena.setBounds(128, 140, 170, 19);
+		txtContrasena.setBounds(128, 140, 214, 19);
 		panel.add(txtContrasena);
 		
 		JLabel lblCargo = new JLabel("Cargo:");
@@ -176,20 +178,23 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		
 		comboCargo = new JComboBox();
 		comboCargo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		comboCargo.setBounds(128, 178, 170, 19);
+		comboCargo.setBounds(128, 178, 214, 19);
 		panel.add(comboCargo);
 		comboCargo.setModel(new DefaultComboBoxModel(new String[] {"Administrador", "Vendedor"}));
 		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(110, 220, 89, 23);
+		btnEliminar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\remote.png"));
+		btnEliminar.setBounds(128, 220, 97, 23);
 		panel.add(btnEliminar);
 		
 		btnActualizar = new JButton("Modificar");
-		btnActualizar.setBounds(209, 220, 89, 23);
+		btnActualizar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\pencil-2.png"));
+		btnActualizar.setBounds(235, 220, 107, 23);
 		panel.add(btnActualizar);
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(10, 220, 89, 23);
+		btnAgregar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\dvd3.png"));
+		btnAgregar.setBounds(10, 220, 107, 23);
 		panel.add(btnAgregar);
 		
 		lblUsuarios = new JLabel("Usuarios");

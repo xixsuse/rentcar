@@ -23,6 +23,8 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class MantenimientoSeguro extends JFrame {
 
@@ -45,14 +47,14 @@ public class MantenimientoSeguro extends JFrame {
 		setResizable(false);
 		setTitle("Administraci\u00F3n de seguros");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 356, 538);
+		setBounds(100, 100, 397, 538);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 289, 328, 210);
+		scrollPane.setBounds(10, 289, 371, 210);
 		contentPane.add(scrollPane);
 		
 		tableSeguro = new JTable(ModeloSeguro.getInstacia());
@@ -75,7 +77,7 @@ public class MantenimientoSeguro extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Informaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 49, 328, 219);
+		panel.setBounds(10, 49, 371, 219);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -173,15 +175,18 @@ public class MantenimientoSeguro extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(10, 181, 89, 23);
+		btnGuardar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\dvd3.png"));
+		btnGuardar.setBounds(10, 181, 97, 23);
 		panel.add(btnGuardar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(116, 181, 89, 23);
+		btnEliminar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\remote.png"));
+		btnEliminar.setBounds(129, 181, 106, 23);
 		panel.add(btnEliminar);
 		
 		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(215, 181, 89, 23);
+		btnModificar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\pencil-2.png"));
+		btnModificar.setBounds(255, 181, 106, 23);
 		panel.add(btnModificar);
 		
 		JLabel lblSeguros = new JLabel("Seguros");
@@ -250,4 +255,6 @@ public class MantenimientoSeguro extends JFrame {
 		});
 		tableSeguro.getTableHeader().setReorderingAllowed(false);
 	}
+	
+	
 }
