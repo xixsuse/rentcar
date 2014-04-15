@@ -9,14 +9,14 @@ import com.proyectofinal.entidades.Alquiler;
 
 public class ModeloAlquiler extends AbstractTableModel{
 	private ArrayList<Alquiler> listaAlquileres = new ArrayList<Alquiler>();
-	private String[] encabezados = {"idAlquiler,idCliente,idVehiculo,idAccesorio,Desde,Hasta,Total a pagar"};
-	private ModeloAlquiler modelo;
+	private String[] encabezados = {"idAlquiler","idCliente","idVehiculo","idAccesorio","Desde","Hasta","Total a pagar"};
+	private static ModeloAlquiler modelo;
 	
 	private ModeloAlquiler(){
 		listaAlquileres = Conexion.getInstacia().cargarAlquileres();
 	}
 	
-	public ModeloAlquiler getInstancia(){
+	public static ModeloAlquiler getInstancia(){
 		if(modelo==null){
 			modelo = new ModeloAlquiler();
 		}
@@ -24,23 +24,32 @@ public class ModeloAlquiler extends AbstractTableModel{
 	}
 
 	public void agregarAlquiler(Alquiler alquiler){
-		//Conexion.getInstacia().agregarAlquiler(alguiler);
+		Conexion.getInstacia().agregarAlquiler(alquiler);
 		listaAlquileres = Conexion.getInstacia().cargarAlquileres();
 		fireTableDataChanged();
 	}
 	
 	public void eliminarAlquiler(int index){
 		Alquiler alquiler = listaAlquileres.get(index);
-		//Conexion.getInstacia().eliminarAlquiler(alquiler.getIdAlquiler());
+		Conexion.getInstacia().eliminarAlquiler(alquiler.getIdAlquiler());
 		listaAlquileres = Conexion.getInstacia().cargarAlquileres();
 		fireTableDataChanged();
 	}
 	
 	public void modificarAlquiler(Alquiler alquiler, int index){
 		Alquiler alquiler2 = listaAlquileres.get(index);
-		//Conexion.getInstacia().modificarAlquiler(alquiler,alquiler2.getIdAlquiler());
+		Conexion.getInstacia().modificarAlquiler(alquiler,alquiler2.getIdAlquiler());
 		listaAlquileres  = Conexion.getInstacia().cargarAlquileres(); 
 		fireTableDataChanged();
+	}
+	
+	
+	public ArrayList<String> getAccesorios(){
+		return Conexion.getInstacia().getAccesorios();
+	}
+	
+	public ArrayList<String> getSeguros(){
+		return Conexion.getInstacia().getSeguros();
 	}
 	
 	@Override

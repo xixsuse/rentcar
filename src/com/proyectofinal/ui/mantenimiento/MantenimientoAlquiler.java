@@ -1,5 +1,10 @@
 package com.proyectofinal.ui.mantenimiento;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -8,27 +13,31 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import com.proyectofinal.modelos.ModeloAlquiler;
+import com.proyectofinal.ui.Catalogo;
 import com.toedter.calendar.JDateChooser;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class MantenimientoAlquiler extends JFrame{
 	private JTable tblAlquiler;
 	private JTextField txtDescuento;
 	private JTextField txtTotal;
 	public MantenimientoAlquiler(){
-		setTitle("Alguiler");
+		setTitle("Alquiler");
 		setSize(795,500);
 		getContentPane().setLayout(null);
-		
 		JButton btnCatalogo = new JButton("Ir al catalogo");
+		btnCatalogo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new Catalogo();
+			}
+		});
 		btnCatalogo.setBounds(374, 22, 130, 23);
 		getContentPane().add(btnCatalogo);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 306, 779, 155);
 		getContentPane().add(scrollPane);
-		tblAlquiler = new JTable();
+		tblAlquiler = new JTable(ModeloAlquiler.getInstancia());
 		scrollPane.setViewportView(tblAlquiler);
 		
 		JDateChooser dateChooser = new JDateChooser();
@@ -47,11 +56,10 @@ public class MantenimientoAlquiler extends JFrame{
 		dateChooser_1.setBounds(139, 51, 148, 27);
 		getContentPane().add(dateChooser_1);
 		
-		JComboBox cbbSeguros = new JComboBox();
+		JComboBox cbbSeguros = new JComboBox(ModeloAlquiler.getInstancia().getSeguros().toArray());
 		cbbSeguros.setBounds(27, 114, 116, 23);
 		getContentPane().add(cbbSeguros);
-		
-		JComboBox cbbAccesorio = new JComboBox();
+		JComboBox cbbAccesorio = new JComboBox(ModeloAlquiler.getInstancia().getAccesorios().toArray());
 		cbbAccesorio.setBounds(27, 166, 116, 23);
 		getContentPane().add(cbbAccesorio);
 		
@@ -90,8 +98,23 @@ public class MantenimientoAlquiler extends JFrame{
 		JLabel lblNewLabel_1 = new JLabel("Total a pagar");
 		lblNewLabel_1.setBounds(206, 175, 81, 14);
 		getContentPane().add(lblNewLabel_1);
+		
+		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.setBounds(93, 261, 89, 23);
+		getContentPane().add(btnAgregar);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(235, 261, 89, 23);
+		getContentPane().add(btnEliminar);
+		
+		JButton btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(374, 261, 89, 23);
+		getContentPane().add(btnModificar);
 		setVisible(true);
 		tblAlquiler.getTableHeader().setReorderingAllowed(false);
-		
+	}	
+	
+	public static void main(String[] args){
+		new MantenimientoAlquiler();
 	}
 }

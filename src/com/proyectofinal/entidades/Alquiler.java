@@ -7,13 +7,13 @@ public class Alquiler {
 	private String hasta;
 	private int idCliente;
 	private int idAlquiler;
-	private double totalAPagar;
+	private int totalAPagar;
 	private float descuento;
 	private int idSeguro;
 	private int idAccesorio;
 	
 	public Alquiler(int idVehiculo, String desde, String hasta, int idCliente,
-			int idAlquiler, double totalAPagar, float descuento, int idSeguro,
+			int idAlquiler, int totalAPagar, float descuento, int idSeguro,
 			int idAccesorio) {
 		super();
 		this.idVehiculo = idVehiculo;
@@ -56,10 +56,10 @@ public class Alquiler {
 	public void setIdAlquiler(int idAlquiler) {
 		this.idAlquiler = idAlquiler;
 	}
-	public double getTotalAPagar() {
+	public int getTotalAPagar() {
 		return totalAPagar;
 	}
-	public void setTotalAPagar(double totalAPagar) {
+	public void setTotalAPagar(int totalAPagar) {
 		this.totalAPagar = totalAPagar;
 	}
 	public float getDescuento() {

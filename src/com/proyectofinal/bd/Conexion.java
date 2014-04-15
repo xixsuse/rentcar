@@ -300,6 +300,20 @@ public class Conexion {
 		return accesorio;
 	}
 	
+	public ArrayList<String> getAccesorios(){
+		ArrayList<String> listaAccesorios = null;
+		try{
+			rs = st.executeQuery("SELECT nombre FROM accesorio");
+			listaAccesorios = new ArrayList<String>();
+			while(rs.next()){
+				listaAccesorios.add(rs.getString("nombre"));
+			}
+		}
+		catch(SQLException sql){
+			sql.printStackTrace();
+		}
+		return listaAccesorios;
+	}
 	
 	public void agregarAccesorio(Accesorio accesorio){
 		try {
@@ -357,6 +371,7 @@ public class Conexion {
 			e.printStackTrace();
 		}
 	}
+	//Inicio del mantenimiento de alquiler
 	
 	public ArrayList<Alquiler> cargarAlquileres(){
 		ArrayList<Alquiler> listaAlquileres = null;
@@ -365,7 +380,7 @@ public class Conexion {
 			listaAlquileres = new ArrayList<Alquiler>();
 			while(rs.next()){
 				listaAlquileres.add(new Alquiler(rs.getInt("idVehiculo"),rs.getString("Desde"),rs.getString("Hasta"),
-						rs.getInt("idCliente"),rs.getInt("idAlquiler"),rs.getDouble("TotalAPagar"),rs.getFloat("descuento"),
+						rs.getInt("idCliente"),rs.getInt("idAlquiler"),rs.getInt("TotalAPagar"),rs.getFloat("descuento"),
 						rs.getInt("idSeguro"),rs.getInt("idAccesorio")));
 			}
 		}
@@ -373,6 +388,53 @@ public class Conexion {
 			sql.printStackTrace();
 		}
 		return listaAlquileres;
+	}
+	
+	public void agregarAlquiler(Alquiler alquiler){
+		try {
+			prst = con.prepareStatement("INSERT INTO alquiler(idVehiculo,desde,hasta,idCliente,totalAPagar,descuento,idSeguro,idAccesorio)");
+			prst.setInt(1,alquiler.getIdVehiculo() );
+			prst.setString(2, alquiler.getDesde());
+			prst.setString(3,alquiler.getHasta());
+			prst.setInt(4, alquiler.getIdCliente());
+			prst.setInt(5,alquiler.getTotalAPagar());
+			prst.setFloat(6, alquiler.getDescuento());
+			prst.setInt(7,alquiler.getIdSeguro());
+			prst.setInt(8, alquiler.getIdAccesorio());
+			prst.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void eliminarAlquiler(int id){
+		try{
+			prst = con.prepareStatement("DELETE FROM alquiler WHERE idAlquiler = ?");
+			prst.setInt(1, id);
+			prst.execute();
+		}
+		catch(SQLException sql){
+			sql.printStackTrace();
+		}
+	}
+	
+	
+	public void modificarAlquiler(Alquiler alquiler, int id){
+		try{
+			prst = con.prepareStatement("UPDATE alquiler set idvehiculo =?, desde =?,hasta=?,idCliente=?,totalAPagar=?,descuento=?,idSeguro=?,idAccesorio=? WHERE idAlquiler =?");
+			prst.setInt(1, alquiler.getIdVehiculo());
+			prst.setString(2, alquiler.getDesde());
+			prst.setString(3, alquiler.getHasta());
+			prst.setInt(5, alquiler.getIdCliente());
+			prst.setFloat(6, alquiler.getDescuento());
+			prst.setInt(7, alquiler.getIdSeguro());
+			prst.setInt(8, alquiler.getIdAccesorio());
+			prst.setInt(9, id);
+			prst.execute();
+		}catch(SQLException sql){
+			sql.printStackTrace();
+		}
 	}
 	
 	public void guardarVehiculo(Vehiculo vehiculo,String ruta){
@@ -591,6 +653,21 @@ public class Conexion {
 			e.printStackTrace();
 		}
 		return seguros;
+	}
+	
+	public ArrayList<String> getSeguros(){
+		ArrayList<String> listaSeguros = null;
+		try{
+			rs = st.executeQuery("SELECT nombre FROM seguro");
+			listaSeguros = new ArrayList<String>();
+			while(rs.next()){
+				listaSeguros.add(rs.getString("nombre"));
+			}
+		}
+		catch(SQLException sql){
+			sql.printStackTrace();
+		}
+		return listaSeguros;
 	}
 	
 	public void agregarSeguro(Seguro seguro){
