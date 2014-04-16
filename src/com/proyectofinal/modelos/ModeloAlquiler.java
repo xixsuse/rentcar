@@ -23,6 +23,16 @@ public class ModeloAlquiler extends AbstractTableModel{
 		return modelo;
 	}
 
+	public Double calcularTotal(int idVehiculo,int idSeguro,int idAccesorio,double descuento){
+		double resultado = 0;
+		int precioVehiculo = Conexion.getInstacia().getPrecioVehiculo(idVehiculo);
+		int precioSeguro = Conexion.getInstacia().getPrecioSeguro(idSeguro);
+		int precioAccesorio = Conexion.getInstacia().getPrecioAccesorio(idAccesorio);
+		
+		resultado = Double.parseDouble(String.valueOf(precioVehiculo + precioSeguro + precioAccesorio));
+		resultado = resultado - (resultado*descuento); 
+		return resultado;
+	}
 	public void agregarAlquiler(Alquiler alquiler){
 		Conexion.getInstacia().agregarAlquiler(alquiler);
 		listaAlquileres = Conexion.getInstacia().cargarAlquileres();

@@ -33,6 +33,8 @@ import com.proyectofinal.ui.Catalogo;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import org.apache.poi.hssf.record.formula.TblPtg;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -65,7 +67,6 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 		return instancia;
 	}
 	
-
 	private MantenimientoClientes() {
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -73,8 +74,14 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 				int seleccion = 0;
 				seleccion = JOptionPane.showConfirmDialog(null, "Seguro que desea salir?", "Advertencia", JOptionPane.YES_NO_OPTION);
 				if(seleccion == JOptionPane.OK_OPTION){
-					//MantenimientoAlquiler.setIdCliente(ModeloClientes.getInstacia().getIdCliente(tablaCliente.getSelectedRow()));
-					MantenimientoClientes.this.dispose();
+					if(tablaCliente.getSelectedRow()==-1){
+						MantenimientoClientes.this.dispose();
+					}
+					else{
+						MantenimientoAlquiler.setIdCliente(ModeloClientes.getInstacia().getIdCliente(tablaCliente.getSelectedRow()));
+						MantenimientoClientes.this.dispose();
+					}
+					
 				}
 			}
 		});

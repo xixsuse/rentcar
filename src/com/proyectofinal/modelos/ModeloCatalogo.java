@@ -9,7 +9,7 @@ import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Vehiculo;
 
 public class ModeloCatalogo extends AbstractTableModel{
-	private String[] encabezados = {"Foto"};
+	private String[] encabezados = {"Vehiculos"};
 	private ArrayList<Vehiculo> listaVehiculos = new ArrayList<Vehiculo>();
 	private static ModeloCatalogo modelo;
 	

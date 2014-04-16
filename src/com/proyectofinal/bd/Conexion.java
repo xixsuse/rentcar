@@ -223,6 +223,41 @@ public class Conexion {
 		}		
 	}	
 	
+	public int getPrecioSeguro(int idSeguro){
+		int precio = 0;
+		try{
+			rs = st.executeQuery("select precio from seguro where idSeguro = "+idSeguro);
+			rs.next();
+			precio = rs.getInt("precio");
+		}catch(SQLException sql){
+			sql.printStackTrace();
+		}
+		return precio;
+	}
+	public int getPrecioAccesorio(int idAccesorio){
+		int precio = 0;
+		try{
+			rs = st.executeQuery("select precio from accesorio where idAccesorio = "+idAccesorio);
+			rs.next();
+			precio = rs.getInt("precio");
+		}catch(SQLException sql){
+			sql.printStackTrace();
+		}
+		return precio;
+	}
+	
+	public int getPrecioVehiculo(int idVehiculo){
+		int precio = 0;
+		try{
+			rs = st.executeQuery("select precio from Vehiculo where idVehiculo = "+idVehiculo);
+			rs.next();
+			precio = rs.getInt("precio");
+		}catch(SQLException sql){
+			sql.printStackTrace();
+		}
+		return precio;
+	}
+	
 	public boolean eliminarCliente(Cliente cliente){
 		try {
 			prst = con.prepareStatement("DELETE FROM CLIENTE WHERE idCliente = ?");
@@ -477,27 +512,38 @@ public class Conexion {
 	public ArrayList<VehiculoActivo> desplegarVehiculosEnUso(){
 		ArrayList<VehiculoActivo> listaVehiculos = null;
 		try{
-			rs = st.executeQuery("SELECT marca, Hasta FROM vehiculo v JOIN alquiler a ON v.idVehiculo = a.idVehiculo WHERE  v.estado = 1;");
+			rs = st.executeQuery("SELECT v.marca,v.idVehiculo, a.Hasta FROM vehiculo v JOIN alquiler a ON v.idVehiculo = a.idVehiculo WHERE  v.estado = 1;");
 			listaVehiculos = new ArrayList<VehiculoActivo>();
 			while(rs.next()){
-				listaVehiculos.add(new VehiculoActivo(rs.getString("marca"),rs.getString("hasta")));
+				listaVehiculos.add(new VehiculoActivo(rs.getInt("idVehiculo"),rs.getString("marca"),rs.getString("hasta")));
 			}
 		}catch(SQLException sql){
-			
+			sql.printStackTrace();
 		}
 		return listaVehiculos;
 	}
 	
-public void cambiarEstadoVehiculos(int idVehiculo){
+public void recibirVehiculo(int idVehiculo){
 		try{
-			prst = con.prepareStatement("Update vehiculo SET estado = 1 WHERE idVehiculo = ?");
+			prst = con.prepareStatement("Update vehiculo SET estado = 0 WHERE idVehiculo = ?");
 			prst.setInt(1, idVehiculo);
-			prst.execute();
+			prst.executeUpdate();
 		}
 		catch(SQLException sql){
 			sql.printStackTrace();
 		}
 	}
+
+public void cambiarEstadoVehiculos(int idVehiculo){
+	try{
+		prst = con.prepareStatement("Update vehiculo SET estado = 1 WHERE idVehiculo = ?");
+		prst.setInt(1, idVehiculo);
+		prst.executeUpdate();
+	}
+	catch(SQLException sql){
+		sql.printStackTrace();
+	}
+}
 	
 	public void eliminarVehiculo(int id){
 		try{
@@ -549,20 +595,19 @@ public void cambiarEstadoVehiculos(int idVehiculo){
 		FileInputStream stream = null;
 		if(!ubicacion.equals("")){
 			try{
-				prst = con.prepareStatement("UPDATE vehiculo set idVehiculo=?, precio=?, marca=?, pasajeros=?,año =?," +
-						"matricula=?,foto=?,transmision=?,descripcion=?,cantCombustible=?,estado=? WHERE idVehiculo=? ");
+				prst = con.prepareStatement("UPDATE vehiculo set precio=?, marca=?, pasajeros=?,año =?," +
+						"matricula=?,foto=?,transmision=?,descripcion=?,idCategorio=?,cantCombustible=?,estado=? WHERE idVehiculo=? ");
 				File archivo = new File(ubicacion);
 				stream = new FileInputStream(archivo);
-				prst.setInt(1, movil.getIdVehiculo());
-				prst.setInt(2, movil.getPrecio());
-				prst.setString(3, movil.getMarca());
-				prst.setInt(4, movil.getPasajeros());
-				prst.setInt(5, movil.getAño());
-				prst.setString(6, movil.getMatricula());
-				prst.setBinaryStream(7, stream,(int)archivo.length());
-				prst.setString(8, movil.getTransmision());
-				prst.setString(9, movil.getDescripcion());
-				//prst.setInt(10, vehiculo.getIdCategoria());
+				prst.setInt(1, movil.getPrecio());
+				prst.setString(2, movil.getMarca());
+				prst.setInt(3, movil.getPasajeros());
+				prst.setInt(4, movil.getAño());
+				prst.setString(5, movil.getMatricula());
+				prst.setBinaryStream(6, stream,(int)archivo.length());
+				prst.setString(7, movil.getTransmision());
+				prst.setString(8, movil.getDescripcion());
+				prst.setInt(9, movil.getIdCategoria());
 				prst.setInt(10, movil.getCombustible());
 				prst.setBoolean(11, movil.getEstado());
 				prst.setInt(12, id);
@@ -578,7 +623,7 @@ public void cambiarEstadoVehiculos(int idVehiculo){
 		else{
 			try{
 				prst = con.prepareStatement("UPDATE vehiculo set idVehiculo=?, precio=?, marca=?, pasajeros=?,año =?," +
-						"matricula=?,transmision=?,descripcion=?,cantCombustible=?,estado=? WHERE idVehiculo=? ");
+						"matricula=?,transmision=?,descripcion=?,idCategoria=?,cantCombustible=?,estado=? WHERE idVehiculo=? ");
 				prst.setInt(1, movil.getIdVehiculo());
 				prst.setInt(2, movil.getPrecio());
 				prst.setString(3, movil.getMarca());
@@ -587,15 +632,12 @@ public void cambiarEstadoVehiculos(int idVehiculo){
 				prst.setString(6, movil.getMatricula());
 				prst.setString(7, movil.getTransmision());
 				prst.setString(8, movil.getDescripcion());
-				//prst.setInt(10, vehiculo.getIdCategoria());
+				prst.setInt(10, movil.getIdCategoria());
 				prst.setInt(9, movil.getCombustible());
 				prst.setBoolean(10, movil.getEstado());
 				prst.setInt(11, id);
-				prst.execute();
-			}
-			catch(MySQLIntegrityConstraintViolationException me){
-				JOptionPane.showMessageDialog(null, "El vehiculo ya existe");
-			}
+				prst.executeUpdate();
+	}
 			catch(SQLException s){
 				s.printStackTrace();
 			}

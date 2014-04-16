@@ -27,6 +27,7 @@ public class Catalogo extends JFrame{
 	private JLabel lblPasajeros;
 	private JLabel lblAño;
 	private boolean vuelta = false;
+	
 	public Catalogo(){
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent arg0) {
@@ -38,12 +39,10 @@ public class Catalogo extends JFrame{
 						Catalogo.this.dispose();
 				}
 				
-					
-				
 			}
 		});
 		setTitle("Catalogo de vehiculos");
-		setSize(339,469);
+		setSize(343,469);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		getContentPane().setLayout(null);
@@ -66,55 +65,56 @@ public class Catalogo extends JFrame{
 		tblCatalogo.setRowHeight(200);
 		scrollPane.setViewportView(tblCatalogo);
 		
-		JLabel precio = new JLabel("Precio");
-		precio.setBounds(351, 42, 46, 14);
+		JLabel precio = new JLabel("Precio:");
+		precio.setBounds(339, 18, 46, 14);
 		getContentPane().add(precio);
 		
-		JLabel lblDescripcion = new JLabel("Descripcion");
-		lblDescripcion.setBounds(339, 273, 61, 14);
+		JLabel lblDescripcion = new JLabel("Descripcion:");
+		lblDescripcion.setBounds(339, 148, 61, 14);
 		getContentPane().add(lblDescripcion);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(339, 298, 319, 81);
+		scrollPane_1.setBounds(339, 173, 319, 81);
 		getContentPane().add(scrollPane_1);
 		
 		txtDescripcion = new JTextArea();
+		txtDescripcion.setEditable(false);
 		scrollPane_1.setViewportView(txtDescripcion);
 		
-		lblPrecio = new JLabel("klk");
-		lblPrecio.setBounds(422, 42, 75, 14);
+		lblPrecio = new JLabel("0");
+		lblPrecio.setBounds(424, 18, 75, 14);
 		getContentPane().add(lblPrecio);
 		
-		JLabel lblNewLabel_1 = new JLabel("Transmision");
-		lblNewLabel_1.setBounds(351, 95, 90, 14);
+		JLabel lblNewLabel_1 = new JLabel("Transmision:");
+		lblNewLabel_1.setBounds(339, 43, 90, 14);
 		getContentPane().add(lblNewLabel_1);
 		
-		lblTransmision = new JLabel("Transmision");
-		lblTransmision.setBounds(481, 95, 75, 14);
+		lblTransmision = new JLabel("0");
+		lblTransmision.setBounds(424, 43, 75, 14);
 		getContentPane().add(lblTransmision);
 		
-		JLabel Marca = new JLabel("Marca");
-		Marca.setBounds(339, 147, 46, 14);
+		JLabel Marca = new JLabel("Marca:");
+		Marca.setBounds(339, 68, 46, 14);
 		getContentPane().add(Marca);
 		
-		JLabel Año = new JLabel("A\u00F1o");
-		Año.setBounds(351, 186, 46, 14);
+		JLabel Año = new JLabel("A\u00F1o:");
+		Año.setBounds(339, 93, 46, 14);
 		getContentPane().add(Año);
 		
-		JLabel Pasajeros = new JLabel("Pasajeros");
-		Pasajeros.setBounds(351, 234, 46, 14);
+		JLabel Pasajeros = new JLabel("Pasajeros:");
+		Pasajeros.setBounds(341, 123, 63, 14);
 		getContentPane().add(Pasajeros);
 		
-		lblPasajeros = new JLabel("Pasajeros");
-		lblPasajeros.setBounds(422, 234, 46, 14);
+		lblPasajeros = new JLabel("0");
+		lblPasajeros.setBounds(424, 123, 46, 14);
 		getContentPane().add(lblPasajeros);
 		
-		lblMarca = new JLabel("New label");
-		lblMarca.setBounds(422, 147, 46, 14);
+		lblMarca = new JLabel("0");
+		lblMarca.setBounds(424, 68, 46, 14);
 		getContentPane().add(lblMarca);
 		
-		lblAño = new JLabel("New label");
-		lblAño.setBounds(422, 186, 46, 14);
+		lblAño = new JLabel("0");
+		lblAño.setBounds(424, 93, 46, 14);
 		getContentPane().add(lblAño);
 		setVisible(true);
 	}

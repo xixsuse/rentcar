@@ -27,9 +27,13 @@ public class ModeloAutosActivos extends AbstractTableModel{
 		return encabezados.length;
 	}
 	
-	
+	public void recibirVehiculo(int index){
+		Conexion.getInstacia().recibirVehiculo(listaVehiculos.get(index).getIdVehiculo());
+		listaVehiculos = Conexion.getInstacia().desplegarVehiculosEnUso();
+		fireTableDataChanged();
+	}
+
 	public int getRowCount() {
-	
 		return listaVehiculos.size();
 	}
 
