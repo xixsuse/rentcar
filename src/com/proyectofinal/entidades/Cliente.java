@@ -1,15 +1,36 @@
 package com.proyectofinal.entidades;
 
+import java.awt.Image;
+
 
 public class Cliente {
 
 	private String nombre;
 	private String apellido;
 	private String telefono;
-	private String documento;
+	private Image documento;
 	private int idCliente;
 	
+	public Cliente(String nombre, String apellido, String telefono,
+			Image documento, int idCliente) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.telefono = telefono;
+		this.documento = documento;
+		this.idCliente = idCliente;
+		
+	}
 	
+	public Cliente(String nombre, String apellido, String telefono) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.telefono = telefono;
+	}
+
+	public Cliente() {
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -28,10 +49,10 @@ public class Cliente {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	public String getDocumento() {
+	public Image getDocumento() {
 		return documento;
 	}
-	public void setDocumento(String documento) {
+	public void setDocumento(Image documento) {
 		this.documento = documento;
 	}
 	public int getIdCliente() {
@@ -40,30 +61,4 @@ public class Cliente {
 	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
 	}
-	public Cliente(String nombre, String apellido, String telefono,
-			String documento) {
-		super();
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.telefono = telefono;
-		this.documento = documento;
-		
-	}
-	public Cliente() {
-		// TODO Auto-generated constructor stub
-	}
-	public Cliente(String nombre, String apellido, String telefono,
-			String documento, int idCliente) {
-		super();
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.telefono = telefono;
-		this.documento = documento;
-		this.idCliente = idCliente;
-		
-	}
-	
-	
-	
-
 }

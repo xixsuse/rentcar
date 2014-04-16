@@ -54,7 +54,8 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 	private JTextField textField;
 	private JTextField txtNombreDocumento;
 	private JTextField txtBuscar;
-	
+	private JFileChooser archivador = new JFileChooser();
+	private FileNameExtensionFilter filtroImagen = new FileNameExtensionFilter("Imagenes", "jpg");
 	
 	public static MantenimientoClientes getInstacia(){
 		if(instancia == null){
@@ -253,8 +254,6 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int fila = tablaCliente.getSelectedRow();
-		JFileChooser jc = new JFileChooser();
 		if(e.getSource() == btnAgregar){
 			if(txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtTelefono.getText().isEmpty()){
 				JOptionPane.showMessageDialog(this, "Debe rellenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -262,7 +261,12 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 				JOptionPane.showMessageDialog(null, "Debes seleccionar un documento.", "Error", JOptionPane.ERROR_MESSAGE);
 			}else{
 			if(rutaArchivo != null){
-				ModeloClientes.getInstacia().agregarCliente(new Cliente(txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), rutaArchivo));
+				ModeloClientes.getInstacia().agregarCliente(new Cliente(
+											txtNombre.getText(),
+											txtApellido.getText(),
+											txtTelefono.getText()),
+											rutaArchivo);
+				rutaArchivo = "";
 				txtNombre.setText("");
 				txtApellido.setText("");
 				txtNombreDocumento.setText("");
@@ -274,35 +278,26 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 				}
 			}
 		}else if(e.getSource() == btnExaminar){
-			FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG", "jpg");
-			jc.setFileFilter(filtro);
-			int seleccion = jc.showOpenDialog(null);
+			archivador.setFileFilter(filtroImagen);
+			int seleccion = archivador.showOpenDialog(archivador);
+			if (seleccion == JFileChooser.APPROVE_OPTION) {
 
-			if(seleccion == JFileChooser.APPROVE_OPTION){
-				File archivo = jc.getSelectedFile();
-				jc.setFileFilter(filtro);
-				//Mostrar imagen
-				rutaArchivo = archivo.getPath();
-				ImageIcon foto = new ImageIcon(rutaArchivo);
-				Image iconoImagen = foto.getImage();
-				Image newImage = iconoImagen.getScaledInstance(281, 178, java.awt.Image.SCALE_DEFAULT);
-				ImageIcon fotoMostrar = new ImageIcon(newImage);
-				lblFoto.setIcon(fotoMostrar);
-				String nombreArchivo = archivo.getName();
-				txtNombreDocumento.setText(nombreArchivo);
-			}else if(seleccion == JFileChooser.CANCEL_OPTION){
-			}
-			
-				
+				File foto = archivador.getSelectedFile();
+				rutaArchivo = foto.getPath();
+				ImageIcon imagen = new ImageIcon(rutaArchivo);
+				Image iconImage = imagen.getImage();
+				Image newImage = iconImage.getScaledInstance(228, 204,
+						java.awt.Image.SCALE_SMOOTH);
+				ImageIcon fotoImagen = new ImageIcon(newImage);
+				lblFoto.setIcon(fotoImagen);
+
+					}else if(e.getSource() == btnEliminar){
 			
 			
-		}else if(e.getSource() == btnEliminar){
-			
-			
-			if (fila < 0){
+			if (tablaCliente.getSelectedRow()==-1){
 				JOptionPane.showMessageDialog(this, "Debes seleccionar una fila", "Error", JOptionPane.ERROR_MESSAGE);
 			}else{
-				ModeloClientes.getInstacia().eliminarCliente(fila);
+				ModeloClientes.getInstacia().eliminarCliente(tablaCliente.getSelectedRow());
 				txtNombre.setText("");
 				txtApellido.setText("");
 				txtNombreDocumento.setText("");
@@ -310,25 +305,16 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 				
 			}
 		}else if(e.getSource() == btnModificar){
-			if(fila < 0){
+			if(tablaCliente.getSelectedRow() == -1){
 				JOptionPane.showMessageDialog(this, "Debes seleccionar una fila", "Error", JOptionPane.ERROR_MESSAGE);
 			}else if(txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtNombreDocumento.getText().isEmpty()){
 				JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 			}else{
 				
-				FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG", "jpg");
-				jc.setFileFilter(filtro);
-				
-				jc.showOpenDialog(null);
-				File archivo = jc.getSelectedFile();
-				
-				jc.setFileFilter(filtro);
-				
-				rutaArchivo = archivo.getAbsolutePath();
-				String nombreArchivo = archivo.getName();
-				txtNombreDocumento.setText(nombreArchivo);
-				
-				ModeloClientes.getInstacia().modificarCliente(new Cliente(txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), rutaArchivo),fila);
+				ModeloClientes.getInstacia().modificarCliente(new Cliente(txtNombre.getText(),
+															  txtApellido.getText(),
+															  txtTelefono.getText()),
+															  tablaCliente.getSelectedRow(),rutaArchivo);
 				txtNombre.setText("");
 				txtApellido.setText("");
 				txtNombreDocumento.setText("");
@@ -338,6 +324,10 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 		}else if(e.getSource() == btnBuscar){
 			BuscadorTablas.getInstancia().buscar(tablaCliente, txtBuscar.getText());
 		}
+		else{
+			
+			}
+		}
 		
 	}
 
@@ -345,11 +335,15 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	int fila = tablaCliente.getSelectedRow();
+	Cliente cliente = ModeloClientes.getInstacia().cargarDatos(fila);
 	txtNombre.setText(tablaCliente.getValueAt(fila, 0).toString());
 	txtApellido.setText(tablaCliente.getValueAt(fila, 1).toString());
 	txtTelefono.setText(tablaCliente.getValueAt(fila, 2).toString());
 	txtNombreDocumento.setText("Documento del cliente");
-	
+	Image foto = cliente.getDocumento().getScaledInstance(228, 204,
+			java.awt.Image.SCALE_SMOOTH);
+	ImageIcon icono = new ImageIcon(foto);
+	lblFoto.setIcon(icono);
 	
 	
 		

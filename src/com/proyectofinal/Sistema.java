@@ -15,7 +15,7 @@ public class Sistema {
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		//new Login().setVisible(true);;
-		new MantenimientoAlquiler().setVisible(true);
+		new Login().setVisible(true);;
+		//new MantenimientoAlquiler().setVisible(true);
 	}
 }

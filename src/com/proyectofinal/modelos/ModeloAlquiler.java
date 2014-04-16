@@ -9,7 +9,7 @@ import com.proyectofinal.entidades.Alquiler;
 
 public class ModeloAlquiler extends AbstractTableModel{
 	private ArrayList<Alquiler> listaAlquileres = new ArrayList<Alquiler>();
-	private String[] encabezados = {"idAlquiler","idCliente","idVehiculo","idAccesorio","Desde","Hasta","Total a pagar"};
+	private String[] encabezados = {"idAlquiler","idCliente","idVehiculo","idAccesorio","Desde","Hasta","Total a pagar","Descuento"};
 	private static ModeloAlquiler modelo;
 	
 	private ModeloAlquiler(){
@@ -43,6 +43,9 @@ public class ModeloAlquiler extends AbstractTableModel{
 		fireTableDataChanged();
 	}
 	
+	public void cambiarEstadoVehiculo(int idVehiculo){
+		Conexion.getInstacia().cambiarEstadoVehiculos(idVehiculo);
+	}
 	
 	public ArrayList<String> getAccesorios(){
 		return Conexion.getInstacia().getAccesorios();
@@ -78,7 +81,7 @@ public class ModeloAlquiler extends AbstractTableModel{
 			resultado = String.valueOf(alquiler.getIdAlquiler());
 			break;
 		case 1:
-			resultado = String.valueOf(alquiler.getDesde());
+			resultado = String.valueOf(alquiler.getIdCliente());
 			break;
 		case 2: 
 			resultado = String.valueOf(alquiler.getIdVehiculo());
@@ -94,6 +97,9 @@ public class ModeloAlquiler extends AbstractTableModel{
 			break;
 		case 6: 
 			resultado = String.valueOf(alquiler.getTotalAPagar());
+			break;
+		case 7:
+			resultado = String.valueOf(alquiler.getDescuento());
 			break;
 		}
 		return resultado;

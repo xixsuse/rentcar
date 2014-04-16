@@ -27,6 +27,7 @@ public class ModeloAutosActivos extends AbstractTableModel{
 		return encabezados.length;
 	}
 	
+	
 	public int getRowCount() {
 	
 		return listaVehiculos.size();

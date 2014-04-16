@@ -333,18 +333,17 @@ public class MantenimientoVehiculo extends JFrame {
 							"Debe seleccionar la fila que desea modificar");
 				} else {
 					ModeloVehiculos.getInstancia().modificarVehiculo(
-							new Vehiculo(Integer.parseInt(txtPrecio.getText()
-									.toString()), txtMarca.getText(),
-									Integer.parseInt(txtPasajeros.getText()
-											.toString()), Integer
-											.parseInt((String) cbbAño
-													.getSelectedItem()),
-									txtMatricula.getText(), comboTransmision
-											.getSelectedItem().toString(),
-									txtDescripcion.getText(), Integer
-											.parseInt(txtCombustible.getText()
-													.toString()), false), ruta,
-							tblVehiculos.getSelectedRow());
+							new Vehiculo(Integer.parseInt(txtPrecio.getText().toString()),
+														  txtMarca.getText(),
+														  Integer.parseInt(txtPasajeros.getText().toString()),
+														  Integer.parseInt((String) cbbAño.getSelectedItem()),
+														  txtMatricula.getText(),
+														  comboTransmision.getSelectedItem().toString(),
+														  txtDescripcion.getText(),
+														  Integer.parseInt(txtCombustible.getText().toString()),
+														  false),
+														  ruta,
+														  tblVehiculos.getSelectedRow());
 					ruta = "";
 				}
 			}
@@ -359,7 +358,6 @@ public class MantenimientoVehiculo extends JFrame {
 					ModeloVehiculos.getInstancia().eliminarVehiculo(
 							tblVehiculos.getSelectedRow());
 				}
-
 			}
 		});
 		btnAgregar.addActionListener(new ActionListener() {
@@ -369,20 +367,20 @@ public class MantenimientoVehiculo extends JFrame {
 						|| txtMatricula.getText().isEmpty() || txtPasajeros.getText().isEmpty() || txtPrecio.getText().isEmpty()){
 					JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos","Error",JOptionPane.ERROR_MESSAGE);
 				}else if (ruta.equals("")) {
-					JOptionPane.showMessageDialog(null,
-							"Debe seleccionar una foto para este vehiculo");
+					JOptionPane.showMessageDialog(null,"Debe seleccionar una foto para este vehiculo");
 				}else{
 				ModeloVehiculos.getInstancia().agregarVehiculo(
-						new Vehiculo(Integer.parseInt(txtPrecio.getText()
-								.toString()), txtMarca.getText(), Integer
-								.parseInt(txtPasajeros.getText().toString()),
-								Integer.parseInt((String) cbbAño
-										.getSelectedItem()), txtMatricula
-										.getText(), comboTransmision
-										.getSelectedItem().toString(),
-								txtDescripcion.getText(), Integer
-										.parseInt(txtCombustible.getText()),
-								false), ruta);
+						new Vehiculo(
+								Integer.parseInt(txtPrecio.getText().toString()),
+								txtMarca.getText(),
+								Integer.parseInt(txtPasajeros.getText().toString()),
+								Integer.parseInt((String) cbbAño.getSelectedItem()),
+								txtMatricula.getText(),
+								comboTransmision.getSelectedItem().toString(),
+								txtDescripcion.getText(),
+								Integer.parseInt(txtCombustible.getText()),
+								false),
+								ruta);
 				ruta = "";
 				
 				}

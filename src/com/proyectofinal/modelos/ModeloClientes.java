@@ -70,8 +70,8 @@ public class ModeloClientes extends AbstractTableModel {
 		return respuesta;
 	}
 	
-	public void agregarCliente(Cliente cliente){
-		Conexion.getInstacia().agregarCliente(cliente);
+	public void agregarCliente(Cliente cliente,String ruta){
+		Conexion.getInstacia().agregarCliente(cliente,ruta);
 		ArrayClientes = Conexion.getInstacia().cargarCliente();
 		fireTableDataChanged();
 		
@@ -83,9 +83,9 @@ public class ModeloClientes extends AbstractTableModel {
 		fireTableRowsDeleted(fila, fila);
 	}
 	
-	public void modificarCliente(Cliente cliente, int index){
+	public void modificarCliente(Cliente cliente, int index,String ruta){
 		Cliente clave = ArrayClientes.get(index);
-		Conexion.getInstacia().modificarCliente(clave.getIdCliente(),cliente);
+		Conexion.getInstacia().modificarCliente(clave.getIdCliente(),cliente,ruta);
 		ArrayClientes = Conexion.getInstacia().cargarCliente(); 
 		fireTableDataChanged();
 	}

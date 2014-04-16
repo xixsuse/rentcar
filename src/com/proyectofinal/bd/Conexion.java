@@ -33,7 +33,6 @@ import com.proyectofinal.entidades.Vehiculo;
 import com.proyectofinal.entidades.VehiculoActivo;
 import com.proyectofinal.ui.VentanaPrincipal;
 //github.com/DannyFeliz/rentcar.git
-import com.proyectofinal.ui.mantenimiento.MantenimientoAlquiler;
 
 public class Conexion {
 
@@ -42,7 +41,6 @@ public class Conexion {
 	ResultSet rs = null;
 	PreparedStatement prst = null;
 	ArrayList<Usuario> usuario = new ArrayList<Usuario>();
-	ArrayList<Cliente> cliente = new ArrayList<Cliente>();
 	ArrayList<Accesorio> accesorio = new ArrayList<Accesorio>();
 	ArrayList<Categoria> categoria = new ArrayList<Categoria>();
 	ArrayList<Seguro> seguros = new ArrayList<Seguro>();
@@ -183,32 +181,55 @@ public class Conexion {
 	/// INICIO CLIENTE /////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public ArrayList<Cliente> cargarCliente(){
-		cliente = new ArrayList<Cliente>();
+		ArrayList<Cliente> listaClientes = null;
 		try {
 			rs = st.executeQuery("SELECT nombre, apellido, telefono, documento, idCliente FROM cliente");
 			while(rs.next()){
-				cliente.add(new Cliente(rs.getString("nombre"),
-										rs.getString("apellido"),
-										rs.getString("telefono"),
-										rs.getString("documento"),
-										rs.getInt("idCliente")));
+				listaClientes = new ArrayList<Cliente>();
+						Cliente cliente = new Cliente();
+								cliente.setNombre(rs.getString("nombre"));
+								cliente.setApellido(rs.getString("apellido"));
+								cliente.setTelefono(rs.getString("telefono"));
+										Blob blob = rs.getBlob("documento");
+										byte[] data = blob.getBytes(1, (int)blob.length());
+										BufferedImage documento = null;
+				try{
+					documento = ImageIO.read(new ByteArrayInputStream(data));
+				}
+				catch(IOException ex){
+					ex.printStackTrace();
+				}
+										cliente.setDocumento(documento);
+										cliente.setIdCliente(rs.getInt("idCliente"));
+										listaClientes.add(cliente);
 			}
+
+			/*Blob blob = rs.getBlob("Foto");
+			byte[] data = blob.getBytes(1, (int)blob.length());
+			BufferedImage imagen = null;
+			try{
+				imagen = ImageIO.read(new ByteArrayInputStream(data));
+			}
+			catch(IOException ex){
+				ex.printStackTrace();
+			}
+			vehiculo.setFoto(imagen);
+			vehiculo.setTransmision(rs.getString("transmision"));
+			*/
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return cliente;
+		return listaClientes;
 	}
-	
-	public void agregarCliente(Cliente cliente){
+	public void agregarCliente(Cliente cliente,String ruta){
 		
 		
 		try {
 			//System.out.println(cliente.getDocumento());
-			File imagen = new File(cliente.getDocumento());
+			File imagen = new File(ruta);
 			FileInputStream  foto = new FileInputStream(imagen);
-			
 			prst = con.prepareStatement("INSERT INTO CLIENTE VALUES (?,?,?,?,?)");
 			prst.setString(1, cliente.getNombre());
 			prst.setString(2, cliente.getApellido());
@@ -241,9 +262,9 @@ public class Conexion {
 		}
 	}
 
-	public void modificarCliente(int id, Cliente cliente) {
+	public void modificarCliente(int id, Cliente cliente,String ruta) {
 		try {
-			File imagen = new File(cliente.getDocumento());
+			File imagen = new File(ruta);
 			FileInputStream  foto = new FileInputStream(imagen);
 			
 			prst = con.prepareStatement("UPDATE CLIENTE SET nombre = ?, apellido = ?, telefono = ?, documento = ? WHERE idCliente = ?");
@@ -300,7 +321,7 @@ public class Conexion {
 	public ArrayList<String> getAccesorios(){
 		ArrayList<String> listaAccesorios = null;
 		try{
-			rs = st.executeQuery("SELECT idAccesorio FROM accesorio");
+			rs = st.executeQuery("SELECT idAccesorio,nombre FROM accesorio");
 			listaAccesorios = new ArrayList<String>();
 			while(rs.next()){
 				listaAccesorios.add(String.valueOf(rs.getInt("idAccesorio")));
@@ -384,22 +405,7 @@ public class Conexion {
 			sql.printStackTrace();
 		}
 		return listaAlquileres;
-	}
-	
-	public ArrayList<VehiculoActivo> desplegarVehiculosEnUso(){
-		ArrayList<VehiculoActivo> listaVehiculos = null;
-		try{
-			rs = st.executeQuery("SELECT marca, Hasta FROM vehiculo v JOIN alquiler a ON v.idVehiculo = a.idVehiculo WHERE  v.estado = 1;");
-			listaVehiculos = new ArrayList<VehiculoActivo>();
-			while(rs.next()){
-				listaVehiculos.add(new VehiculoActivo(rs.getString("marca"),rs.getString("hasta")));
-			}
-		}catch(SQLException sql){
-			
-		}
-		return listaVehiculos;
 	} 
-	
 	
 	public void agregarAlquiler(Alquiler alquiler){
 		try {
@@ -437,7 +443,8 @@ public class Conexion {
 			prst.setInt(1, alquiler.getIdVehiculo());
 			prst.setString(2, alquiler.getDesde());
 			prst.setString(3, alquiler.getHasta());
-			prst.setInt(5, alquiler.getIdCliente());
+			prst.setInt(4, alquiler.getIdCliente());
+			prst.setInt(5, alquiler.getTotalAPagar());
 			prst.setFloat(6, alquiler.getDescuento());
 			prst.setInt(7, alquiler.getIdSeguro());
 			prst.setInt(8, alquiler.getIdAccesorio());
@@ -447,6 +454,7 @@ public class Conexion {
 			sql.printStackTrace();
 		}
 	}
+	//Comienzo metodos de vehiculos
 	
 	public void guardarVehiculo(Vehiculo vehiculo,String ruta){
 		FileInputStream flujo = null;
@@ -475,6 +483,32 @@ public class Conexion {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	
+	public ArrayList<VehiculoActivo> desplegarVehiculosEnUso(){
+		ArrayList<VehiculoActivo> listaVehiculos = null;
+		try{
+			rs = st.executeQuery("SELECT marca, Hasta FROM vehiculo v JOIN alquiler a ON v.idVehiculo = a.idVehiculo WHERE  v.estado = 1;");
+			listaVehiculos = new ArrayList<VehiculoActivo>();
+			while(rs.next()){
+				listaVehiculos.add(new VehiculoActivo(rs.getString("marca"),rs.getString("hasta")));
+			}
+		}catch(SQLException sql){
+			
+		}
+		return listaVehiculos;
+	}
+	
+public void cambiarEstadoVehiculos(int idVehiculo){
+		try{
+			prst = con.prepareStatement("Update vehiculo SET estado = 1 WHERE idVehiculo = ?");
+			prst.setInt(1, idVehiculo);
+			prst.execute();
+		}
+		catch(SQLException sql){
+			sql.printStackTrace();
 		}
 	}
 	
