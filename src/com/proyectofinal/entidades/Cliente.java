@@ -7,7 +7,7 @@ public class Cliente {
 	private String apellido;
 	private String telefono;
 	private String documento;
-	private String idCliente;
+	private int idCliente;
 	
 	
 	public String getNombre() {
@@ -34,10 +34,10 @@ public class Cliente {
 	public void setDocumento(String documento) {
 		this.documento = documento;
 	}
-	public String getIdCliente() {
+	public int getIdCliente() {
 		return idCliente;
 	}
-	public void setIdCliente(String idCliente) {
+	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
 	}
 	public Cliente(String nombre, String apellido, String telefono,
@@ -53,7 +53,7 @@ public class Cliente {
 		// TODO Auto-generated constructor stub
 	}
 	public Cliente(String nombre, String apellido, String telefono,
-			String documento, String idCliente) {
+			String documento, int idCliente) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;

@@ -136,4 +136,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		this.Usuario = Usuario;
 	}
 	
+	public static int getIdCliente(){
+		return idCliente;
+	}
+	
+	public void setIdUsuario(int idCliente){
+		this.idCliente = idCliente;
+	}
+	
 }

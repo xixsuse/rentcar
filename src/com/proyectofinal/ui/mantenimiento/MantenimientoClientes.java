@@ -24,10 +24,16 @@ import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.proyectofinal.entidades.Cliente;
+import com.proyectofinal.modelos.ModeloCatalogo;
 import com.proyectofinal.modelos.ModeloClientes;
 import com.proyectofinal.ui.BuscadorTablas;
+import com.proyectofinal.ui.Catalogo;
+
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class MantenimientoClientes extends JFrame implements ActionListener, MouseListener{
@@ -59,9 +65,21 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 	
 
 	private MantenimientoClientes() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				int seleccion = 0;
+				seleccion = JOptionPane.showConfirmDialog(null, "Seguro que desea salir?", "Advertencia", JOptionPane.YES_NO_OPTION);
+				if(seleccion == JOptionPane.OK_OPTION){
+					MantenimientoAlquiler.setIdCliente(ModeloClientes.getInstacia().
+					getIdCliente(tablaCliente.getSelectedRow()));
+						MantenimientoClientes.this.dispose();
+				}
+			}
+		});
 		setResizable(false);
 		setTitle("Administraci\u00F3n de clientes");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 831, 597);
 		getContentPane().setLayout(null);
 		

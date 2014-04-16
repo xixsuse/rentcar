@@ -60,7 +60,7 @@ public class Conexion {
 	
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			con = DriverManager.getConnection("jdbc:mysql://localhost/mydb","root","123");
+			con = DriverManager.getConnection("jdbc:mysql://localhost/mydb?zeroDateTimeBehavior=convertToNull","root","123");
 			st = con.createStatement();
 			
 		} catch (InstantiationException | IllegalAccessException
@@ -187,7 +187,11 @@ public class Conexion {
 		try {
 			rs = st.executeQuery("SELECT nombre, apellido, telefono, documento, idCliente FROM cliente");
 			while(rs.next()){
-				cliente.add(new Cliente(rs.getString("nombre"), rs.getString("apellido"), rs.getString("telefono"), rs.getString("documento"), rs.getString("idCliente")));
+				cliente.add(new Cliente(rs.getString("nombre"),
+										rs.getString("apellido"),
+										rs.getString("telefono"),
+										rs.getString("documento"),
+										rs.getInt("idCliente")));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -210,7 +214,7 @@ public class Conexion {
 			prst.setString(2, cliente.getApellido());
 			prst.setString(3, cliente.getTelefono());
 			prst.setBinaryStream(4, foto, (int) imagen.length());
-			prst.setString(5, cliente.getIdCliente());
+			prst.setInt(5, cliente.getIdCliente());
 			prst.execute();
 			
 			if(prst != null){
@@ -225,7 +229,7 @@ public class Conexion {
 	public void eliminarCliente(Cliente cliente){
 		try {
 			prst = con.prepareStatement("DELETE FROM CLIENTE WHERE idCliente = ?");
-			prst.setString(1, cliente.getIdCliente());
+			prst.setInt(1, cliente.getIdCliente());
 			prst.execute();
 			if(st != null){
 				JOptionPane.showMessageDialog(null, "Se ha Cliente ha sido eliminado exitosamente","Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -237,7 +241,7 @@ public class Conexion {
 		}
 	}
 
-	public void modificarCliente(String id, Cliente cliente) {
+	public void modificarCliente(int id, Cliente cliente) {
 		try {
 			File imagen = new File(cliente.getDocumento());
 			FileInputStream  foto = new FileInputStream(imagen);
@@ -247,7 +251,7 @@ public class Conexion {
 			prst.setString(2, cliente.getApellido());
 			prst.setString(3, cliente.getTelefono());
 			prst.setBinaryStream(4, foto, (int) imagen.length());
-			prst.setString(5, id);
+			prst.setInt(5, id);
 			prst.execute();
 			if(prst != null){
 				JOptionPane.showMessageDialog(null, "El Cliente ha sido modificado exitosamente.", "Modificaciñn del contacto", JOptionPane.INFORMATION_MESSAGE);
@@ -296,10 +300,10 @@ public class Conexion {
 	public ArrayList<String> getAccesorios(){
 		ArrayList<String> listaAccesorios = null;
 		try{
-			rs = st.executeQuery("SELECT nombre FROM accesorio");
+			rs = st.executeQuery("SELECT idAccesorio FROM accesorio");
 			listaAccesorios = new ArrayList<String>();
 			while(rs.next()){
-				listaAccesorios.add(rs.getString("nombre"));
+				listaAccesorios.add(String.valueOf(rs.getInt("idAccesorio")));
 			}
 		}
 		catch(SQLException sql){
@@ -372,7 +376,7 @@ public class Conexion {
 			listaAlquileres = new ArrayList<Alquiler>();
 			while(rs.next()){
 				listaAlquileres.add(new Alquiler(rs.getInt("idVehiculo"),rs.getString("Desde"),rs.getString("Hasta"),
-						rs.getString("usuario"),rs.getInt("idAlquiler"),rs.getInt("TotalAPagar"),rs.getFloat("descuento"),
+						rs.getInt("idCliente"),rs.getInt("idAlquiler"),rs.getInt("TotalAPagar"),rs.getFloat("descuento"),
 						rs.getInt("idSeguro"),rs.getInt("idAccesorio")));
 			}
 		}
@@ -399,11 +403,11 @@ public class Conexion {
 	
 	public void agregarAlquiler(Alquiler alquiler){
 		try {
-			prst = con.prepareStatement("INSERT INTO alquiler(idVehiculo,desde,hasta,idCliente,totalAPagar,descuento,idSeguro,idAccesorio)");
+			prst = con.prepareStatement("INSERT INTO alquiler(idVehiculo,desde,hasta,idCliente,totalAPagar,descuento,idSeguro,idAccesorio) VALUES (?,?,?,?,?,?,?,?)");
 			prst.setInt(1,alquiler.getIdVehiculo() );
 			prst.setString(2, alquiler.getDesde());
 			prst.setString(3,alquiler.getHasta());
-			prst.setString(4, alquiler.getUsuario());
+			prst.setInt(4, alquiler.getIdCliente());
 			prst.setInt(5,alquiler.getTotalAPagar());
 			prst.setFloat(6, alquiler.getDescuento());
 			prst.setInt(7,alquiler.getIdSeguro());
@@ -433,7 +437,7 @@ public class Conexion {
 			prst.setInt(1, alquiler.getIdVehiculo());
 			prst.setString(2, alquiler.getDesde());
 			prst.setString(3, alquiler.getHasta());
-			prst.setString(5, alquiler.getUsuario());
+			prst.setInt(5, alquiler.getIdCliente());
 			prst.setFloat(6, alquiler.getDescuento());
 			prst.setInt(7, alquiler.getIdSeguro());
 			prst.setInt(8, alquiler.getIdAccesorio());
@@ -686,10 +690,10 @@ public class Conexion {
 	public ArrayList<String> getSeguros(){
 		ArrayList<String> listaSeguros = null;
 		try{
-			rs = st.executeQuery("SELECT nombre FROM seguro");
+			rs = st.executeQuery("SELECT idSeguro FROM seguro");
 			listaSeguros = new ArrayList<String>();
 			while(rs.next()){
-				listaSeguros.add(rs.getString("nombre"));
+				listaSeguros.add(String.valueOf(rs.getInt("idSeguro")));
 			}
 		}
 		catch(SQLException sql){

@@ -1,6 +1,7 @@
 package com.proyectofinal.ui;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 
@@ -29,15 +30,22 @@ public class Catalogo extends JFrame{
 	public Catalogo(){
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent arg0) {
-				MantenimientoAlquiler.setIdVehiculo(ModeloCatalogo.getInstancia().
-						getIdVehiculo(tblCatalogo.getSelectedRow()));
+				int seleccion = 0;
+				seleccion = JOptionPane.showConfirmDialog(null, "Seguro que desea salir?", "Advertencia", JOptionPane.YES_NO_OPTION);
+				if(seleccion == JOptionPane.OK_OPTION){
+					MantenimientoAlquiler.setIdVehiculo(ModeloCatalogo.getInstancia().
+					getIdVehiculo(tblCatalogo.getSelectedRow()));
+						Catalogo.this.dispose();
+				}
 				
+					
 				
 			}
 		});
 		setTitle("Catalogo de vehiculos");
 		setSize(339,469);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		
 		getContentPane().setLayout(null);
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 319, 408);

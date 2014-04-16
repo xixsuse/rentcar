@@ -21,7 +21,7 @@ public class ModeloClientes extends AbstractTableModel {
 		return instancia;
 	}
 	
-	public ModeloClientes() {
+	private ModeloClientes() {
 		ArrayClientes = Conexion.getInstacia().cargarCliente();
 	}
 
@@ -29,6 +29,10 @@ public class ModeloClientes extends AbstractTableModel {
 	public int getColumnCount() {
 
 		return tituloTabla.length;
+	}
+	
+	public int getIdCliente(int index){
+		return ArrayClientes.get(index).getIdCliente();
 	}
 
 	@Override
@@ -81,7 +85,7 @@ public class ModeloClientes extends AbstractTableModel {
 	
 	public void modificarCliente(Cliente cliente, int index){
 		Cliente clave = ArrayClientes.get(index);
-		Conexion.getInstacia().modificarCliente(cliente.getIdCliente(),cliente);
+		Conexion.getInstacia().modificarCliente(clave.getIdCliente(),cliente);
 		ArrayClientes = Conexion.getInstacia().cargarCliente(); 
 		fireTableDataChanged();
 	}

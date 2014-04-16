@@ -4,13 +4,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -19,9 +23,6 @@ import com.proyectofinal.modelos.ModeloAlquiler;
 import com.proyectofinal.ui.Catalogo;
 import com.proyectofinal.ui.VentanaPrincipal;
 import com.toedter.calendar.JDateChooser;
-
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 
 public class MantenimientoAlquiler extends JFrame{
 	private JTable tblAlquiler;
@@ -34,6 +35,7 @@ public class MantenimientoAlquiler extends JFrame{
 	private JDateChooser dateHasta;
 	private JComboBox cbbSeguros;
 	private JComboBox cbbAccesorio;
+	private static JTextField txtIdCliente;
 	
 	public MantenimientoAlquiler(){
 		setTitle("Le atiende: "+ VentanaPrincipal.getUsuario());
@@ -67,7 +69,7 @@ public class MantenimientoAlquiler extends JFrame{
 						new Alquiler(Integer.parseInt(txtIdVehiculo.getText()),
 									 dateDesde.getDateFormatString(),
 									 dateHasta.getDateFormatString(),
-									 VentanaPrincipal.getUsuario(),
+									 654671,
 									 Integer.parseInt(txtTotal.getText()),
 									 Float.parseFloat(txtDescuento.getText()),
 									 Integer.parseInt((String) cbbSeguros.getSelectedItem()),
@@ -141,9 +143,10 @@ public class MantenimientoAlquiler extends JFrame{
 		panel.add(cbbSeguros);
 		
 		dateHasta = new JDateChooser();
+		dateHasta.setDateFormatString("yyyy-MM-dd");
 		dateHasta.setBounds(48, 236, 86, 20);
 		panel.add(dateHasta);
-		dateHasta.setEnabled(false);
+		
 		
 		JLabel Hasta = new JLabel("Hasta");
 		Hasta.setBounds(8, 242, 28, 14);
@@ -154,9 +157,10 @@ public class MantenimientoAlquiler extends JFrame{
 		panel.add(Desde);
 		
 		dateDesde = new JDateChooser();
+		dateDesde.setDateFormatString("yyyy-MM-dd");
 		dateDesde.setBounds(214, 236, 95, 20);
 		panel.add(dateDesde);
-		dateDesde.setEnabled(false);
+		
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(314, 33, 452, 427);
@@ -168,11 +172,25 @@ public class MantenimientoAlquiler extends JFrame{
 		btnCatalogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Catalogo();
-				setVisible(false);
+				
 			}
 		});
 		btnCatalogo.setBounds(214, 66, 96, 23);
 		panel.add(btnCatalogo);
+		
+		JButton btnRegistrarUsuario = new JButton("Registrar usuario");
+		btnRegistrarUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MantenimientoClientes.getInstacia().setVisible(true);
+			}
+		});
+		btnRegistrarUsuario.setBounds(177, 132, 127, 23);
+		panel.add(btnRegistrarUsuario);
+		
+		txtIdCliente = new JTextField();
+		txtIdCliente.setBounds(214, 180, 86, 20);
+		panel.add(txtIdCliente);
+		txtIdCliente.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Vehiculos en uso", null, panel_1, null);
@@ -187,15 +205,28 @@ public class MantenimientoAlquiler extends JFrame{
 		tblAlquiler.getTableHeader().setReorderingAllowed(false);
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
+//System.out.println(dateDesde.getDate());
+
+/*String formato = dateDesde.getDateFormatString();
+Date date = dateDesde.getDate();
+SimpleDateFormat sdf = new SimpleDateFormat(formato);
+System.out.println(String.valueOf(sdf.format(date)));*/
+				 String desde = new SimpleDateFormat("yyyy-MM-dd").format((dateDesde.getDate()));
+				 String hasta = new SimpleDateFormat("yyyy-MM-dd").format((dateHasta.getDate()));
+				 System.out.println(desde);
+				 System.out.println(hasta);
+				
 				ModeloAlquiler.getInstancia().agregarAlquiler(
 						new Alquiler(Integer.parseInt(txtIdVehiculo.getText()),
-									 dateDesde.getDateFormatString(),
-									 dateHasta.getDateFormatString(),
-									 VentanaPrincipal.getUsuario(),																			
+								desde,
+								hasta,
+								Integer.parseInt(txtIdCliente.getText()),																			
 									 Integer.parseInt(txtTotal.getText()),
 									 Float.parseFloat(txtDescuento.getText()),
 									 Integer.parseInt((String) cbbSeguros.getSelectedItem()),
 									 Integer.parseInt((String) cbbAccesorio.getSelectedItem())));
+							
 			}
 		});
 		setVisible(true);
@@ -205,4 +236,7 @@ public class MantenimientoAlquiler extends JFrame{
 		txtIdVehiculo.setText(String.valueOf(idVehiculo));
 	}
 	
+	public static void setIdCliente(int idCliente){
+		txtIdCliente.setText(String.valueOf(idCliente));
+	}
 }
