@@ -4,12 +4,12 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JButton;
-import javax.swing.JMenuBar;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 import com.proyectofinal.ui.mantenimiento.MantenimientoAccesorio;
 import com.proyectofinal.ui.mantenimiento.MantenimientoAlquiler;
@@ -33,15 +33,23 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JMenu mnArchivo;
 	private JMenuItem itemCerrarSesion;
 	private JMenuItem itemSalir;
-	private String nombreUsuario = "";
-	private int idCliente;
+	private static String nombreUsuario = "";
+	private static int idCliente;
+//	private static VentanaPrincipal modelo;
+//	
+//	public static VentanaPrincipal getInstancia(){
+//		if(modelo==null){
+//			modelo = new VentanaPrincipal();
+//		}
+//		return modelo;
+//	}
 	
-	public VentanaPrincipal(String nombreUsuario,int idCliente) {
+	public VentanaPrincipal(String nombreUsuario,int idCliente){
 		//setResizable(false);
 		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.nombreUsuario = nombreUsuario;
-		this.idCliente = idCliente;
+		VentanaPrincipal.nombreUsuario = nombreUsuario;
+		VentanaPrincipal.idCliente = idCliente;
 		setBounds(100, 100, 683, 509);
 		getContentPane().setLayout(null);
 		JPanel panelBotones = new JPanel();
@@ -98,8 +106,6 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		mnArchivo.add(itemSalir);
 	}
 
-	
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnCatalogo){
 			new Catalogo().setVisible(true);
@@ -114,9 +120,25 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}else if(e.getSource() == btnMantenimientoVehiculo){
 			MantenimientoVehiculo.getInstancia().setVisible(true);;
 		}else if(e.getSource() == btnMantenimientoAlquiler){
-			new MantenimientoAlquiler(nombreUsuario,idCliente).setVisible(true);;
+			new MantenimientoAlquiler();
 		}else if(e.getSource() == btnMantenimientoSeguro){
 			MantenimientoSeguro.getInstancia().setVisible(true);
 		}
+	}
+	
+	public static String getNombreUsuario(){
+		return nombreUsuario;
+	}
+	
+	public static int getIdCliente(){
+		return idCliente;
+	}
+	
+	public void setNombreUsuario(String nombreUsuario){
+		this.nombreUsuario = nombreUsuario;
+	}
+	
+	public void setIdCliente(int idCliente){
+		this.idCliente = idCliente;
 	}
 }

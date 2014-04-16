@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import com.proyectofinal.entidades.Alquiler;
 import com.proyectofinal.modelos.ModeloAlquiler;
 import com.proyectofinal.ui.Catalogo;
+import com.proyectofinal.ui.VentanaPrincipal;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JPanel;
@@ -33,17 +34,11 @@ public class MantenimientoAlquiler extends JFrame{
 	private JDateChooser dateHasta;
 	private JComboBox cbbSeguros;
 	private JComboBox cbbAccesorio;
-	private static int idCliente;
-	private static String nombreUsuario = "";
-	private static MantenimientoAlquiler ventana;
 	
-
-	private MantenimientoAlquiler(String nombreUsuario,final int idCliente){
-		setTitle("Le atiende: "+ nombreUsuario);
+	public MantenimientoAlquiler(){
+		setTitle("Le atiende: ");
 		setSize(795,500);
 		getContentPane().setLayout(null);
-		MantenimientoAlquiler.nombreUsuario = nombreUsuario;
-		MantenimientoAlquiler.idCliente = idCliente;
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(2, 6, 777, 427);
 		getContentPane().add(tabbedPane);
@@ -67,10 +62,16 @@ public class MantenimientoAlquiler extends JFrame{
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ModeloAlquiler.getInstancia().modificarAlquiler(new Alquiler(Integer.parseInt(txtIdVehiculo.getText()),
-						dateDesde.getDateFormatString(),dateHasta.getDateFormatString(),idCliente,Integer.parseInt(txtTotal.getText()),
-						Float.parseFloat(txtDescuento.getText()),Integer.parseInt((String) cbbSeguros.getSelectedItem()),
-						Integer.parseInt((String) cbbAccesorio.getSelectedItem())),tblAlquiler.getSelectedRow());
+				ModeloAlquiler.getInstancia().modificarAlquiler(
+						new Alquiler(Integer.parseInt(txtIdVehiculo.getText()),
+									 dateDesde.getDateFormatString(),
+									 dateHasta.getDateFormatString(),
+									 VentanaPrincipal.getIdCliente(),
+									 Integer.parseInt(txtTotal.getText()),
+									 Float.parseFloat(txtDescuento.getText()),
+									 Integer.parseInt((String) cbbSeguros.getSelectedItem()),
+									 Integer.parseInt((String) cbbAccesorio.getSelectedItem())),
+									 tblAlquiler.getSelectedRow());
 			}
 		});
 		btnModificar.setBounds(229, 321, 75, 23);
@@ -184,20 +185,21 @@ public class MantenimientoAlquiler extends JFrame{
 		tblAlquiler.getTableHeader().setReorderingAllowed(false);
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ModeloAlquiler.getInstancia().agregarAlquiler(new Alquiler(Integer.parseInt(txtIdVehiculo.getText()),
-						dateDesde.getDateFormatString(),dateHasta.getDateFormatString(),idCliente,Integer.parseInt(txtTotal.getText()),
-						Float.parseFloat(txtDescuento.getText()),Integer.parseInt((String) cbbSeguros.getSelectedItem()),
-						Integer.parseInt((String) cbbAccesorio.getSelectedItem())));
+				ModeloAlquiler.getInstancia().agregarAlquiler(
+						new Alquiler(Integer.parseInt(txtIdVehiculo.getText()),
+									 dateDesde.getDateFormatString(),
+									 dateHasta.getDateFormatString(),
+									 VentanaPrincipal.getIdCliente(),																			
+									 Integer.parseInt(txtTotal.getText()),
+									 Float.parseFloat(txtDescuento.getText()),
+									 Integer.parseInt((String) cbbSeguros.getSelectedItem()),
+									 Integer.parseInt((String) cbbAccesorio.getSelectedItem())));
 			}
 		});
 		setVisible(true);
 	}	
 	
 	public static void main(String[] args){
-		new MantenimientoAlquiler(nombreUsuario,idCliente);
-	}
-	
-	public static void setVehiculo(String idVehiculo){
-		txtIdVehiculo.setText(idVehiculo);
+		new MantenimientoAlquiler();
 	}
 }
