@@ -14,6 +14,7 @@ public class ModeloAutosActivos extends AbstractTableModel{
 	
 	private ModeloAutosActivos(){
 		listaVehiculos = Conexion.getInstacia().desplegarVehiculosEnUso();
+		fireTableDataChanged();
 	}
 	
 	public static ModeloAutosActivos getInstancia(){

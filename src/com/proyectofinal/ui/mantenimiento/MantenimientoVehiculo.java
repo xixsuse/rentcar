@@ -72,7 +72,7 @@ public class MantenimientoVehiculo extends JFrame {
 		setTitle("Administraci\u00F3n de veh\u00EDculos");
 		setResizable(false);
 		setSize(884, 708);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		for (int i = calendario.get(Calendar.YEAR) + 1; i >= (calendario
 				.get(Calendar.YEAR) - 50); i--) {

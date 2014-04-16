@@ -46,7 +46,7 @@ public class MantenimientoSeguro extends JFrame {
 	private MantenimientoSeguro() {
 		setResizable(false);
 		setTitle("Administraci\u00F3n de seguros");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 397, 538);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

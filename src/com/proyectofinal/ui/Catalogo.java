@@ -42,7 +42,7 @@ public class Catalogo extends JFrame{
 			}
 		});
 		setTitle("Catalogo de vehiculos");
-		setSize(343,469);
+		setSize(352,469);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		getContentPane().setLayout(null);
@@ -52,13 +52,21 @@ public class Catalogo extends JFrame{
 		tblCatalogo = new JTable(ModeloCatalogo.getInstancia());
 		tblCatalogo.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				if(vuelta == false){
-				for(int i=339; i < 756;i++){
-					setSize(i,469);
+					int contador = 0;
+					boolean vuelta = true;
+					Thread hilo = new Thread();
+					while(vuelta == true){
+						contador++;
+						try {
+							hilo.sleep(00001);
+							for(int i=339; i < 756;i++){
+								setSize(i,469);
+							}
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						vuelta = false;
 					}
-				vuelta = true;
-				}
-				//setSize(339,469);
 				mostrarDatos(tblCatalogo.getSelectedRow());
 			}
 		});
@@ -110,7 +118,7 @@ public class Catalogo extends JFrame{
 		getContentPane().add(lblPasajeros);
 		
 		lblMarca = new JLabel("0");
-		lblMarca.setBounds(424, 68, 46, 14);
+		lblMarca.setBounds(424, 68, 158, 14);
 		getContentPane().add(lblMarca);
 		
 		lblAño = new JLabel("0");

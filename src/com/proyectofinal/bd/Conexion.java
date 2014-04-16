@@ -32,6 +32,7 @@ import com.proyectofinal.entidades.Usuario;
 import com.proyectofinal.entidades.Vehiculo;
 import com.proyectofinal.entidades.VehiculoActivo;
 import com.proyectofinal.ui.VentanaPrincipal;
+import com.proyectofinal.ui.mantenimiento.MantenimientoAlquiler;
 //github.com/DannyFeliz/rentcar.git
 
 public class Conexion {
@@ -82,7 +83,7 @@ public class Conexion {
 					new VentanaPrincipal(rs.getString("usuario")).setVisible(true);;
 					
 				} else if (rs.getString("Cargo").equals("Vendedor")) {
-					//MantenimientoAlquiler(rs.getString("nombre"),rs.getInt("idCliente"));
+					MantenimientoAlquiler.getInstancia().setVisible(true);
 				}
 				
 			} else {
@@ -474,8 +475,23 @@ public class Conexion {
 			prst.execute();
 		}catch(SQLException sql){
 			sql.printStackTrace();
+			
 		}
 	}
+	
+	public int fecha(String desde, String hasta){
+		int diferencia =0;
+		try {
+			rs = st.executeQuery("select datediff('"+hasta+"','"+desde+"') as diferencia");
+			rs.next();
+			diferencia = rs.getInt("diferencia");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return diferencia;
+	}
+	
 	//Comienzo metodos de vehiculos
 	
 	public void guardarVehiculo(Vehiculo vehiculo,String ruta){

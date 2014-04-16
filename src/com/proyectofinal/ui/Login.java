@@ -33,10 +33,11 @@ public class Login extends JFrame implements ActionListener{
 		return instancia;
 	}
 	
-	public Login() {
+	private Login() {
 		setTitle("Inicio de sesion");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 250, 140);
+		setLocationRelativeTo(null);
 		setResizable(false);
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(3,2,4,7));

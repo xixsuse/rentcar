@@ -59,7 +59,7 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		setResizable(false);
 		ModeloUsuarios modeloUsuario = new ModeloUsuarios();
 		setTitle("Administraci\u00F3n de usuarios");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 832, 406);
 		getContentPane().setLayout(null);
 		

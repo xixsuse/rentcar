@@ -72,7 +72,7 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 				int seleccion = 0;
-				seleccion = JOptionPane.showConfirmDialog(null, "Seguro que desea salir?", "Advertencia", JOptionPane.YES_NO_OPTION);
+				seleccion = JOptionPane.showConfirmDialog(null, "Seguro que desea seleeccionar este contacto?", "Advertencia", JOptionPane.YES_NO_OPTION);
 				if(seleccion == JOptionPane.OK_OPTION){
 					if(tablaCliente.getSelectedRow()==-1){
 						MantenimientoClientes.this.dispose();
@@ -304,7 +304,7 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 				JOptionPane.showMessageDialog(null, "Debe de seleccionar el campo que quiere eliminar");
 			}else{
 				int seleccion = 0;
-				seleccion = JOptionPane.showConfirmDialog(null, "Seguro que desea salir?", "Advertencia", JOptionPane.YES_NO_OPTION);
+				seleccion = JOptionPane.showConfirmDialog(null, "Seguro que desea eliminar el cliente?", "Advertencia", JOptionPane.YES_NO_OPTION);
 				if(seleccion == JOptionPane.OK_OPTION){
 					//MantenimientoAlquiler.setIdCliente(ModeloClientes.getInstacia().getIdCliente(tablaCliente.getSelectedRow()));
 					if(ModeloClientes.getInstacia().eliminarCliente(tablaCliente.getSelectedRow())){

@@ -39,7 +39,7 @@ public class MantenimientoCategoria extends JFrame {
 	private MantenimientoCategoria() {
 		setResizable(false);
 		setTitle("Administraci\u00F3n de categoria");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 335, 390);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

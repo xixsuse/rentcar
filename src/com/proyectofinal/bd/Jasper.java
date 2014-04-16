@@ -68,11 +68,6 @@ public class Jasper {
 	}
 	
 	public void generarPdf(){
-		if(new File("Documentos/vehiculo.jasper").exists()){
-			System.out.println("Esoooo");
-		}else{
-			System.out.println("Noooo");
-		}
 		LinkedList info;
 		info = bd.getInstacia().getInformacionVehiculos();
 		try{ 
@@ -85,7 +80,7 @@ public class Jasper {
 		    exporter.exportReport(); 
 		}catch(JRException e){ 
 		    JOptionPane.showMessageDialog(null, e.getMessage(),"Error al generar PDF", JOptionPane.ERROR_MESSAGE);
-		    Logger.getLogger(ReporteVehiculo.class.getName()).log(Level.SEVERE, null, e);
+		    //Logger.getLogger(ReporteVehiculo.class.getName()).log(Level.SEVERE, null, e);
 		}
 	}
 	

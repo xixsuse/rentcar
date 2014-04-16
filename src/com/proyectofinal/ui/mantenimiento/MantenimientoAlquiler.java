@@ -18,6 +18,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Alquiler;
 import com.proyectofinal.modelos.ModeloAlquiler;
 import com.proyectofinal.modelos.ModeloAutosActivos;
@@ -42,8 +43,18 @@ public class MantenimientoAlquiler extends JFrame{
 	private JComboBox cbbAccesorio;
 	private static JTextField txtIdCliente;
 	private JTextField txtBuscar;
+	private String hasta;
+	private String desde;
+	private static MantenimientoAlquiler instancia;
 	
-	public MantenimientoAlquiler(){
+	public static MantenimientoAlquiler getInstancia(){
+		if(instancia == null){
+			instancia = new MantenimientoAlquiler();
+		}
+		return instancia;
+	}
+	
+	private MantenimientoAlquiler(){
 		setTitle("Le atiende: "+ VentanaPrincipal.getUsuario());
 		setSize(795,500);
 		getContentPane().setLayout(null);
@@ -73,6 +84,7 @@ public class MantenimientoAlquiler extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				String desde = new SimpleDateFormat("yyyy-MM-dd").format((dateDesde.getDate()));
 				String hasta = new SimpleDateFormat("yyyy-MM-dd").format((dateHasta.getDate()));
+				System.out.println(desde);
 				ModeloAlquiler.getInstancia().modificarAlquiler(
 						new Alquiler(Integer.parseInt(txtIdVehiculo.getText()),
 									 desde,
@@ -136,8 +148,11 @@ public class MantenimientoAlquiler extends JFrame{
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char car = e.getKeyChar();
-				if(txtDescuento.getText().length()>=10) e.consume();
-				if((car<'0' || car>'9')) e.consume();
+                if(txtDescuento.getText().length()>=12) e.consume();
+                if((car<'0' || car>'9')
+                        && car !='.'
+                        ) 
+                    e.consume();
 			}
 		});
 		txtDescuento.setColumns(10);
@@ -213,13 +228,18 @@ public class MantenimientoAlquiler extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				if(cbbSeguros.getSelectedIndex()==-1 || cbbAccesorio.getSelectedIndex()==-1 || txtIdVehiculo.getText().equals("")){
 					JOptionPane.showMessageDialog(null, "Para calcular el precio total debe tener el vehiculo,el accesorio y el seguro en caso de querer ");
-				}
-				else{
+				}else if(txtDescuento.getText().isEmpty()){
+					txtTotal.setText(String.valueOf(ModeloAlquiler.getInstancia().calcularTotal(
+							Integer.parseInt(String.valueOf(txtIdVehiculo.getText())),
+							Integer.parseInt(String.valueOf(cbbSeguros.getSelectedItem())),
+							Integer.parseInt(String.valueOf(cbbAccesorio.getSelectedItem())),
+							Conexion.getInstacia().fecha(getDesde(), getHasta()))));
+				}else{
 					txtTotal.setText(String.valueOf(ModeloAlquiler.getInstancia().calcularTotal(
 																Integer.parseInt(String.valueOf(txtIdVehiculo.getText())),
 																Integer.parseInt(String.valueOf(cbbSeguros.getSelectedItem())),
 																Integer.parseInt(String.valueOf(cbbAccesorio.getSelectedItem())),
-																Double.parseDouble(String.valueOf(txtDescuento.getText())))));
+																Conexion.getInstacia().fecha(getDesde(), getHasta()))));
 				}
 			}
 		});
@@ -254,6 +274,9 @@ public class MantenimientoAlquiler extends JFrame{
 		btnRecibir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tblVehiculosActivos.getSelectedRow()==-1){
+				JOptionPane.showMessageDialog(null,"Debe seleccionar el vehiculo que desea recibir");
+				}
+				else{
 					ModeloAutosActivos.getInstancia().recibirVehiculo(tblVehiculosActivos.getSelectedRow());
 				}
 			}
@@ -263,19 +286,20 @@ public class MantenimientoAlquiler extends JFrame{
 		tblAlquiler.getTableHeader().setReorderingAllowed(false);
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				 String desde = new SimpleDateFormat("yyyy-MM-dd").format((dateDesde.getDate()));
-				 String hasta = new SimpleDateFormat("yyyy-MM-dd").format((dateHasta.getDate()));
+				 setDesde(new SimpleDateFormat("yyyy-MM-dd").format((dateDesde.getDate())));
+				 setHasta(new SimpleDateFormat("yyyy-MM-dd").format((dateHasta.getDate())));
+
 				ModeloAlquiler.getInstancia().agregarAlquiler(
 						new Alquiler(Integer.parseInt(txtIdVehiculo.getText()),
-								desde,
-								hasta,
+								getDesde(),
+								getHasta(),
 								Integer.parseInt(txtIdCliente.getText()),																			
 									 (int) Double.parseDouble(txtTotal.getText()),
 									 Float.parseFloat(txtDescuento.getText()),
 									 Integer.parseInt((String) cbbSeguros.getSelectedItem()),
 									 Integer.parseInt((String) cbbAccesorio.getSelectedItem())));
-							
-			ModeloAlquiler.getInstancia().cambiarEstadoVehiculo(Integer.parseInt(txtIdVehiculo.getText()));
+									ModeloAlquiler.getInstancia().cambiarEstadoVehiculo(Integer.parseInt(txtIdVehiculo.getText()));
+									ModeloAutosActivos.getInstancia();
 			}
 		});
 		setVisible(true);
@@ -287,5 +311,21 @@ public class MantenimientoAlquiler extends JFrame{
 	
 	public static void setIdCliente(int idCliente){
 		txtIdCliente.setText(String.valueOf(idCliente));
+	}
+	
+	public String getDesde(){
+		return desde;
+	}
+	
+	public String getHasta(){
+		return hasta;
+	}
+	
+	public void setDesde(String desde){
+		this.desde = desde;
+	} 
+	
+	public void setHasta(String hasta){
+		this.hasta = hasta;
 	}
 }

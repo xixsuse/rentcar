@@ -15,28 +15,16 @@ public class ReporteVehiculo extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panelReporte;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					ReporteVehiculo frame = new ReporteVehiculo();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	private static ReporteVehiculo instancia;
+	
+	public static ReporteVehiculo getInstancia(){
+		if(instancia  == null){
+			instancia = new ReporteVehiculo();
+		}
+		return instancia;
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	public ReporteVehiculo() {
+	
+	private ReporteVehiculo() {
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent arg0) {
@@ -46,7 +34,8 @@ public class ReporteVehiculo extends JFrame {
 				jasper.visualizarPdf(panelReporte);
 			}
 		});
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
