@@ -31,6 +31,8 @@ public class Catalogo extends JFrame{
 			public void windowClosing(WindowEvent arg0) {
 				MantenimientoAlquiler.setIdVehiculo(ModeloCatalogo.getInstancia().
 						getIdVehiculo(tblCatalogo.getSelectedRow()));
+				
+				
 			}
 		});
 		setTitle("Catalogo de vehiculos");

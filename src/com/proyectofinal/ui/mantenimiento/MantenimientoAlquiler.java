@@ -168,6 +168,7 @@ public class MantenimientoAlquiler extends JFrame{
 		btnCatalogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				new Catalogo();
+				setVisible(false);
 			}
 		});
 		btnCatalogo.setBounds(214, 66, 96, 23);
@@ -203,4 +204,5 @@ public class MantenimientoAlquiler extends JFrame{
 	public static void setIdVehiculo(int idVehiculo){
 		txtIdVehiculo.setText(String.valueOf(idVehiculo));
 	}
+	
 }
