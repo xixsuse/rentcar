@@ -11,7 +11,7 @@ import com.proyectofinal.entidades.Usuario;
 public class ModeloUsuarios extends AbstractTableModel {
 
 
-	String[] tituloTabla = { "Nombre", "Apellido", "Usuario", "Contraseña", "Cargo" };
+	String[] tituloTabla = { "Nombre", "Apellido", "Usuario", "Cargo" };
 	ArrayList<Usuario> ArrayUsuarios;
 	
 	private static ModeloUsuarios instancia;
@@ -61,9 +61,6 @@ public class ModeloUsuarios extends AbstractTableModel {
 			seleccion = usuario.getUsuario();
 			break;
 		case 3:
-			seleccion = usuario.getPassword();
-			break;
-		case 4:
 			seleccion = usuario.getCargo();
 			break;
 		}
@@ -75,9 +72,8 @@ public class ModeloUsuarios extends AbstractTableModel {
 		Conexion.getInstacia().agregarUsuario(usuario);
 		ArrayUsuarios = Conexion.getInstacia().cargarUsuarios();
 		fireTableDataChanged();
-		
-			}
-
+	}
+	
 	public void eliminarUsuario(int fila) {
 		Conexion.getInstacia().eliminarUsuario(ArrayUsuarios.get(fila));
 		ArrayUsuarios.remove(fila);
@@ -89,9 +85,10 @@ public class ModeloUsuarios extends AbstractTableModel {
 	Usuario clave = ArrayUsuarios.get(index);
 	Conexion.getInstacia().modificarUsuario(clave.getUsuario(),usuario);
 	ArrayUsuarios = Conexion.getInstacia().cargarUsuarios(); 
-	fireTableDataChanged();
-	
-	
+	fireTableDataChanged();	
 	}
-	
+
+	public ArrayList<Usuario> getArrayUsuarios() {
+		return ArrayUsuarios;
+	}
 }

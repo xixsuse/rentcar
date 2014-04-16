@@ -15,7 +15,6 @@ public class Vehiculo {
 	private String descripcion;
 	private int idCategoria;
 	private int combustible;
-
 	private boolean estado;
 	
 	public Vehiculo(int precio, String marca, int pasajeros, int año,

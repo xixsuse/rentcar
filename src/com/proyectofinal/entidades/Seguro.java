@@ -4,14 +4,14 @@ public class Seguro {
 	
 	private int idSeguro;
 	private String categoria;
-	private double precio;
+	private int precio;
 	private String nombre;
 	private String cobertura;
 	
 	public Seguro(){}
 	
 	
-	public Seguro(String categoria, double precio, String nombre,
+	public Seguro(String categoria, int precio, String nombre,
 			String cobertura) {
 		super();
 		this.categoria = categoria;
@@ -21,7 +21,7 @@ public class Seguro {
 	}
 
 
-	public Seguro(int idSeguro, String categoria, double precio, String nombre,
+	public Seguro(int idSeguro, String categoria, int precio, String nombre,
 			String cobertura) {
 		super();
 		this.idSeguro = idSeguro;
@@ -47,11 +47,11 @@ public class Seguro {
 		this.categoria = categoria;
 	}
 	
-	public double getPrecio() {
+	public int getPrecio() {
 		return precio;
 	}
 	
-	public void setPrecio(double precio) {
+	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
 	

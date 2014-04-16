@@ -256,33 +256,23 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 				}
 			}
 		}else if(e.getSource() == btnExaminar){
-			
 			FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG", "jpg");
 			jc.setFileFilter(filtro);
-			
 			int seleccion = jc.showOpenDialog(null);
-			File archivo = jc.getSelectedFile();
-			
+
 			if(seleccion == JFileChooser.APPROVE_OPTION){
-				
-			jc.setFileFilter(filtro);
-			
-			//Mostrar imagen
-			rutaArchivo = archivo.getPath();
-			ImageIcon foto = new ImageIcon(rutaArchivo);
-			Image iconoImagen = foto.getImage();
-			Image newImage = iconoImagen.getScaledInstance(281, 178, java.awt.Image.SCALE_DEFAULT);
-			ImageIcon fotoMostrar = new ImageIcon(newImage);
-			lblFoto.setIcon(fotoMostrar);
-			
-			
-			String nombreArchivo = archivo.getName();
-			txtNombreDocumento.setText(nombreArchivo);
-			}else if (seleccion == JFileChooser.CANCEL_OPTION){
-				JOptionPane.showMessageDialog(this, "Debe seleccionar un documento.", "Error", JOptionPane.ERROR_MESSAGE);
-				
-			}else{
-				
+				File archivo = jc.getSelectedFile();
+				jc.setFileFilter(filtro);
+				//Mostrar imagen
+				rutaArchivo = archivo.getPath();
+				ImageIcon foto = new ImageIcon(rutaArchivo);
+				Image iconoImagen = foto.getImage();
+				Image newImage = iconoImagen.getScaledInstance(281, 178, java.awt.Image.SCALE_DEFAULT);
+				ImageIcon fotoMostrar = new ImageIcon(newImage);
+				lblFoto.setIcon(fotoMostrar);
+				String nombreArchivo = archivo.getName();
+				txtNombreDocumento.setText(nombreArchivo);
+			}else if(seleccion == JFileChooser.CANCEL_OPTION){
 			}
 			
 				
@@ -302,13 +292,10 @@ public class MantenimientoClientes extends JFrame implements ActionListener, Mou
 				
 			}
 		}else if(e.getSource() == btnModificar){
-			
 			if(fila < 0){
 				JOptionPane.showMessageDialog(this, "Debes seleccionar una fila", "Error", JOptionPane.ERROR_MESSAGE);
-				
 			}else if(txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtTelefono.getText().isEmpty() || txtNombreDocumento.getText().isEmpty()){
 				JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-				
 			}else{
 				
 				FileNameExtensionFilter filtro = new FileNameExtensionFilter("JPG", "jpg");

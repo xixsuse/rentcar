@@ -46,7 +46,7 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 		return instancia;
 	}
 	
-	public MantenimientoAccesorio() {
+	private MantenimientoAccesorio() {
 		setResizable(false);
 		setTitle("Administraci\u00F3n de accesorios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -233,11 +233,10 @@ public class MantenimientoAccesorio extends JFrame implements ActionListener, Mo
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		int fila = tablaAccesorios.getSelectedRow();
-		
-		 txtNombre.setText(tablaAccesorios.getValueAt(fila, 1).toString());
-		 txtSerial.setText(tablaAccesorios.getValueAt(fila, 2).toString());
-		 txtDescripcion.setText(tablaAccesorios.getValueAt(fila, 3).toString());
-		 txtPrecio.setText(tablaAccesorios.getValueAt(fila, 4).toString());
+		 txtNombre.setText(tablaAccesorios.getValueAt(fila, 0).toString());
+		 txtSerial.setText(tablaAccesorios.getValueAt(fila, 1).toString());
+		 txtDescripcion.setText(tablaAccesorios.getValueAt(fila, 2).toString());
+		 txtPrecio.setText(tablaAccesorios.getValueAt(fila, 3).toString());
 		 
 	}
 

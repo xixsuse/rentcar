@@ -14,13 +14,13 @@ public class BuscadorTablas {
 		}
 		return instancia;
 	}
+	
+	private BuscadorTablas(){}
 
 	public void buscar(JTable tabla, String valorBusqueda) {
 		TableRowSorter<TableModel> modeloOrdenado = new TableRowSorter<TableModel>(tabla.getModel());
 		tabla.setRowSorter(modeloOrdenado);
-
 		int numeroColumnas = tabla.getColumnCount();
-
 		for (int i = 0; i < numeroColumnas; i++) {
 			modeloOrdenado.setRowFilter(RowFilter.regexFilter("(?i)"
 					+ valorBusqueda, i));

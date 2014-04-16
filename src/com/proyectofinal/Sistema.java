@@ -4,6 +4,7 @@ package com.proyectofinal;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import com.proyectofinal.ui.mantenimiento.MantenimientoAccesorio;
 import com.proyectofinal.ui.mantenimiento.MantenimientoCategoria;
 import com.proyectofinal.ui.mantenimiento.MantenimientoClientes;
 import com.proyectofinal.ui.mantenimiento.MantenimientoSeguro;
@@ -34,7 +35,7 @@ public class Sistema {
 		/*System.out.println("Out");
 		new VentanaPrincipal().setVisible(true);*/
 		
-		//new MantenimientoAccesorio().setVisible(true);
+		//MantenimientoAccesorio.getInstacia().setVisible(true);
 		/*MantenimientoVehiculo v = new MantenimientoVehiculo();
 		v.setVisible(true);*/
 	
@@ -44,8 +45,8 @@ public class Sistema {
 		//MantenimientoUsuarios.getInstacia().setVisible(true);
 		//MantenimientoSeguro.getInstancia().setVisible(true);
 		//MantenimientoClientes.getInstacia().setVisible(true);
-	//	MantenimientoCategoria.getInstacia().setVisible(true);
-		//MantenimientoVehiculo.getInstancia().setVisible(true);
+		//MantenimientoCategoria.getInstacia().setVisible(true);
+		MantenimientoVehiculo.getInstancia().setVisible(true);
 		/*Catalogo c = new Catalogo();
 		c.setVisible(true);*/
 	}

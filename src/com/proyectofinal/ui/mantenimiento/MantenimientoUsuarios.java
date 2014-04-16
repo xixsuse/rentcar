@@ -60,11 +60,11 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		ModeloUsuarios modeloUsuario = new ModeloUsuarios();
 		setTitle("Administraci\u00F3n de usuarios");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 865, 406);
+		setBounds(100, 100, 832, 406);
 		getContentPane().setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane(tablaUsuarios);
-		scrollPane.setBounds(453, 104, 396, 233);
+		scrollPane.setBounds(403, 101, 396, 233);
 		getContentPane().add(scrollPane);
 		
 		tablaUsuarios = new JTable(ModeloUsuarios.getInstacia());
@@ -74,13 +74,13 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		tablaUsuarios.getTableHeader().setReorderingAllowed(false);
 		
 		txtBuscar = new JTextField();
-		txtBuscar.setBounds(453, 81, 287, 19);
+		txtBuscar.setBounds(544, 78, 151, 19);
 		getContentPane().add(txtBuscar);
 		txtBuscar.setColumns(10);
 		
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\search.png"));
-		btnBuscar.setBounds(750, 80, 99, 23);
+		btnBuscar.setBounds(700, 77, 99, 23);
 		btnBuscar.addActionListener(this);
 		btnBuscar.setMnemonic('B');
 		getContentPane().add(btnBuscar);
@@ -200,8 +200,13 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		
 		lblUsuarios = new JLabel("Usuarios");
 		lblUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblUsuarios.setBounds(338, 11, 124, 41);
+		lblUsuarios.setBounds(344, 11, 124, 41);
 		getContentPane().add(lblUsuarios);
+		
+		JLabel lblListaDeUsuarios = new JLabel("Lista de usuarios:");
+		lblListaDeUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblListaDeUsuarios.setBounds(403, 81, 131, 14);
+		getContentPane().add(lblListaDeUsuarios);
 		btnAgregar.addActionListener(this);
 		btnActualizar.addActionListener(this);
 		btnEliminar.addActionListener(this);
@@ -256,8 +261,8 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		txtNombre.setText(tablaUsuarios.getValueAt(fila, 0).toString());
 		txtApellido.setText(tablaUsuarios.getValueAt(fila, 1).toString());
 		txtUsuario.setText(tablaUsuarios.getValueAt(fila, 2).toString());
-		txtContrasena.setText(tablaUsuarios.getValueAt(fila, 3).toString());
-		comboCargo.setSelectedItem(tablaUsuarios.getValueAt(fila, 4).toString());
+		comboCargo.setSelectedItem(tablaUsuarios.getValueAt(fila, 3).toString());
+		txtContrasena.setText(ModeloUsuarios.getInstacia().getArrayUsuarios().get(fila).getPassword());
 				
 	}
 
@@ -283,7 +288,4 @@ public class MantenimientoUsuarios extends JFrame implements ActionListener, Mou
 		// TODO Auto-generated method stub
 		
 	}
-
-	
-	
 }

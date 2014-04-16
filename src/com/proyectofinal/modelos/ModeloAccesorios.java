@@ -11,7 +11,7 @@ public class ModeloAccesorios extends AbstractTableModel {
 	
 	private static ModeloAccesorios instancia;
 	
-	String[] encabezados = {"ID","Nombre", "Serial", "Descripcion", "Precio"};
+	String[] encabezados = {"Nombre", "Serial", "Descripcion", "Precio"};
 	ArrayList<Accesorio> arrayAccesorio = new ArrayList<Accesorio>();
 	
 	public static ModeloAccesorios getInstacia(){
@@ -46,25 +46,19 @@ public class ModeloAccesorios extends AbstractTableModel {
 	public Object getValueAt(int x, int y) {
 		String retorno = null;
 		Accesorio accesorio = arrayAccesorio.get(x);
-		
 		switch (y) {
 		case 0:
-			retorno = String.valueOf(accesorio.getIdAccesorio());
-			break;
-		case 1:
 			retorno = accesorio.getNombre();
 			break;
-		case 2:
+		case 1:
 			retorno = accesorio.getSerial();
-			
 			break;
-		case 3:
+		case 2:
 			retorno = accesorio.getDescripcion();
 			break;
-		case 4: 
+		case 3: 
 			retorno = String.valueOf(accesorio.getPrecio());
 		}
-		
 		return retorno;
 	}
 	

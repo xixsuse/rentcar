@@ -83,6 +83,7 @@ public class MantenimientoVehiculo extends JFrame {
 		getContentPane().add(scrollPane);
 
 		tblVehiculos = new JTable(ModeloVehiculos.getInstancia());
+		tblVehiculos.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		tblVehiculos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -93,17 +94,18 @@ public class MantenimientoVehiculo extends JFrame {
 		tblVehiculos.getTableHeader().setReorderingAllowed(false);
 
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\search.png"));
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				BuscadorTablas.getInstancia().buscar(tblVehiculos,
 						txtBuscar.getText());
 			}
 		});
-		btnBuscar.setBounds(765, 390, 89, 23);
+		btnBuscar.setBounds(758, 390, 96, 23);
 		getContentPane().add(btnBuscar);
 
 		txtBuscar = new JTextField();
-		txtBuscar.setBounds(641, 391, 120, 20);
+		txtBuscar.setBounds(637, 391, 120, 20);
 		getContentPane().add(txtBuscar);
 		txtBuscar.setColumns(10);
 
@@ -243,15 +245,18 @@ public class MantenimientoVehiculo extends JFrame {
 		});
 		txtCombustible.setColumns(10);
 		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(33, 255, 89, 23);
+		btnAgregar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\dvd3.png"));
+		btnAgregar.setBounds(33, 255, 98, 23);
 		panel.add(btnAgregar);
 
 		JButton btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(133, 255, 89, 23);
+		btnEliminar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\remote.png"));
+		btnEliminar.setBounds(141, 255, 98, 23);
 		panel.add(btnEliminar);
 
 		JButton btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(232, 255, 89, 23);
+		btnModificar.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\pencil-2.png"));
+		btnModificar.setBounds(249, 255, 98, 23);
 		panel.add(btnModificar);
 
 		lblImagen = new JLabel("");
@@ -261,7 +266,8 @@ public class MantenimientoVehiculo extends JFrame {
 		lblImagen.setBorder(borde);
 
 		JButton btnSubirImagen = new JButton("Agregar imagen");
-		btnSubirImagen.setBounds(618, 237, 124, 23);
+		btnSubirImagen.setIcon(new ImageIcon("C:\\Users\\Dany\\git\\rentcar\\Imagenes\\Icons\\PNG\\search.png"));
+		btnSubirImagen.setBounds(618, 237, 129, 23);
 		panel.add(btnSubirImagen);
 
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -271,6 +277,23 @@ public class MantenimientoVehiculo extends JFrame {
 		txtDescripcion = new JTextArea();
 		scrollPane_1.setViewportView(txtDescripcion);
 		txtDescripcion.setLineWrap(true);
+		
+		JButton btnLimpiarCampos = new JButton("Limpiar campos");
+		btnLimpiarCampos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				txtCombustible.setText("");
+				txtDescripcion.setText("");
+				txtMarca.setText("");
+				txtMatricula.setText("");
+				txtPasajeros.setText("");
+				txtPrecio.setText("");
+				txtBuscar.setText("");
+				lblImagen.setIcon(null);
+			}
+		});
+		btnLimpiarCampos.setBounds(355, 255, 119, 23);
+		panel.add(btnLimpiarCampos);
 
 		JLabel lblListadoDeVehculos = new JLabel("Listado de veh\u00EDculos");
 		lblListadoDeVehculos.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -339,10 +362,13 @@ public class MantenimientoVehiculo extends JFrame {
 		btnAgregar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if (ruta.equals("")) {
+				if(txtCombustible.getText().isEmpty() || txtDescripcion.getText().isEmpty() || txtMarca.getText().isEmpty() 
+						|| txtMatricula.getText().isEmpty() || txtPasajeros.getText().isEmpty() || txtPrecio.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+				}else if (ruta.equals("")) {
 					JOptionPane.showMessageDialog(null,
-							"Debe seleccionar la fota para este vehiculo");
-				}
+							"Debe seleccionar una foto para este vehiculo");
+				}else{
 				ModeloVehiculos.getInstancia().agregarVehiculo(
 						new Vehiculo(Integer.parseInt(txtPrecio.getText()
 								.toString()), txtMarca.getText(), Integer
@@ -355,7 +381,8 @@ public class MantenimientoVehiculo extends JFrame {
 										.parseInt(txtCombustible.getText()),
 								false), ruta);
 				ruta = "";
-				System.out.println(txtCombustible.getText());
+				
+				}
 			}
 		});
 		setVisible(true);
@@ -371,8 +398,6 @@ public class MantenimientoVehiculo extends JFrame {
 		// txtTransmision.setText(datosVehiculo.getTransmision());
 		comboTransmision.setSelectedItem(datosVehiculo.getTransmision());
 		txtDescripcion.setText(datosVehiculo.getDescripcion());
-		System.out.println(datosVehiculo.getCombustible()
-				+ datosVehiculo.getTransmision());
 		txtCombustible.setText(String.valueOf(datosVehiculo.getCombustible()));
 		Image foto = datosVehiculo.getFoto().getScaledInstance(228, 204,
 				java.awt.Image.SCALE_SMOOTH);

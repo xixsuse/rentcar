@@ -84,7 +84,7 @@ public class Conexion {
 					new VentanaPrincipal(rs.getString("nombre"),rs.getInt("idCliente"));
 					
 				} else if (rs.getString("Cargo").equals("Vendedor")) {
-					new MantenimientoAlquiler(rs.getString("nombre"),rs.getInt("idCliente"));
+					//MantenimientoAlquiler(rs.getString("nombre"),rs.getInt("idCliente"));
 				}
 				
 			} else {
@@ -134,13 +134,13 @@ public class Conexion {
 				}
 				
 			
+			}catch (MySQLIntegrityConstraintViolationException me){
+				JOptionPane.showMessageDialog(null, "El usuario ya existe, registre otro.", "Usuario", JOptionPane.ERROR_MESSAGE);
 			}catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				e.printStackTrace();
+			}
 		}
-	
-	
-	}
+
 	
 	public void eliminarUsuario(Usuario usuario){
 		try {
@@ -288,10 +288,8 @@ public class Conexion {
 				accesorio.add(new Accesorio(rs.getInt("idAccesorio"), rs.getString("nombre"), rs.getString("serial"), rs.getString("descripcion"), rs.getInt("precio")));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return accesorio;
 	}
 	
@@ -311,8 +309,7 @@ public class Conexion {
 	}
 	
 	public void agregarAccesorio(Accesorio accesorio){
-		try {
-			
+		try {			
 			prst = con.prepareStatement("INSERT INTO Accesorio(nombre,Serial,Descripcion,Precio) VALUES (?,?,?,?)");
 			prst.setString(1, accesorio.getNombre());
 			prst.setString(2, accesorio.getSerial());
@@ -468,10 +465,11 @@ public class Conexion {
 			prst.setBoolean(11, vehiculo.getEstado());
 			prst.execute();
 			
-		} catch (SQLException e) {
+		}catch(MySQLIntegrityConstraintViolationException em){
+			JOptionPane.showMessageDialog(null, "La matricula está duplicada intente con otra","Error", JOptionPane.ERROR_MESSAGE);
+		}catch (SQLException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -571,6 +569,9 @@ public class Conexion {
 				prst.setInt(11, id);
 				prst.execute();
 			}
+			catch(MySQLIntegrityConstraintViolationException me){
+				JOptionPane.showMessageDialog(null, "El vehiculo ya existe");
+			}
 			catch(SQLException s){
 				s.printStackTrace();
 			}
@@ -656,7 +657,7 @@ public class Conexion {
 		try {
 			rs = st.executeQuery("SELECT idSeguro,categoria,precio,nombre,cobertura FROM seguro");
 			while(rs.next()){
-				seguros.add(new Seguro(rs.getInt("idSeguro"), rs.getString("categoria"), rs.getDouble("precio"),
+				seguros.add(new Seguro(rs.getInt("idSeguro"), rs.getString("categoria"), rs.getInt("precio"),
 							rs.getString("nombre"), rs.getString("cobertura")));
 			}
 		} catch (SQLException e) {

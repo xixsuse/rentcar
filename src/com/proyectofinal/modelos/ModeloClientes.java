@@ -12,7 +12,7 @@ public class ModeloClientes extends AbstractTableModel {
 	
 	private static ModeloClientes instancia;
 	ArrayList<Cliente> ArrayClientes = new ArrayList<Cliente>();
-	String tituloTabla[] = {"Nombre", "Apellido", "Telefono", "Documento","ID"};
+	String tituloTabla[] = {"Nombre", "Apellido", "Telefono"};
 	
 	public static ModeloClientes getInstacia(){
 		if(instancia == null){
@@ -60,12 +60,6 @@ public class ModeloClientes extends AbstractTableModel {
 			break;
 		case 2:
 			respuesta = cliente.getTelefono();
-			break;
-		case 3:
-			//respuesta = cliente.getDocumento();
-			break;
-		case 4:
-			respuesta = cliente.getIdCliente();
 			break;
 		}
 

@@ -104,7 +104,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		if(e.getSource() == btnCatalogo){
 			new Catalogo().setVisible(true);
 		}else if(e.getSource() == btnMantenimientoAccesorios){
-			new MantenimientoAccesorio().setVisible(true);
+			MantenimientoAccesorio.getInstacia().setVisible(true);
 		}else if(e.getSource() == btnMantenimientoClientes){
 			MantenimientoClientes.getInstacia().setVisible(true);
 		}else if(e.getSource() == btnMantenimientoUsuarios){

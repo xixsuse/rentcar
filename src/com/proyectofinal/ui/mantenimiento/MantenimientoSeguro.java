@@ -206,7 +206,7 @@ public class MantenimientoSeguro extends JFrame {
 					
 					}else{
 						ModeloSeguro.getInstacia().modificarCategoria(new Seguro(txtCategoria.getText(),
-										Double.parseDouble(txtPrecio.getText()), txtNombre.getText(),
+										Integer.parseInt(txtPrecio.getText()), txtNombre.getText(),
 										cmboCobertura.getSelectedItem().toString()), index);
 						txtCategoria.setText("");
 						txtPrecio.setText("");
@@ -244,7 +244,7 @@ public class MantenimientoSeguro extends JFrame {
 				}else{
 					Seguro seguro = new Seguro();
 					seguro.setCategoria(txtCategoria.getText());
-					seguro.setPrecio(Double.parseDouble(txtPrecio.getText()));
+					seguro.setPrecio(Integer.parseInt(txtPrecio.getText()));
 					seguro.setNombre(txtNombre.getText());
 					seguro.setCobertura(cmboCobertura.getSelectedItem().toString());
 					ModeloSeguro.getInstacia().agregarSeguro(seguro);
@@ -255,7 +255,5 @@ public class MantenimientoSeguro extends JFrame {
 			}
 		});
 		tableSeguro.getTableHeader().setReorderingAllowed(false);
-	}
-	
-	
+	}	
 }
