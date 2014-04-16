@@ -5,35 +5,35 @@ public class Alquiler {
 	private int idVehiculo;
 	private String desde;
 	private String hasta;
-	private int idCliente;
+	private String usuario;
 	private int idAlquiler;
 	private int totalAPagar;
 	private float descuento;
 	private int idSeguro;
 	private int idAccesorio;
 	
-	public Alquiler(int idVehiculo, String desde, String hasta, int idCliente,
+	public Alquiler(int idVehiculo, String desde, String hasta, String usuario,
 			int idAlquiler, int totalAPagar, float descuento, int idSeguro,
 			int idAccesorio) {
 		super();
 		this.idVehiculo = idVehiculo;
 		this.desde = desde;
 		this.hasta = hasta;
-		this.idCliente = idCliente;
+		this.usuario = usuario;
 		this.idAlquiler = idAlquiler;
 		this.totalAPagar = totalAPagar;
 		this.descuento = descuento;
 		this.idSeguro = idSeguro;
 		this.idAccesorio = idAccesorio;
 	}
-	public Alquiler(int idVehiculo, String desde, String hasta, int idCliente,
+	public Alquiler(int idVehiculo, String desde, String hasta, String usuario,
 			int totalAPagar, float descuento, int idSeguro,
 			int idAccesorio) {
 		super();
 		this.idVehiculo = idVehiculo;
 		this.desde = desde;
 		this.hasta = hasta;
-		this.idCliente = idCliente;
+		this.usuario = usuario;
 		this.totalAPagar = totalAPagar;
 		this.descuento = descuento;
 		this.idSeguro = idSeguro;
@@ -57,11 +57,11 @@ public class Alquiler {
 	public void setHasta(String hasta) {
 		this.hasta = hasta;
 	}
-	public int getIdCliente() {
-		return idCliente;
+	public String getUsuario() {
+		return usuario;
 	}
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 	public int getIdAlquiler() {
 		return idAlquiler;

@@ -36,7 +36,7 @@ public class MantenimientoAlquiler extends JFrame{
 	private JComboBox cbbAccesorio;
 	
 	public MantenimientoAlquiler(){
-		setTitle("Le atiende: ");
+		setTitle("Le atiende: "+ VentanaPrincipal.getUsuario());
 		setSize(795,500);
 		getContentPane().setLayout(null);
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -66,7 +66,7 @@ public class MantenimientoAlquiler extends JFrame{
 						new Alquiler(Integer.parseInt(txtIdVehiculo.getText()),
 									 dateDesde.getDateFormatString(),
 									 dateHasta.getDateFormatString(),
-									 VentanaPrincipal.getIdCliente(),
+									 VentanaPrincipal.getUsuario(),
 									 Integer.parseInt(txtTotal.getText()),
 									 Float.parseFloat(txtDescuento.getText()),
 									 Integer.parseInt((String) cbbSeguros.getSelectedItem()),
@@ -189,7 +189,7 @@ public class MantenimientoAlquiler extends JFrame{
 						new Alquiler(Integer.parseInt(txtIdVehiculo.getText()),
 									 dateDesde.getDateFormatString(),
 									 dateHasta.getDateFormatString(),
-									 VentanaPrincipal.getIdCliente(),																			
+									 VentanaPrincipal.getUsuario(),																			
 									 Integer.parseInt(txtTotal.getText()),
 									 Float.parseFloat(txtDescuento.getText()),
 									 Integer.parseInt((String) cbbSeguros.getSelectedItem()),

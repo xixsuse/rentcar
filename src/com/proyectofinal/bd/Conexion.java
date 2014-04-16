@@ -81,7 +81,7 @@ public class Conexion {
 			if (rs.next()) {
 
 				if (rs.getString("Cargo").equals("Administrador")){
-					new VentanaPrincipal(rs.getString("nombre"),rs.getInt("idCliente"));
+					new VentanaPrincipal(rs.getString("usuario"));
 					
 				} else if (rs.getString("Cargo").equals("Vendedor")) {
 					//MantenimientoAlquiler(rs.getString("nombre"),rs.getInt("idCliente"));
@@ -372,7 +372,7 @@ public class Conexion {
 			listaAlquileres = new ArrayList<Alquiler>();
 			while(rs.next()){
 				listaAlquileres.add(new Alquiler(rs.getInt("idVehiculo"),rs.getString("Desde"),rs.getString("Hasta"),
-						rs.getInt("idCliente"),rs.getInt("idAlquiler"),rs.getInt("TotalAPagar"),rs.getFloat("descuento"),
+						rs.getString("usuario"),rs.getInt("idAlquiler"),rs.getInt("TotalAPagar"),rs.getFloat("descuento"),
 						rs.getInt("idSeguro"),rs.getInt("idAccesorio")));
 			}
 		}
@@ -403,7 +403,7 @@ public class Conexion {
 			prst.setInt(1,alquiler.getIdVehiculo() );
 			prst.setString(2, alquiler.getDesde());
 			prst.setString(3,alquiler.getHasta());
-			prst.setInt(4, alquiler.getIdCliente());
+			prst.setString(4, alquiler.getUsuario());
 			prst.setInt(5,alquiler.getTotalAPagar());
 			prst.setFloat(6, alquiler.getDescuento());
 			prst.setInt(7,alquiler.getIdSeguro());
@@ -433,7 +433,7 @@ public class Conexion {
 			prst.setInt(1, alquiler.getIdVehiculo());
 			prst.setString(2, alquiler.getDesde());
 			prst.setString(3, alquiler.getHasta());
-			prst.setInt(5, alquiler.getIdCliente());
+			prst.setString(5, alquiler.getUsuario());
 			prst.setFloat(6, alquiler.getDescuento());
 			prst.setInt(7, alquiler.getIdSeguro());
 			prst.setInt(8, alquiler.getIdAccesorio());

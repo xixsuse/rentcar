@@ -33,7 +33,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 	private JMenu mnArchivo;
 	private JMenuItem itemCerrarSesion;
 	private JMenuItem itemSalir;
-	private static String nombreUsuario = "";
+	private static String Usuario = "";
 	private static int idCliente;
 //	private static VentanaPrincipal modelo;
 //	
@@ -44,11 +44,11 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 //		return modelo;
 //	}
 	
-	public VentanaPrincipal(String nombreUsuario,int idCliente){
+	public VentanaPrincipal(String Usuario){
 		//setResizable(false);
 		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		VentanaPrincipal.nombreUsuario = nombreUsuario;
+		VentanaPrincipal.Usuario = Usuario;
 		VentanaPrincipal.idCliente = idCliente;
 		setBounds(100, 100, 683, 509);
 		getContentPane().setLayout(null);
@@ -126,19 +126,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		}
 	}
 	
-	public static String getNombreUsuario(){
-		return nombreUsuario;
+	public static String getUsuario(){
+		return Usuario;
+	}
+
+	
+	public void setUsuario(String Usuario){
+		this.Usuario = Usuario;
 	}
 	
-	public static int getIdCliente(){
-		return idCliente;
-	}
-	
-	public void setNombreUsuario(String nombreUsuario){
-		this.nombreUsuario = nombreUsuario;
-	}
-	
-	public void setIdCliente(int idCliente){
-		this.idCliente = idCliente;
-	}
 }
