@@ -104,6 +104,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 		itemSalir = new JMenuItem("Salir");
 		itemSalir.addActionListener(this);
 		mnArchivo.add(itemSalir);
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {

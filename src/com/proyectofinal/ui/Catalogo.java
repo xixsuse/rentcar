@@ -24,7 +24,7 @@ public class Catalogo extends JFrame{
 	private JLabel lblTransmision;
 	private JLabel lblPasajeros;
 	private JLabel lblAño;
-	
+	private boolean vuelta = false;
 	public Catalogo(){
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent arg0) {
@@ -40,8 +40,11 @@ public class Catalogo extends JFrame{
 		tblCatalogo = new JTable(ModeloCatalogo.getInstancia());
 		tblCatalogo.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
+				if(vuelta == false){
 				for(int i=339; i < 756;i++){
 					setSize(i,469);
+					}
+				vuelta = true;
 				}
 				//setSize(339,469);
 				mostrarDatos(tblCatalogo.getSelectedRow());

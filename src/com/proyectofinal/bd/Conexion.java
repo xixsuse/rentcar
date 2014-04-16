@@ -81,7 +81,7 @@ public class Conexion {
 			if (rs.next()) {
 
 				if (rs.getString("Cargo").equals("Administrador")){
-					new VentanaPrincipal(rs.getString("usuario"));
+					new VentanaPrincipal(rs.getString("usuario")).setVisible(true);;
 					
 				} else if (rs.getString("Cargo").equals("Vendedor")) {
 					//MantenimientoAlquiler(rs.getString("nombre"),rs.getInt("idCliente"));
