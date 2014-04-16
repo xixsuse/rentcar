@@ -77,10 +77,14 @@ public class ModeloClientes extends AbstractTableModel {
 		
 	}
 	
-	public void eliminarCliente(int fila){
-		Conexion.getInstacia().eliminarCliente(ArrayClientes.get(fila));
-		ArrayClientes.remove(fila);
-		fireTableRowsDeleted(fila, fila);
+	public boolean eliminarCliente(int fila){
+		if(Conexion.getInstacia().eliminarCliente(ArrayClientes.get(fila))){
+			ArrayClientes.remove(fila);
+			fireTableRowsDeleted(fila, fila);
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	public void modificarCliente(Cliente cliente, int index,String ruta){

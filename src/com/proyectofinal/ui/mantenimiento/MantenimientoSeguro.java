@@ -88,7 +88,7 @@ public class MantenimientoSeguro extends JFrame {
 		lblCategoria.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		txtCategoria = new JTextField();
-		txtCategoria.setBounds(119, 25, 185, 20);
+		txtCategoria.setBounds(176, 25, 185, 20);
 		panel.add(txtCategoria);
 		txtCategoria.addKeyListener(new KeyAdapter() {
 			@Override
@@ -114,7 +114,7 @@ public class MantenimientoSeguro extends JFrame {
 		txtCategoria.setColumns(10);
 		
 		txtPrecio = new JTextField();
-		txtPrecio.setBounds(119, 61, 86, 20);
+		txtPrecio.setBounds(176, 62, 86, 20);
 		panel.add(txtPrecio);
 		txtPrecio.addKeyListener(new KeyAdapter() {
 			@Override
@@ -137,7 +137,7 @@ public class MantenimientoSeguro extends JFrame {
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(119, 99, 185, 20);
+		txtNombre.setBounds(176, 100, 185, 20);
 		panel.add(txtNombre);
 		txtNombre.addKeyListener(new KeyAdapter() {
 			@Override
@@ -163,7 +163,7 @@ public class MantenimientoSeguro extends JFrame {
 		txtNombre.setColumns(10);
 		
 		cmboCobertura = new JComboBox();
-		cmboCobertura.setBounds(119, 144, 185, 20);
+		cmboCobertura.setBounds(176, 144, 185, 20);
 		panel.add(cmboCobertura);
 		cmboCobertura.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		cmboCobertura.setModel(new DefaultComboBoxModel(new String[] {"Nacional", "Internacional"}));

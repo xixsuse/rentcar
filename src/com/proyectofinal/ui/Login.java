@@ -43,7 +43,7 @@ public class Login extends JFrame implements ActionListener{
 		panel.setBorder(new TitledBorder("Introduzca sus datos"));
 		panel.add(new JLabel("Usuario: "));
 		panel.add(txtUsuario);
-		panel.add(new JLabel("Contraseï¿½a:"));
+		panel.add(new JLabel("Contraseña:"));
 		panel.add(txtContraseña);
 		panel.add(btnIniciar);
 		panel.add(btnCancelar);

@@ -181,11 +181,10 @@ public class Conexion {
 	/// INICIO CLIENTE /////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public ArrayList<Cliente> cargarCliente(){
-		ArrayList<Cliente> listaClientes = null;
+		ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();;
 		try {
 			rs = st.executeQuery("SELECT nombre, apellido, telefono, documento, idCliente FROM cliente");
 			while(rs.next()){
-				listaClientes = new ArrayList<Cliente>();
 						Cliente cliente = new Cliente();
 								cliente.setNombre(rs.getString("nombre"));
 								cliente.setApellido(rs.getString("apellido"));
@@ -203,31 +202,13 @@ public class Conexion {
 										cliente.setIdCliente(rs.getInt("idCliente"));
 										listaClientes.add(cliente);
 			}
-
-			/*Blob blob = rs.getBlob("Foto");
-			byte[] data = blob.getBytes(1, (int)blob.length());
-			BufferedImage imagen = null;
-			try{
-				imagen = ImageIO.read(new ByteArrayInputStream(data));
-			}
-			catch(IOException ex){
-				ex.printStackTrace();
-			}
-			vehiculo.setFoto(imagen);
-			vehiculo.setTransmision(rs.getString("transmision"));
-			*/
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return listaClientes;
 	}
-	public void agregarCliente(Cliente cliente,String ruta){
-		
-		
+	public void agregarCliente(Cliente cliente,String ruta){		
 		try {
-			//System.out.println(cliente.getDocumento());
 			File imagen = new File(ruta);
 			FileInputStream  foto = new FileInputStream(imagen);
 			prst = con.prepareStatement("INSERT INTO CLIENTE VALUES (?,?,?,?,?)");
@@ -237,52 +218,58 @@ public class Conexion {
 			prst.setBinaryStream(4, foto, (int) imagen.length());
 			prst.setInt(5, cliente.getIdCliente());
 			prst.execute();
-			
-			if(prst != null){
-				JOptionPane.showMessageDialog(null, "El Cliente ha sido agregado correctamente", "Cliente agregado", JOptionPane.INFORMATION_MESSAGE);
-			}
 		} catch (SQLException | FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Lo sentimos, no se pudo agregar el cliente.\nVerifique si contiene foto.");
 		}		
 	}	
 	
-	public void eliminarCliente(Cliente cliente){
+	public boolean eliminarCliente(Cliente cliente){
 		try {
 			prst = con.prepareStatement("DELETE FROM CLIENTE WHERE idCliente = ?");
 			prst.setInt(1, cliente.getIdCliente());
 			prst.execute();
-			if(st != null){
-				JOptionPane.showMessageDialog(null, "Se ha Cliente ha sido eliminado exitosamente","Informacion", JOptionPane.INFORMATION_MESSAGE);
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			return true;
+		}catch (MySQLIntegrityConstraintViolationException me){
+			JOptionPane.showMessageDialog(null, "Lo sentimos, en este momento no se puede eliminar\n"
+					+ "porque esta siendo utilizado en un Alquiler.","Error...", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 
 	public void modificarCliente(int id, Cliente cliente,String ruta) {
-		try {
-			File imagen = new File(ruta);
-			FileInputStream  foto = new FileInputStream(imagen);
-			
-			prst = con.prepareStatement("UPDATE CLIENTE SET nombre = ?, apellido = ?, telefono = ?, documento = ? WHERE idCliente = ?");
-			prst.setString(1, cliente.getNombre());
-			prst.setString(2, cliente.getApellido());
-			prst.setString(3, cliente.getTelefono());
-			prst.setBinaryStream(4, foto, (int) imagen.length());
-			prst.setInt(5, id);
-			prst.execute();
-			if(prst != null){
-				JOptionPane.showMessageDialog(null, "El Cliente ha sido modificado exitosamente.", "Modificaciñn del contacto", JOptionPane.INFORMATION_MESSAGE);
-			}
-		} catch (SQLException | FileNotFoundException e) {
-			// TODO Auto-generated catch block
+		FileInputStream foto = null;
+		if(!ruta.equals("")){
+			try {
+				File imagen = new File(ruta);
+				foto = new FileInputStream(imagen);
+				prst = con.prepareStatement("UPDATE CLIENTE SET nombre = ?, apellido = ?, telefono = ?, documento = ? WHERE idCliente = ?");
+				prst.setString(1, cliente.getNombre());
+				prst.setString(2, cliente.getApellido());
+				prst.setString(3, cliente.getTelefono());
+				prst.setBinaryStream(4, foto, (int) imagen.length());
+				prst.setInt(5, id);
+				prst.executeUpdate();
+			} catch (SQLException | FileNotFoundException e) {
 			e.printStackTrace();
+			}
 		}
-		
-		
+		else{
+			try {
+				prst = con.prepareStatement("UPDATE CLIENTE SET nombre = ?, apellido = ?, telefono = ? WHERE idCliente = ?");
+				File imagen = new File(ruta);
+				foto = new FileInputStream(imagen);
+				prst.setString(1, cliente.getNombre());
+				prst.setString(2, cliente.getApellido());
+				prst.setString(3, cliente.getTelefono());
+				prst.setInt(4, id);
+				prst.executeUpdate();
+			} catch (SQLException | FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	//// FIN CLIENTEEEEEEEEEEE///////////////////////////////////
@@ -558,7 +545,6 @@ public void cambiarEstadoVehiculos(int idVehiculo){
 		}
 		return listaVehiculos;
 	}
-	
 	public void modificarVehiculo(int id,Vehiculo movil,String ubicacion){
 		FileInputStream stream = null;
 		if(!ubicacion.equals("")){

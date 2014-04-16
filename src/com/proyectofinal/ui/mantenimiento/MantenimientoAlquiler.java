@@ -52,15 +52,15 @@ public class MantenimientoAlquiler extends JFrame{
 		panel.setLayout(null);
 		
 		JLabel Accesorio = new JLabel("Accesorio");
-		Accesorio.setBounds(8, 75, 46, 14);
+		Accesorio.setBounds(8, 78, 46, 14);
 		panel.add(Accesorio);
 		
 		JLabel lblNewLabel_2 = new JLabel("Seguro");
-		lblNewLabel_2.setBounds(8, 33, 34, 14);
+		lblNewLabel_2.setBounds(8, 36, 34, 14);
 		panel.add(lblNewLabel_2);
 		txtIdVehiculo = new JTextField();
 		txtIdVehiculo.setEnabled(false);
-		txtIdVehiculo.setBounds(214, 101, 95, 20);
+		txtIdVehiculo.setBounds(214, 75, 95, 20);
 		panel.add(txtIdVehiculo);
 		txtIdVehiculo.setEnabled(false);
 		txtIdVehiculo.setColumns(10);
@@ -82,13 +82,13 @@ public class MantenimientoAlquiler extends JFrame{
 									 tblAlquiler.getSelectedRow());
 			}
 		});
-		btnModificar.setBounds(229, 321, 75, 23);
+		btnModificar.setBounds(214, 365, 75, 23);
 		panel.add(btnModificar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Seguro que quiere eliminar este alquiler");
+				//JOptionPane.showMessageDialog(null, "Seguro que quiere eliminar este alquiler");
 				if(tblAlquiler.getSelectedRow()==-1){
 					JOptionPane.showMessageDialog(null, "Debe de seleccionar el campo que quiere eliminar");
 				}
@@ -97,19 +97,19 @@ public class MantenimientoAlquiler extends JFrame{
 				}
 			}
 		});
-		btnEliminar.setBounds(139, 321, 69, 23);
+		btnEliminar.setBounds(129, 365, 69, 23);
 		panel.add(btnEliminar);
 		
 		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(39, 321, 71, 23);
+		btnAgregar.setBounds(32, 365, 71, 23);
 		panel.add(btnAgregar);
 		
 		JLabel lblNewLabel_1 = new JLabel("Total a pagar:");
-		lblNewLabel_1.setBounds(7, 135, 75, 14);
+		lblNewLabel_1.setBounds(8, 201, 75, 14);
 		panel.add(lblNewLabel_1);
 		
 		txtTotal = new JTextField();
-		txtTotal.setBounds(81, 132, 86, 20);
+		txtTotal.setBounds(82, 198, 86, 20);
 		panel.add(txtTotal);
 		txtTotal.addKeyListener(new KeyAdapter() {
 			@Override
@@ -121,12 +121,12 @@ public class MantenimientoAlquiler extends JFrame{
 		});
 		txtTotal.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Descuento");
-		lblNewLabel.setBounds(8, 183, 51, 14);
+		JLabel lblNewLabel = new JLabel("Descuento:");
+		lblNewLabel.setBounds(8, 251, 63, 14);
 		panel.add(lblNewLabel);
 		
 		txtDescuento = new JTextField();
-		txtDescuento.setBounds(81, 180, 86, 20);
+		txtDescuento.setBounds(81, 248, 86, 20);
 		panel.add(txtDescuento);
 		txtDescuento.addKeyListener(new KeyAdapter() {
 			@Override
@@ -138,30 +138,30 @@ public class MantenimientoAlquiler extends JFrame{
 		});
 		txtDescuento.setColumns(10);
 		cbbAccesorio = new JComboBox(ModeloAlquiler.getInstancia().getAccesorios().toArray());
-		cbbAccesorio.setBounds(81, 72, 86, 20);
+		cbbAccesorio.setBounds(81, 75, 86, 20);
 		panel.add(cbbAccesorio);
 		
 		cbbSeguros = new JComboBox(ModeloAlquiler.getInstancia().getSeguros().toArray());
-		cbbSeguros.setBounds(81, 30, 86, 20);
+		cbbSeguros.setBounds(81, 33, 86, 20);
 		panel.add(cbbSeguros);
 		
 		dateHasta = new JDateChooser();
 		dateHasta.setDateFormatString("yyyy-MM-dd");
-		dateHasta.setBounds(48, 236, 86, 20);
+		dateHasta.setBounds(48, 294, 86, 20);
 		panel.add(dateHasta);
 		
 		
 		JLabel Hasta = new JLabel("Hasta");
-		Hasta.setBounds(8, 242, 28, 14);
+		Hasta.setBounds(8, 300, 28, 14);
 		panel.add(Hasta);
 		
 		JLabel Desde = new JLabel("Desde: ");
-		Desde.setBounds(172, 239, 37, 14);
+		Desde.setBounds(172, 297, 37, 14);
 		panel.add(Desde);
 		
 		dateDesde = new JDateChooser();
 		dateDesde.setDateFormatString("yyyy-MM-dd");
-		dateDesde.setBounds(214, 236, 95, 20);
+		dateDesde.setBounds(214, 294, 95, 20);
 		panel.add(dateDesde);
 		
 		
@@ -186,7 +186,7 @@ public class MantenimientoAlquiler extends JFrame{
 				
 			}
 		});
-		btnCatalogo.setBounds(181, 66, 129, 23);
+		btnCatalogo.setBounds(180, 36, 129, 23);
 		panel.add(btnCatalogo);
 		
 		JButton btnRegistrarUsuario = new JButton("Registrar usuario");
@@ -195,13 +195,22 @@ public class MantenimientoAlquiler extends JFrame{
 				MantenimientoClientes.getInstacia().setVisible(true);
 			}
 		});
-		btnRegistrarUsuario.setBounds(189, 132, 115, 23);
+		btnRegistrarUsuario.setBounds(8, 116, 115, 23);
 		panel.add(btnRegistrarUsuario);
 		
 		txtIdCliente = new JTextField();
-		txtIdCliente.setBounds(214, 180, 86, 20);
+		txtIdCliente.setBounds(8, 150, 86, 20);
 		panel.add(txtIdCliente);
 		txtIdCliente.setColumns(10);
+		
+		JButton btnCalcularTotal = new JButton("Calcular total");
+		btnCalcularTotal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		btnCalcularTotal.setBounds(192, 149, 106, 23);
+		panel.add(btnCalcularTotal);
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Vehiculos en uso", null, panel_1, null);
