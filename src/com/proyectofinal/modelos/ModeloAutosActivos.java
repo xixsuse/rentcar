@@ -26,7 +26,6 @@ public class ModeloAutosActivos extends AbstractTableModel{
 	public int getColumnCount() {
 		return encabezados.length;
 	}
-
 	
 	public int getRowCount() {
 	

@@ -43,7 +43,7 @@ public class MantenimientoAlquiler extends JFrame{
 		tabbedPane.setBounds(2, 6, 777, 427);
 		getContentPane().add(tabbedPane);
 		JPanel panel = new JPanel();
-		tabbedPane.addTab("New tab", null, panel, null);
+		tabbedPane.addTab("Alquiler", null, panel, null);
 		panel.setLayout(null);
 		
 		JLabel Accesorio = new JLabel("Accesorio");
@@ -54,6 +54,7 @@ public class MantenimientoAlquiler extends JFrame{
 		lblNewLabel_2.setBounds(20, 33, 34, 14);
 		panel.add(lblNewLabel_2);
 		txtIdVehiculo = new JTextField();
+		txtIdVehiculo.setEnabled(false);
 		txtIdVehiculo.setBounds(214, 101, 95, 20);
 		panel.add(txtIdVehiculo);
 		txtIdVehiculo.setEnabled(false);
@@ -173,7 +174,7 @@ public class MantenimientoAlquiler extends JFrame{
 		panel.add(btnCatalogo);
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("New tab", null, panel_1, null);
+		tabbedPane.addTab("Vehiculos en uso", null, panel_1, null);
 		panel_1.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -197,9 +198,9 @@ public class MantenimientoAlquiler extends JFrame{
 			}
 		});
 		setVisible(true);
-	}	
+	}
 	
-	public static void main(String[] args){
-		new MantenimientoAlquiler();
+	public static void setIdVehiculo(int idVehiculo){
+		txtIdVehiculo.setText(String.valueOf(idVehiculo));
 	}
 }

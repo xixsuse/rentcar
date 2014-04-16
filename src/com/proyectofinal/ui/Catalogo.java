@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 
+import com.proyectofinal.modelos.ModeloAutosActivos;
 import com.proyectofinal.modelos.ModeloCatalogo;
 import com.proyectofinal.ui.mantenimiento.MantenimientoAlquiler;
 
@@ -28,6 +29,8 @@ public class Catalogo extends JFrame{
 	public Catalogo(){
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent arg0) {
+				MantenimientoAlquiler.setIdVehiculo(ModeloCatalogo.getInstancia().
+						getIdVehiculo(tblCatalogo.getSelectedRow()));
 			}
 		});
 		setTitle("Catalogo de vehiculos");
@@ -116,8 +119,5 @@ public class Catalogo extends JFrame{
 		txtDescripcion.setText(datos[5]);
 		
 	}
-	
-	public static void main(String[] args){
-		new Catalogo();
-	}
+
 }

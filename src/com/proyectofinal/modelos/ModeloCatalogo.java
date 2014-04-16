@@ -25,6 +25,10 @@ public class ModeloCatalogo extends AbstractTableModel{
 		listaVehiculos = Conexion.getInstacia().cargarVehiculos();
 	}
 	
+	public int getIdVehiculo(int index){
+		return listaVehiculos.get(index).getIdVehiculo();
+	}
+	
 	public String[] setDatos(int index){
 		Vehiculo vehiculo = listaVehiculos.get(index);
 		String[] datos = new String[]{String.valueOf(vehiculo.getPrecio()),vehiculo.getTransmision(),
