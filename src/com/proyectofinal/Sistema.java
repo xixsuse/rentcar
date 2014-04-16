@@ -19,6 +19,8 @@ public class Sistema {
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
+		
+		
 		/*MantenimientoUsuarios mantenimiento = new MantenimientoUsuarios();
 		mantenimiento.setLocationRelativeTo(null);
 		mantenimiento.setVisible(true);*/

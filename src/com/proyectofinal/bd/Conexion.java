@@ -591,6 +591,23 @@ public class Conexion {
 		return listaCategorias;
 	}
 	
+	public String obtenerCategoriaId(int id){
+		String resultado = null;
+		try {
+			rs = st.executeQuery("SELECT nombre from categoria WHERE idCategoria = "+id+"");
+			while(rs.next()){
+				resultado = rs.getString("nombre");
+			}
+			System.out.println(resultado);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return resultado;
+	}
 	///////Fin Accesorio
 	
 	///////Comienzo de categoria

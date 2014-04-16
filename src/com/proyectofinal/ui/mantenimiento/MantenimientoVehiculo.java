@@ -30,9 +30,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.proyectofinal.bd.Conexion;
 import com.proyectofinal.entidades.Vehiculo;
+import com.proyectofinal.modelos.ModeloCategoria;
 import com.proyectofinal.modelos.ModeloVehiculos;
 import com.proyectofinal.ui.BuscadorTablas;
+
 import java.awt.Font;
+
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
@@ -397,6 +400,9 @@ public class MantenimientoVehiculo extends JFrame {
 		txtMatricula.setText(datosVehiculo.getMatricula());
 		// txtTransmision.setText(datosVehiculo.getTransmision());
 		comboTransmision.setSelectedItem(datosVehiculo.getTransmision());
+		cbbAño.setSelectedItem(String.valueOf(datosVehiculo.getAño()));
+		cbbCategoria.setSelectedItem(String.valueOf(Conexion.getInstacia().obtenerCategoriaId(datosVehiculo.getIdCategoria())));
+		System.out.println(String.valueOf(datosVehiculo.getIdCategoria()));
 		txtDescripcion.setText(datosVehiculo.getDescripcion());
 		txtCombustible.setText(String.valueOf(datosVehiculo.getCombustible()));
 		Image foto = datosVehiculo.getFoto().getScaledInstance(228, 204,
