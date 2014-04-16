@@ -27,7 +27,7 @@ public class MantenimientoAlquiler extends JFrame{
 	private JTextField txtDescuento;
 	private JTextField txtTotal;
 	public static boolean estado = false;
-	private JTextField txtIdVehiculo;
+	private static JTextField txtIdVehiculo;
 	private JTable tblVehiculosActivos;
 	private JDateChooser dateDesde;
 	private JDateChooser dateHasta;
@@ -35,8 +35,10 @@ public class MantenimientoAlquiler extends JFrame{
 	private JComboBox cbbAccesorio;
 	private static int idCliente;
 	private static String nombreUsuario = "";
+	private static MantenimientoAlquiler ventana;
 	
-	public MantenimientoAlquiler(String nombreUsuario,final int idCliente){
+
+	private MantenimientoAlquiler(String nombreUsuario,final int idCliente){
 		setTitle("Le atiende: "+ nombreUsuario);
 		setSize(795,500);
 		getContentPane().setLayout(null);
@@ -193,5 +195,9 @@ public class MantenimientoAlquiler extends JFrame{
 	
 	public static void main(String[] args){
 		new MantenimientoAlquiler(nombreUsuario,idCliente);
+	}
+	
+	public static void setVehiculo(String idVehiculo){
+		txtIdVehiculo.setText(idVehiculo);
 	}
 }
