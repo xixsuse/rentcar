@@ -18,6 +18,7 @@ public class Sistema {
 		m.setLocationRelativeTo(null);
 		m.setVisible(true);
 		*/
+		System.out.println("Out");
 		new VentanaPrincipal();
 	}
 }
